@@ -1,5 +1,5 @@
 import { MapPin, MessageCircle, Mail, Heart } from 'lucide-react'
-import logo from '../assets/logo.png'
+const logo = '/ico.png'
 
 const InstagramIcon = ({ size = 18 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

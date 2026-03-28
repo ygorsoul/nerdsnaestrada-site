@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
-import logo from '../assets/logo.png'
+const logo = '/ico.png'
 
 const navLinks = [
   { label: 'Nossa História', href: '#historia' },
@@ -45,6 +45,7 @@ export default function Navbar() {
               alt="Nerds na Estrada"
               className="h-10 w-auto group-hover:scale-105 transition-transform duration-300"
             />
+            <span className="text-xs font-medium text-stone-900 self-end mb-1 transition-colors duration-300">.com</span>
           </button>
 
           {/* Links desktop */}
