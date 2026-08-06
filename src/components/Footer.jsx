@@ -26,10 +26,17 @@ const navLinks = [
   { label: 'O Projeto',      href: '#projeto'  },
   { label: 'Parceiros',      href: '#parceiros'},
   { label: 'Números',        href: '#numeros'  },
+  { label: 'Cupons',         href: '/cupons'   },
 ]
 
 export default function Footer() {
-  const go = (href) => document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
+  // Âncora existente na página → scroll. Caso contrário, navega (útil fora da home).
+  const go = (href) => {
+    if (!href.startsWith('#')) { window.location.assign(href); return }
+    const el = document.querySelector(href)
+    if (el) el.scrollIntoView({ behavior: 'smooth' })
+    else window.location.assign(`/${href}`)
+  }
 
   return (
     <footer id="contato" aria-label="Contato e Rodapé" style={{ background: '#1e1a12' }}>

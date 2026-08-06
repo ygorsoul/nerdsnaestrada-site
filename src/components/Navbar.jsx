@@ -6,6 +6,7 @@ const navLinks = [
   { label: 'Nossa História', href: '#historia' },
   { label: 'O Projeto',      href: '#projeto' },
   { label: 'Parceiros',      href: '#parceiros' },
+  { label: 'Cupons',         href: '/cupons' },
   { label: 'Contato',        href: '#contato' },
 ]
 
@@ -19,9 +20,18 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Âncora existente na página → scroll. Caso contrário, navega (útil fora da home).
   const go = (href) => {
     setIsOpen(false)
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
+    if (!href.startsWith('#')) { window.location.assign(href); return }
+    const el = document.querySelector(href)
+    if (el) el.scrollIntoView({ behavior: 'smooth' })
+    else window.location.assign(`/${href}`)
+  }
+
+  const goHome = () => {
+    if (window.location.pathname === '/') window.scrollTo({ top: 0, behavior: 'smooth' })
+    else window.location.assign('/')
   }
 
   return (
@@ -37,7 +47,7 @@ export default function Navbar() {
 
           {/* Logo */}
           <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={goHome}
             className="flex items-center gap-3 group cursor-pointer"
           >
             <img
@@ -49,7 +59,7 @@ export default function Navbar() {
           </button>
 
           {/* Links desktop */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-5 lg:gap-8">
             {navLinks.map((l) => (
               <button
                 key={l.href}
@@ -84,7 +94,7 @@ export default function Navbar() {
       </div>
 
       {/* Mobile menu */}
-      <div className={`md:hidden overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-80' : 'max-h-0'}`}>
+      <div className={`md:hidden overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-96' : 'max-h-0'}`}>
         <div className="bg-cream-100/98 backdrop-blur-md border-b border-cream-300 px-5 pb-5 pt-2 flex flex-col gap-1">
           {navLinks.map((l) => (
             <button
