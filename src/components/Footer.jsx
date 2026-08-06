@@ -66,11 +66,11 @@ export default function Footer() {
               WhatsApp: (21) 99097-4226
             </a>
             <a
-              href="mailto:nerdsnaestrada@hotmail.com"
+              href="mailto:contato@nerdsnaestrada.com"
               className="flex items-center justify-center gap-3 px-6 py-4 border border-stone-600 text-stone-300 font-medium rounded-full hover:border-stone-400 hover:text-stone-50 active:scale-95 transition-all duration-200 text-sm sm:text-base break-all text-center"
             >
               <Mail size={17} className="flex-shrink-0" />
-              nerdsnaestrada@hotmail.com
+              contato@nerdsnaestrada.com
             </a>
           </div>
         </div>
