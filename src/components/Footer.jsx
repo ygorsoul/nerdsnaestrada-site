@@ -131,7 +131,7 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="pt-8 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-stone-600 text-xs">© 2025 Nerds na Estrada. Todos os direitos reservados.</p>
+          <p className="text-stone-600 text-xs">© {new Date().getFullYear()} Nerds na Estrada. Todos os direitos reservados.</p>
           <p className="text-stone-600 text-xs flex items-center gap-1.5">
             Feito com <Heart size={11} className="text-amber-600 fill-amber-600" /> para quem sonha em viajar
           </p>

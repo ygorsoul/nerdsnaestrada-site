@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nerdsnaestrada.com.br/sitemap.xml
+Sitemap: https://www.nerdsnaestrada.com/sitemap.xml
