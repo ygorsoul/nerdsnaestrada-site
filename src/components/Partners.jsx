@@ -2,6 +2,21 @@ import { useEffect, useRef, useState } from 'react'
 
 const partners = [
   {
+    // Nomad (fintech) — nada a ver com a Keep Nomad mais abaixo.
+    name: 'Nomad',
+    category: 'Conta Internacional',
+    logo: '/nomad-wordmark.jpg',
+    darkBg: false,
+    description: 'Conta e cartão internacional sem mensalidade — é a que usamos para gastar fora do Brasil, e que rendeu cupom para quem viaja com a gente.',
+  },
+  {
+    name: 'Insider',
+    category: 'Vestuário Tech',
+    logo: '/insider-wordmark.png',
+    darkBg: false,
+    description: 'Roupas tecnológicas que aguentam semanas de estrada sem cheiro nem amassado — parceria que virou desconto fixo para a nossa audiência.',
+  },
+  {
     name: 'Sem Parar',
     category: 'Mobilidade & Pagamento',
     logo: '/sem-parar.svg',
@@ -58,21 +73,6 @@ const partners = [
     logo: '/KEEP_NOMAD_ID_MARCA-04-1.png',
     darkBg: false,
     description: 'Uma marca que entende a essência do nomadismo — e que apoia quem escolheu o movimento como modo de vida.',
-  },
-  {
-    // Nomad (fintech) — nada a ver com a Keep Nomad acima.
-    name: 'Nomad',
-    category: 'Conta Internacional',
-    logo: '/nomad-wordmark.jpg',
-    darkBg: false,
-    description: 'Conta e cartão internacional sem mensalidade — é a que usamos para gastar fora do Brasil, e que rendeu cupom para quem viaja com a gente.',
-  },
-  {
-    name: 'Insider',
-    category: 'Vestuário Tech',
-    logo: '/insider-wordmark.png',
-    darkBg: false,
-    description: 'Roupas tecnológicas que aguentam semanas de estrada sem cheiro nem amassado — parceria que virou desconto fixo para a nossa audiência.',
   },
 ]
 

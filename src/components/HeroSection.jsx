@@ -85,7 +85,7 @@ export default function HeroSection() {
             { num: '+160 mil', label: 'seguidores'    },
             { num: '+37 mi',   label: 'de views'      },
             { num: '+3 mi',    label: 'likes'          },
-            { num: '4 países', label: 'já visitados'  },
+            { num: '5 países', label: 'já visitados'  },
           ].map((s) => (
             <div key={s.label} className="text-center">
               <div className="font-display text-2xl sm:text-3xl text-stone-800 font-semibold">{s.num}</div>

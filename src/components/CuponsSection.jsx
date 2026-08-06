@@ -2,12 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 import { Check, Copy, ExternalLink } from 'lucide-react'
 
 /*
- * Cupons ativos — revisado em 05/08/2026.
+ * Cupons ativos — revisado em 06/08/2026.
  *
- * NOTA INTERNA (não exibida): a Nomad forneceu apenas o código, sem link de
- * afiliado rastreável. Enquanto não houver link com atribuição não existe prova
- * de conversão, e sem isso a parceria não vira contrato (seção 13.4).
- * Assim que o link chegar, basta trocar o `href` do card da Nomad.
+ * NOTA INTERNA (não exibida): a Nomad enviou o link de afiliado com atribuição
+ * (guestcode + gcid, pid=Parcerias). O `href` do card já é esse link — ele
+ * carrega o código no cadastro, então a conversão fica rastreada.
  *
  * Para exibir a logo de uma marca: coloque o arquivo em /public e preencha
  * `logo` — o lettermark é usado apenas como fallback.
@@ -22,9 +21,10 @@ const cupons = [
     descricao:
       'Vinte dólares (ou euros) de cashback na sua primeira conversão de moeda. Conta internacional sem mensalidade — é a que a gente usa para gastar fora do Brasil.',
     codigo: 'NERDSNAESTRADA',
-    href: 'https://www.nomadglobal.com',
+    href: 'https://site.nomadglobal.com/signup/steps?guestcode=NERDSNAESTRADA&gcid=01KXP37C8742C1CW7REKPCBJYZ&shortlink=NERDSNAESTRADA&af_xp=app&deep_link_sub1=NERDSNAESTRADA&af_dp=https%3A%2F%2Fsite.nomadglobal.com%2Fsignup%3Fguestcode%3DNERDSNAESTRADA%26gcid%3D01KXP37C8742C1CW7REKPCBJYZ&c=NERDSNAESTRADA&pid=Parcerias&deep_link_value=guest_code&source_caller=ui',
     cta: 'Abrir conta na Nomad',
-    instrucao: 'Aplique o código NERDSNAESTRADA no cadastro.',
+    instrucao:
+      'O link já abre o cadastro com o código NERDSNAESTRADA preenchido — se ele não aparecer, digite manualmente.',
   },
   {
     marca: 'Insider',

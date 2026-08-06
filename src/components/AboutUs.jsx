@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 
 const chapters = [
   {
-    year: '2021',
+    year: '2020–21',
     tag: 'O início de tudo',
     title: 'O grande mochilão e o sonho',
-    body: 'Aos 20 anos, deixamos o Brasil com uma mochila nas costas, vontade de aprender espanhol e o sonho de explorar o mundo. Foram 8 meses percorrendo a América do Sul — de Buenos Aires a Mendoza, de Bariloche às estradas que a gente ainda nem sabia que ia amar tanto.',
+    body: 'Aos 20 anos, deixamos o Brasil com uma mochila nas costas, vontade de aprender espanhol e o sonho de explorar o mundo. Foi 1 ano percorrendo a América do Sul — de Buenos Aires a Mendoza, de Bariloche às estradas que a gente ainda nem sabia que ia amar tanto.',
     detail: 'A jornada precisou ser pausada antes da hora: ficamos presos na Argentina durante a pandemia e voltamos ao Brasil. Mas o bichinho da estrada já tinha entrado.',
   },
   {
