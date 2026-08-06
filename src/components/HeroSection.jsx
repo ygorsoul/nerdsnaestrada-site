@@ -83,7 +83,7 @@ export default function HeroSection() {
         >
           {[
             { num: '+160 mil', label: 'seguidores'    },
-            { num: '+60 mi',   label: 'de views'      },
+            { num: '+37 mi',   label: 'de views'      },
             { num: '+3 mi',    label: 'likes'          },
             { num: '4 países', label: 'já visitados'  },
           ].map((s) => (

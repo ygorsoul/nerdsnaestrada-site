@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 const stats = [
   { value: '+160 mil',   label: 'seguidores',        sub: 'somados nas plataformas'    },
-  { value: '+60 mi',    label: 'de views totais',    sub: 'conteúdo orgânico'          },
+  { value: '+37 mi',    label: 'de views totais',    sub: 'conteúdo orgânico'          },
   { value: '+3 mi',  label: 'likes',              sub: 'engajamento real'           },
   { value: '56%',       label: 'público feminino',   sub: 'perfil de consumo ativo'    },
   { value: '54%',       label: 'de SP',              sub: 'maior hub de consumo BR'    },
