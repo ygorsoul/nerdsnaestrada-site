@@ -82,7 +82,7 @@ export default function HeroSection() {
           style={{ animationDelay: '0.4s', opacity: 0 }}
         >
           {[
-            { num: '+150 mil', label: 'seguidores'    },
+            { num: '+160 mil', label: 'seguidores'    },
             { num: '+60 mi',   label: 'de views'      },
             { num: '+3 mi',    label: 'likes'          },
             { num: '4 países', label: 'já visitados'  },
