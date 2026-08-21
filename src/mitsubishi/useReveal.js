@@ -1,0 +1,21 @@
+import { useEffect } from 'react'
+
+// Mesmo comportamento do script inline da proposta original: cada bloco
+// .reveal ganha a classe .in ao entrar na viewport, uma única vez.
+export default function useReveal() {
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in')
+            io.unobserve(e.target)
+          }
+        })
+      },
+      { threshold: 0.15 },
+    )
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el))
+    return () => io.disconnect()
+  }, [])
+}
