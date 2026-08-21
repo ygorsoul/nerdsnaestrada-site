@@ -1,11 +1,9 @@
-const odometro = [
-  { num: '2008',  label: 'Ano / motor diesel original' },
-  { num: 'GLS',   label: 'Pajero Full · versão'        },
-  { num: '+200K', label: 'Pessoas acompanhando'        },
-  { num: '+25M',  label: 'Visualizações acumuladas'    },
-]
+import Rich from './Rich'
+import { useT } from '../i18n'
 
 export default function MitHero() {
+  const { hero } = useT()
+
   return (
     <section className="hero">
       <div className="hero-route" aria-hidden="true">
@@ -21,32 +19,32 @@ export default function MitHero() {
       <div className="wrap">
         <div className="co-lockup">
           <div className="side">
-            <img className="nne" src="/mitsubishi/logo-nne.png" alt="Nerds na Estrada" />
-            <div className="meta"><b>Nerds na Estrada</b>Ygor &amp; Bea · Brasil</div>
+            <img className="nne" src="/mitsubishi/logo-nne.png" alt={hero.lockup.nne.nome} />
+            <div className="meta"><b>{hero.lockup.nne.nome}</b>{hero.lockup.nne.meta}</div>
           </div>
           <span className="co-x">×</span>
           <div className="side">
-            <img className="mit" src="/mitsubishi/logo-mitsubishi.png" alt="Mitsubishi Motors" />
-            <div className="meta"><b>Mitsubishi Motors</b>Pajero Full 2008 GLS Diesel</div>
+            <img className="mit" src="/mitsubishi/logo-mitsubishi.png" alt={hero.lockup.mit.nome} />
+            <div className="meta"><b>{hero.lockup.mit.nome}</b>{hero.lockup.mit.meta}</div>
           </div>
         </div>
         <h1 className="headline">
-          Do Rio de Janeiro
-          <span className="to">com parada no fim do mundo, Ushuaia,</span>
-          <span className="to">e depois rumo ao extremo norte do planeta:</span>
-          <span className="dest">Alasca</span>
-          <span className="brand-line">de Pajero!</span>
+          {hero.manchete.origem}
+          <span className="to">{hero.manchete.escala1}</span>
+          <span className="to">{hero.manchete.escala2}</span>
+          <span className="dest">{hero.manchete.destino}</span>
+          <span className="brand-line">{hero.manchete.carro}</span>
         </h1>
-        <p className="hero-sub">Largada no Rio de Janeiro, descida até Ushuaia — a ponta mais austral das Américas — e, sem parar, a subida completa até o Ártico. Tudo ao volante de uma <strong>Mitsubishi Pajero Full 2008 GLS Diesel</strong>, a prova de resistência mais longa que um veículo Mitsubishi pode enfrentar em estrada real, atravessando dezenas de países, contada em tempo real para uma audiência que já assiste, confia e compra o que a gente indica.</p>
+        <p className="hero-sub"><Rich texto={hero.sub} /></p>
         <div className="hero-cta">
-          <a href="#proposta" className="btn">Ver a proposta</a>
-          <a href="#contato" className="btn ghost">Falar com Ygor &amp; Bea</a>
+          <a href="#proposta" className="btn">{hero.ctaProposta}</a>
+          <a href="#contato" className="btn ghost">{hero.ctaContato}</a>
         </div>
       </div>
       <div className="wrap">
         <div className="odometer-strip reveal">
-          {odometro.map((o) => (
-            <div className="odo" key={o.label}>
+          {hero.odometro.map((o, i) => (
+            <div className="odo" key={i}>
               <div className="num mono">{o.num}</div>
               <div className="label">{o.label}</div>
             </div>

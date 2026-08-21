@@ -1,5 +1,7 @@
 import './mitsubishi.css'
 import useReveal from './useReveal'
+import ProvedorIdioma from './i18n/ProvedorIdioma'
+import { useIdioma } from './i18n'
 import MitSprite from './components/MitSprite'
 import MitNav from './components/MitNav'
 import MitHero from './components/MitHero'
@@ -15,11 +17,9 @@ import MitProposta from './components/MitProposta'
 import MitContato from './components/MitContato'
 import MitFooter from './components/MitFooter'
 
-// Proposta comercial para a Mitsubishi Motors do Brasil. Página fechada: não
-// é linkada em lugar nenhum do site e sai com noindex/nofollow — só chega
-// aqui quem receber a URL /mitsubishi direto.
-export default function MitsubishiApp() {
-  useReveal()
+function Pagina() {
+  const [idioma] = useIdioma()
+  useReveal(idioma)
 
   return (
     <>
@@ -38,5 +38,16 @@ export default function MitsubishiApp() {
       <MitContato />
       <MitFooter />
     </>
+  )
+}
+
+// Proposta comercial para a Mitsubishi Motors do Brasil, em português, inglês
+// e japonês. Página fechada: não é linkada em lugar nenhum do site e sai com
+// noindex/nofollow — só chega aqui quem receber a URL /mitsubishi.
+export default function MitsubishiApp() {
+  return (
+    <ProvedorIdioma>
+      <Pagina />
+    </ProvedorIdioma>
   )
 }

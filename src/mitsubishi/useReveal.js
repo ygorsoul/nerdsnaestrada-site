@@ -2,7 +2,9 @@ import { useEffect } from 'react'
 
 // Mesmo comportamento do script inline da proposta original: cada bloco
 // .reveal ganha a classe .in ao entrar na viewport, uma única vez.
-export default function useReveal() {
+// `chave` reexecuta a observação quando a página é redesenhada (troca de
+// idioma), para que nenhum bloco novo fique preso em opacidade zero.
+export default function useReveal(chave) {
   useEffect(() => {
     const io = new IntersectionObserver(
       (entries) => {
@@ -17,5 +19,5 @@ export default function useReveal() {
     )
     document.querySelectorAll('.reveal').forEach((el) => io.observe(el))
     return () => io.disconnect()
-  }, [])
+  }, [chave])
 }

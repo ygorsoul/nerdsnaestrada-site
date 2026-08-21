@@ -107,7 +107,10 @@
     font-size:clamp(56px, 9vw, 128px);
     color:var(--paper);
     text-transform:uppercase;
-    max-width:820px;
+    /* 900px e não 820px porque "From Rio de Janeiro", em inglês, precisa de
+       865px no corpo máximo — abaixo disso a primeira linha quebra em duas.
+       O bloco encolhe até o conteúdo, então PT e JA não mudam de largura. */
+    max-width:900px;
   }
   /* Linhas de ligação da manchete: ficam pequenas de propósito, para o peso
      visual ficar nos dois extremos do trajeto (Rio de Janeiro e Alasca). */
@@ -556,3 +559,68 @@
     font-family:'IBM Plex Sans', sans-serif; text-transform:none; letter-spacing:0;
     font-size:11px; line-height:1.7; color:#6f6c62;
   }
+
+  /* ======================================================================
+     SELETOR DE IDIOMA
+     ====================================================================== */
+  .lang-switch{ display:flex; align-items:center; border:1px solid var(--line); flex-shrink:0; }
+  .lang-switch button{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--paper-dim); white-space:nowrap;
+    background:transparent; border:none; border-right:1px solid var(--line);
+    padding:7px 10px; cursor:pointer;
+    transition:color .2s, background .2s;
+  }
+  .lang-switch button:last-child{ border-right:none; }
+  .lang-switch button:hover{ color:var(--paper); }
+  .lang-switch button[aria-current="true"]{ background:var(--oxide); color:var(--asphalt); }
+  .lang-switch button[lang="ja"]{ letter-spacing:0.02em; }
+  /* Com o seletor ocupando espaço, o nome escrito da marca sai antes dos links. */
+  @media (max-width:1320px){ nav .brand .nav-name{ display:none; } }
+  /* Os rótulos em japonês pedem ~1000px só para o menu. Em vez de esconder os
+     links em telas médias, deixamos a faixa rolar na horizontal — o seletor de
+     idioma nunca encolhe. */
+  nav .links{ overflow-x:auto; scrollbar-width:none; }
+  nav .links::-webkit-scrollbar{ display:none; }
+
+  /* ======================================================================
+     JAPONÊS
+     ====================================================================== */
+  /* Bebas Neue e IBM Plex não cobrem kana/kanji. Sem estas regras o navegador
+     cai numa fonte de sistema qualquer e a hierarquia tipográfica se perde. */
+  :root[lang="ja"] body{ font-family:'IBM Plex Sans', 'Noto Sans JP', sans-serif; }
+  :root[lang="ja"] .mono,
+  :root[lang="ja"] nav,
+  :root[lang="ja"] footer{ font-family:'IBM Plex Mono', 'Noto Sans JP', monospace; }
+  :root[lang="ja"] h1, :root[lang="ja"] h2, :root[lang="ja"] h3,
+  :root[lang="ja"] h4, :root[lang="ja"] .display, :root[lang="ja"] .person .who{
+    font-family:'Noto Sans JP', sans-serif; font-weight:900;
+    line-height:1.28; letter-spacing:0.01em;
+  }
+  :root[lang="ja"] .eyebrow,
+  :root[lang="ja"] .plan-head,
+  :root[lang="ja"] .why-card .why-n,
+  :root[lang="ja"] .exclusive-strip .txt .lbl{ letter-spacing:0.08em; }
+  /* Kanji ocupa bem mais largura que a Bebas condensada: sem reduzir, a
+     manchete e os títulos de seção estouram a coluna. */
+  :root[lang="ja"] h1.headline{ font-size:clamp(30px, 4.3vw, 58px); }
+  :root[lang="ja"] h1.headline .to{ font-size:0.46em; margin:14px 0; }
+  :root[lang="ja"] h1.headline .to + .to{ margin-top:-6px; }
+  :root[lang="ja"] h1.headline .brand-line{ font-size:0.78em; }
+  :root[lang="ja"] .section-title{ font-size:clamp(23px, 3vw, 36px); }
+  :root[lang="ja"] .person .who{ font-size:25px; }
+  :root[lang="ja"] .col-panel h3{ font-size:24px; }
+  :root[lang="ja"] .stop h4{ font-size:21px; }
+  :root[lang="ja"] .why-card h4,
+  :root[lang="ja"] .pillar-card h4{ font-size:21px; }
+  :root[lang="ja"] .gear-card h4,
+  :root[lang="ja"] .diff-body h4,
+  :root[lang="ja"] .option-card h4,
+  :root[lang="ja"] .plan-step h4{ font-size:18px; }
+  :root[lang="ja"] .quote{ font-size:16.5px; }
+  :root[lang="ja"] .terrain-item strong{ font-size:15px; }
+  /* Números seguem em Plex Mono; só o japonês ao redor muda de fonte. */
+  :root[lang="ja"] .odo .num,
+  :root[lang="ja"] .stat .num,
+  :root[lang="ja"] .reel-hero-stat b,
+  :root[lang="ja"] .reel-stats b{ font-family:'IBM Plex Mono', 'Noto Sans JP', monospace; }

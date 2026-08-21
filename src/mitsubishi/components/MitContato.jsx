@@ -1,25 +1,30 @@
+import { useT } from '../i18n'
+
+// Endereços e handles não mudam com o idioma; só os rótulos vêm do dicionário.
 const contatos = [
-  { label: 'E-mail',    texto: 'contato@nerdsnaestrada.com',  href: 'mailto:contato@nerdsnaestrada.com',                                          externo: false },
-  { label: 'WhatsApp',  texto: '21 99097-4226',               href: 'https://wa.me/5521990974226',                                                externo: true  },
-  { label: 'Instagram', texto: '@NerdsNaEstradaOficial',      href: 'https://www.instagram.com/nerdsnaestradaoficial/',                           externo: true  },
-  { label: 'YouTube',   texto: 'Nerds na Estrada',            href: 'https://www.youtube.com/@Nerdsnaestrada',                                    externo: true  },
-  { label: 'TikTok',    texto: '@NerdsNaEstradaOficial',      href: 'https://www.tiktok.com/@nerdsnaestradaoficial',                              externo: true  },
-  { label: 'Facebook',  texto: 'Nerds na Estrada',            href: 'https://www.facebook.com/profile.php?id=61578418876175&locale=pt_BR',        externo: true  },
-  { label: 'Site',      texto: 'nerdsnaestrada.com',          href: 'https://nerdsnaestrada.com/',                                                externo: true  },
+  { id: 'email',     texto: 'contato@nerdsnaestrada.com', href: 'mailto:contato@nerdsnaestrada.com',                                   externo: false },
+  { id: 'whatsapp',  texto: '21 99097-4226',              href: 'https://wa.me/5521990974226',                                         externo: true  },
+  { id: 'instagram', texto: '@NerdsNaEstradaOficial',     href: 'https://www.instagram.com/nerdsnaestradaoficial/',                    externo: true  },
+  { id: 'youtube',   texto: 'Nerds na Estrada',           href: 'https://www.youtube.com/@Nerdsnaestrada',                             externo: true  },
+  { id: 'tiktok',    texto: '@NerdsNaEstradaOficial',     href: 'https://www.tiktok.com/@nerdsnaestradaoficial',                       externo: true  },
+  { id: 'facebook',  texto: 'Nerds na Estrada',           href: 'https://www.facebook.com/profile.php?id=61578418876175&locale=pt_BR', externo: true  },
+  { id: 'site',      texto: 'nerdsnaestrada.com',         href: 'https://nerdsnaestrada.com/',                                         externo: true  },
 ]
 
 export default function MitContato() {
+  const { contato } = useT()
+
   return (
     <section id="contato" className="closing">
       <div className="wrap">
-        <div className="eyebrow" style={{ justifyContent: 'center' }}>10 · Vamos conversar</div>
-        <h2 className="section-title">Do Brasil ao Alasca, a gente já está pronto pra ligar a chave.</h2>
-        <p className="section-lead">Falta só a Mitsubishi dizer sim. A Pajero está na garagem, o roteiro está pronto e o próximo passo é uma conversa de trinta minutos com o time de vocês. Segue nosso contato direto — respondemos no mesmo dia.</p>
+        <div className="eyebrow" style={{ justifyContent: 'center' }}>{contato.eyebrow}</div>
+        <h2 className="section-title">{contato.titulo}</h2>
+        <p className="section-lead">{contato.lead}</p>
 
         <div className="contact-grid reveal">
           {contatos.map((c) => (
-            <div className="contact-item" key={c.label}>
-              <div className="label">{c.label}</div>
+            <div className="contact-item" key={c.id}>
+              <div className="label">{contato.rotulos[c.id]}</div>
               <a
                 href={c.href}
                 {...(c.externo ? { target: '_blank', rel: 'noopener' } : {})}

@@ -1,18 +1,16 @@
 import Dia from './Dia'
+import LangSwitch from './LangSwitch'
+import { useT } from '../i18n'
 
-const links = [
-  { href: '#pajero',      label: 'A Pajero'    },
-  { href: '#post-pajero', label: 'O post'      },
-  { href: '#quem-somos',  label: 'Quem somos'  },
-  { href: '#a-marca',     label: 'A marca'     },
-  { href: '#rota',        label: 'A rota'      },
-  { href: '#conteudo',    label: 'Conteúdo'    },
-  { href: '#numeros',     label: 'Números'     },
-  { href: '#proposta',    label: 'Proposta'    },
-  { href: '#contato',     label: 'Contato'     },
+// Âncoras das seções, na mesma ordem dos rótulos de nav.links nos dicionários.
+const ancoras = [
+  '#pajero', '#post-pajero', '#quem-somos', '#a-marca', '#rota',
+  '#conteudo', '#numeros', '#proposta', '#contato',
 ]
 
 export default function MitNav() {
+  const t = useT()
+
   return (
     <nav>
       <div className="brand">
@@ -26,14 +24,15 @@ export default function MitNav() {
         </a>
         <span className="nav-x">×</span>
         <Dia className="dia nav-dia" />
-        <span className="nav-name">Mitsubishi Motors</span>
+        <span className="nav-name">{t.nav.parceiro}</span>
       </div>
       <div className="nav-right">
         <div className="links">
-          {links.map((l) => (
-            <a key={l.href} href={l.href}>{l.label}</a>
+          {ancoras.map((href, i) => (
+            <a key={href} href={href}>{t.nav.links[i]}</a>
           ))}
         </div>
+        <LangSwitch />
       </div>
     </nav>
   )
