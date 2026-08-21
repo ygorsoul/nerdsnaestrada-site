@@ -109,7 +109,10 @@
     text-transform:uppercase;
     max-width:820px;
   }
-  h1.headline .to{ color:var(--paper-dim); font-size:0.5em; display:block; margin:6px 0; }
+  /* Linhas de ligação da manchete: ficam pequenas de propósito, para o peso
+     visual ficar nos dois extremos do trajeto (Rio de Janeiro e Alasca). */
+  h1.headline .to{ color:var(--paper-dim); font-size:0.34em; display:block; margin:10px 0; letter-spacing:0.04em; }
+  h1.headline .to + .to{ margin-top:-2px; }
   h1.headline .dest{ color:var(--signal); }
   .hero-sub{
     max-width:520px; margin-top:28px; font-size:18px; color:var(--paper-dim);
@@ -275,15 +278,39 @@
   .diff-body h4{ font-size:24px; color:var(--paper); text-transform:uppercase; margin-bottom:4px; }
   .diff-body p{ font-size:14px; color:var(--paper-dim); max-width:560px; }
   .diff-body .diff-tag{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--paper-dim); text-transform:uppercase; letter-spacing:0.06em; }
-  .option-card{
-    border:1px solid var(--line); padding:22px 24px; margin-bottom:16px; background:var(--panel);
+  /* O pedido é um bloco só: os dois momentos ficam presos pelo mesmo traço
+     usado na seção da rota, então a leitura é de um apoio contínuo — e não
+     de um menu com duas opções para escolher. */
+  .ask-plan{
+    border:1px solid var(--oxide-bright); background:var(--panel);
+    padding:26px 28px 4px; margin-top:24px;
   }
-  .option-card .opt-tag{
-    font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--oxide-bright);
-    text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px;
+  .ask-plan .plan-head{
+    display:flex; align-items:center; gap:10px;
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px;
+    letter-spacing:0.16em; text-transform:uppercase; color:var(--oxide-bright);
+    margin-bottom:24px;
   }
-  .option-card h4{ font-family:'Bebas Neue', sans-serif; font-size:24px; color:var(--paper); text-transform:uppercase; margin-bottom:8px; letter-spacing:0.02em; }
-  .option-card p{ font-size:14px; color:var(--paper-dim); }
+  .ask-plan .plan-head .dia{ height:11px; flex-shrink:0; }
+  .plan-steps{ position:relative; padding-left:30px; }
+  .plan-steps::before{
+    content:''; position:absolute; left:5px; top:5px; bottom:34px; width:2px;
+    background:repeating-linear-gradient(to bottom, var(--oxide-bright) 0 7px, transparent 7px 14px);
+  }
+  .plan-step{ position:relative; padding-bottom:26px; }
+  .plan-step::before{
+    content:''; position:absolute; left:-30px; top:2px; width:12px; height:12px;
+    background:var(--panel); border:2px solid var(--oxide-bright); border-radius:50%;
+  }
+  .plan-step .when{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px;
+    letter-spacing:0.14em; text-transform:uppercase; color:var(--paper-dim);
+  }
+  .plan-step h4{
+    font-family:'Bebas Neue', sans-serif; font-size:25px; letter-spacing:0.02em;
+    color:var(--paper); text-transform:uppercase; margin:5px 0 8px;
+  }
+  .plan-step p{ font-size:14px; color:var(--paper-dim); }
   .ask-extra-label{
     font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--paper-dim);
     text-transform:uppercase; letter-spacing:0.1em; margin:26px 0 14px;

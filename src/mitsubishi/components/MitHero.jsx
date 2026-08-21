@@ -31,10 +31,11 @@ export default function MitHero() {
           </div>
         </div>
         <h1 className="headline">
-          Rio de Janeiro
-          <span className="to">até Ushuaia, e de lá rumo ao</span>
+          Do Rio de Janeiro
+          <span className="to">com parada no fim do mundo, Ushuaia,</span>
+          <span className="to">e depois rumo ao extremo norte do planeta:</span>
           <span className="dest">Alasca</span>
-          <span className="brand-line">de Pajero.</span>
+          <span className="brand-line">de Pajero!</span>
         </h1>
         <p className="hero-sub">Largada no Rio de Janeiro, descida até Ushuaia — a ponta mais austral das Américas — e, sem parar, a subida completa até o Ártico. Tudo ao volante de uma <strong>Mitsubishi Pajero Full 2008 GLS Diesel</strong>, a prova de resistência mais longa que um veículo Mitsubishi pode enfrentar em estrada real, atravessando dezenas de países, contada em tempo real para uma audiência que já assiste, confia e compra o que a gente indica.</p>
         <div className="hero-cta">

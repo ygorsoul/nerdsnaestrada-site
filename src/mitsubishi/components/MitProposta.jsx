@@ -1,4 +1,4 @@
-import { Watermark } from './Dia'
+import Dia, { Watermark } from './Dia'
 
 const entregamos = [
   'Identidade visual Mitsubishi aplicada à Pajero durante toda a expedição — plotagem seguindo o manual de marca de vocês',
@@ -11,14 +11,16 @@ const entregamos = [
   'Acesso direto a uma audiência qualificada de +200 mil pessoas interessadas em carros e aventura',
 ]
 
-const opcoes = [
+// Um pedido só, em dois momentos da mesma linha do tempo — por isso vira uma
+// trilha contínua na tela, e não dois cards soltos que pedem escolha.
+const pedido = [
   {
-    tag: 'Opção A',
+    quando: 'Antes da largada',
     titulo: 'Revisão inicial completa',
     texto: 'Preparação e revisão preventiva completa da Pajero antes da largada, feita na rede Mitsubishi do Brasil, garantindo que ela saia em condição ideal para os mais de dez países pela frente.',
   },
   {
-    tag: 'Opção B',
+    quando: 'Ao longo da estrada',
     titulo: 'Apoio financeiro mensal',
     texto: 'Um valor mensal ao longo da expedição, para cobrir manutenção corretiva, peças e imprevistos mecânicos fora do Brasil — nos dando autonomia para resolver rápido em qualquer país do trajeto.',
   },
@@ -50,15 +52,20 @@ export default function MitProposta() {
           </div>
           <div className="col-panel ask">
             <h3>O que buscamos</h3>
-            <p className="ask-intro">Sabemos que a Mitsubishi do Brasil não necessariamente tem alcance direto sobre a rede credenciada em todos os países do trajeto. Por isso, pensamos em duas frentes — que podem ser combinadas:</p>
+            <p className="ask-intro">Sabemos que a Mitsubishi do Brasil não necessariamente tem alcance direto sobre a rede credenciada em todos os países do trajeto. Por isso o apoio que a gente busca acompanha a expedição do começo ao fim: prepara a Pajero para a largada e mantém ela rodando no mundo.</p>
 
-            {opcoes.map((o) => (
-              <div className="option-card" key={o.tag}>
-                <div className="opt-tag mono">{o.tag}</div>
-                <h4>{o.titulo}</h4>
-                <p>{o.texto}</p>
+            <div className="ask-plan">
+              <div className="plan-head"><Dia /> O apoio, da garagem ao Ártico</div>
+              <div className="plan-steps">
+                {pedido.map((p) => (
+                  <div className="plan-step" key={p.titulo}>
+                    <div className="when">{p.quando}</div>
+                    <h4>{p.titulo}</h4>
+                    <p>{p.texto}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
 
             <div className="ask-extra-label">Também nos ajuda</div>
             <ul className="check-list">
