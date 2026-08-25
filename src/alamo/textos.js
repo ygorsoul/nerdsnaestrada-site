@@ -6,14 +6,18 @@
 // Tabela de preços unitários, a mesma publicada em /midiakit. A calculadora e
 // a composição do investimento leem daqui, então não há como um número da tela
 // desencontrar do outro.
+// Âncora real: reelMulti (1.100) + 5 gavetas (400) = R$ 1.500, que é o que a
+// gente cobra hoje por vídeo curto nas quatro plataformas com 5 fileiras de
+// story. Todo o resto foi escalado a partir desse número, e não de uma tabela
+// de referência de mercado.
 export const precos = {
-  integracao: 1200,        // integração em vídeo (só YouTube)
-  integracaoRepost: 850,   // inclusão em vídeo: YouTube + repost em IG/TikTok/FB
-  review: 2200,            // vídeo inteiro dedicado à marca
-  reelMulti: 1800,         // Reels dedicado multiplataforma
-  reelAdCode: 1300,        // Reel no Instagram com código de anúncio
-  brandDay: 2500,          // dia de gravação com deslocamento
-  stories: { 3: 350, 5: 550, 10: 1000 },
+  integracao: 700,         // inclusão em vídeo (só YouTube)
+  integracaoRepost: 500,   // inclusão no YouTube + corte em IG/TikTok/FB
+  review: 1350,            // vídeo inteiro dedicado à marca
+  reelMulti: 1100,         // Reel nas 4 plataformas
+  reelAdCode: 750,         // Reel no Instagram com código de anúncio
+  brandDay: 2000,          // dia de produção dedicado na unidade
+  stories: { 3: 250, 5: 400, 10: 750 },
 }
 
 export const adicionais = {
@@ -46,7 +50,7 @@ export const pacoteProposto = {
   // então entram como item de contagem única, igual ao brand day. E não levam
   // o adicional de direitos por cima — o próprio código de anúncio já é a
   // licença de mídia paga daquela peça; cobrar de novo seria cobrar duas vezes.
-  reelAdCode: 9,
+  reelAdCode: 8,
   brandDay: 3,
   momentoAssinatura: 2,
   exclusividade: true,
@@ -55,16 +59,16 @@ export const pacoteProposto = {
 
 export const contrato = {
   meses: 12,
-  mensal: 4800,
-  aVista: 52000,
+  mensal: 3000,
+  aVista: 32000,
   integracoesPorMes: 1,
-  adCodes: 9,
+  adCodes: 8,
   reelsPorMes: 1,
   gavetasPorMes: 5,
   // Valor de tabela do escopo, somando só linhas públicas da nossa tabela de
   // valores (ver /midiakit). O multiplicador interno de categoria de risco NÃO
   // entra aqui nem em nada que apareça na tela.
-  tabela: 65280,
+  tabela: 40800,
 }
 
 const totalMensal = contrato.mensal * contrato.meses               // 76.800
@@ -146,7 +150,7 @@ export default {
     },
     entrada: {
       rotulo: 'Prefere começar menor?',
-      texto: `Piloto de 3 meses por ${real(16500)}, com os três brand days nas unidades. Se virar contrato anual em até 30 dias, o valor é abatido integralmente.`,
+      texto: `Piloto de 3 meses por ${real(11500)}, com os três brand days nas unidades. Se virar contrato anual em até 30 dias, o valor é abatido integralmente.`,
     },
   },
 
@@ -447,33 +451,33 @@ export default {
     composicao: [
       {
         item: '12 inclusões em vídeo no YouTube',
-        detalhe: '12 × R$ 850 · bloco de 60 a 90s dentro de um vlog, com corte em Reels, TikTok e Facebook',
-        valor: 'R$ 10.200',
+        detalhe: '12 × R$ 500 · bloco de 60 a 90s dentro de um vlog, com corte em Reels, TikTok e Facebook',
+        valor: 'R$ 6.000',
       },
       {
         item: '12 Reels dedicados multiplataforma',
-        detalhe: '12 × R$ 1.800 · cada um publicado em Instagram, TikTok, YouTube e Facebook',
-        valor: 'R$ 21.600',
+        detalhe: '12 × R$ 1.100 · cada um publicado em Instagram, TikTok, YouTube e Facebook',
+        valor: 'R$ 13.200',
       },
       {
         item: '60 gavetas de story',
-        detalhe: '12 meses × 5 gavetas · R$ 550 por mês',
-        valor: 'R$ 6.600',
+        detalhe: '12 meses × 5 gavetas · R$ 400 por mês',
+        valor: 'R$ 4.800',
       },
       {
         item: 'Exclusividade de categoria',
         detalhe: '+20% sobre a produção · nenhum concorrente aparece no nosso conteúdo',
-        valor: '+ R$ 7.680',
+        valor: '+ R$ 4.800',
       },
       {
-        item: '9 Reels que a Álamo pode virar anúncio',
-        detalhe: '9 × R$ 1.300 · publicados no Instagram com código de anúncio — vocês impulsionam a partir do nosso perfil',
-        valor: '+ R$ 11.700',
+        item: '8 Reels que a Álamo pode virar anúncio',
+        detalhe: '8 × R$ 750 · publicados no Instagram com código de anúncio — vocês impulsionam a partir do nosso perfil',
+        valor: '+ R$ 6.000',
       },
       {
         item: '3 brand days nas unidades',
-        detalhe: 'Rio de Janeiro, São Paulo e Curitiba · R$ 2.500 cada, por dia de produção dedicado',
-        valor: '+ R$ 7.500',
+        detalhe: 'Rio de Janeiro, São Paulo e Curitiba · R$ 2.000 cada, por dia de produção dedicado',
+        valor: '+ R$ 6.000',
       },
     ],
     composicaoTotal: { rotulo: 'Valor de tabela · comprado peça a peça', valor: real(contrato.tabela) },
@@ -533,14 +537,14 @@ export default {
     pilotoRotulo: 'Se doze meses for um salto grande demais',
     piloto: {
       titulo: 'Piloto de 3 meses',
-      valor: real(16500),
-      detalhe: `3× de ${real(5500)} — mais caro por mês, porque contrato curto não dilui planejamento`,
+      valor: real(11500),
+      detalhe: `3× de ${realCentavos(11500/3)} — mais caro por mês, porque contrato curto não dilui planejamento`,
       linhas: [
         '1 inclusão em vídeo, 1 Reel e 5 gavetas de story por mês',
         'Os três brand days concentrados no piloto: Rio, São Paulo e Curitiba, que é justamente o trecho de descida',
         'Exclusividade de categoria durante os três meses',
       ],
-      conversao: 'Se virar contrato anual em até 30 dias do fim do piloto, os R$ 16.500 são abatidos integralmente do valor do ano.',
+      conversao: 'Se virar contrato anual em até 30 dias do fim do piloto, os R$ 11.500 são abatidos integralmente do valor do ano.',
     },
     fora: {
       rotulo: 'O que não está incluso, de propósito',
