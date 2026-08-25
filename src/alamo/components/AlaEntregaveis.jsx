@@ -42,7 +42,7 @@ export default function AlaEntregaveis() {
         </div>
 
         <div className="bloco-rotulo">{entregaveis.anoRotulo}</div>
-        <div className="stats-grid reveal">
+        <div className="stats-grid cinco reveal">
           {entregaveis.ano.map((a, i) => (
             <div className="stat" key={i}>
               <div className="num">{a.num}</div>

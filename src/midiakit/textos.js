@@ -20,10 +20,10 @@ export default {
     ctaContato: 'Falar com Ygor & Bea',
     ctaPacotes: 'Ver os pacotes',
     destaques: [
-      { num: '+200K', label: 'Pessoas acompanhando'     },
-      { num: '+25M',  label: 'Visualizações acumuladas' },
-      { num: '4',     label: 'Plataformas ativas'       },
-      { num: '60d',   label: 'Validade dos valores'     },
+      { num: '+200 mil',    label: 'Pessoas acompanhando'    },
+      { num: '+25 milhões', label: 'Visualizações até agora' },
+      { num: '4',           label: 'Plataformas ativas'      },
+      { num: '60 dias',     label: 'Validade dos valores'    },
     ],
   },
 

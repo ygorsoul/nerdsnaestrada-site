@@ -35,7 +35,7 @@
   --radius-sm:12px;
 }
 *{box-sizing:border-box; margin:0; padding:0;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth; overflow-x:hidden;}
 body{
   background:var(--cream-100);
   color:var(--stone-700);
@@ -64,7 +64,7 @@ ul{ list-style:none; }
 
 /* ---------- layout shells ---------- */
 .wrap{ max-width:1120px; margin:0 auto; padding:0 24px; }
-section{ position:relative; padding:104px 0; }
+section{ position:relative; padding:104px 0; overflow:hidden; }
 section > .wrap{ position:relative; z-index:1; }
 /* Alternância de fundo no lugar de linha divisória — o site usa blocos de cor,
    não réguas. */
@@ -207,7 +207,7 @@ h1.headline .brand-line{ color:var(--navy-soft); font-size:0.46em; display:block
 }
 @media (max-width:720px){ .odometer-strip{ grid-template-columns:repeat(2,1fr); } }
 .odo{ background:rgba(255,255,255,0.7); padding:20px 22px; }
-.odo .num{ font-family:'Playfair Display', Georgia, serif; font-size:34px; font-weight:600; color:var(--navy); line-height:1.1; }
+.odo .num{ font-family:'Playfair Display', Georgia, serif; font-size:clamp(24px,4.2vw,34px); font-weight:600; color:var(--navy); line-height:1.1; }
 .odo .label{ font-size:11px; text-transform:uppercase; letter-spacing:0.09em; color:var(--stone-500); margin-top:5px; font-weight:500; }
 
 /* ---------- marca d'água ---------- */
@@ -356,12 +356,18 @@ h1.headline .brand-line{ color:var(--navy-soft); font-size:0.46em; display:block
 .nota b{ color:var(--navy); font-weight:600; }
 
 /* ---------- 06 · entregáveis ---------- */
-.mensal-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-@media (max-width:760px){ .mensal-grid{ grid-template-columns:1fr; } }
+.mensal-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+@media (max-width:1000px){ .mensal-grid{ grid-template-columns:1fr; } }
 .mensal-card{
   background:#fff; border:1px solid var(--cream-300); border-radius:var(--radius);
-  padding:28px 26px; display:flex; gap:20px; align-items:flex-start;
+  padding:26px 24px; display:flex; gap:18px; align-items:flex-start;
   box-shadow:0 1px 2px rgba(51,44,32,0.04);
+}
+/* Com três peças na linha o rótulo "Integração" não cabe em 82px; a coluna do
+   número passa a acompanhar o texto em vez de forçar largura fixa. */
+@media (min-width:1001px){
+  .mensal-card{ flex-direction:column; gap:16px; }
+  .mensal-card .qtd{ width:auto; align-self:flex-start; min-width:84px; padding:12px 14px; }
 }
 .mensal-card .qtd{
   flex-shrink:0; width:82px; text-align:center;
@@ -401,9 +407,11 @@ h1.headline .brand-line{ color:var(--navy-soft); font-size:0.46em; display:block
   border-radius:var(--radius); overflow:hidden;
 }
 #numeros .stats-grid{ margin-top:44px; }
+.stats-grid.cinco{ grid-template-columns:repeat(5,1fr); }
+@media (max-width:1000px){ .stats-grid.cinco{ grid-template-columns:repeat(2,1fr); } }
 @media (max-width:860px){ .stats-grid{ grid-template-columns:repeat(2,1fr); } }
 .stat{ background:#fff; padding:28px 24px; }
-.stat .num{ font-family:'Playfair Display', Georgia, serif; font-size:34px; font-weight:600; color:var(--ala-deep); line-height:1.1; }
+.stat .num{ font-family:'Playfair Display', Georgia, serif; font-size:clamp(24px,4.2vw,34px); font-weight:600; color:var(--ala-deep); line-height:1.1; }
 .stat .label{ margin-top:6px; font-size:11.5px; text-transform:uppercase; letter-spacing:0.08em; color:var(--stone-500); font-weight:500; }
 
 .audience-grid{ display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:52px; }
@@ -529,7 +537,135 @@ h1.headline .brand-line{ color:var(--navy-soft); font-size:0.46em; display:block
 .custo .c-valor{ font-family:'Playfair Display', Georgia, serif; font-size:30px; font-weight:600; color:var(--navy); margin:8px 0 4px; }
 .custo .c-nota{ font-size:12px; color:var(--stone-400); }
 
-/* ---------- 10 · contato ---------- */
+/* ---------- 10 · calculadora ---------- */
+.calc{ display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:24px; margin-top:44px; align-items:start; }
+@media (max-width:980px){ .calc{ grid-template-columns:1fr; } }
+.calc-controles{ display:flex; flex-direction:column; gap:18px; }
+.calc-grupo{
+  background:#fff; border:1px solid var(--cream-300); border-radius:var(--radius);
+  padding:22px 24px; box-shadow:0 1px 2px rgba(51,44,32,0.04);
+}
+.calc-grupo-titulo{
+  font-size:11px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--stone-500); margin-bottom:14px;
+}
+.calc-linha{
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  padding:11px 0; border-top:1px solid var(--cream-200);
+}
+.calc-linha:first-of-type{ border-top:none; padding-top:0; }
+.calc-linha .info{ min-width:0; }
+.calc-linha .info strong{ display:block; font-size:14.5px; font-weight:600; color:var(--stone-600); }
+.calc-linha .info span{ display:block; margin-top:2px; font-size:12.5px; color:var(--stone-400); }
+.calc-linha.ativa .info strong{ color:var(--navy); }
+
+/* stepper */
+.stepper{ display:flex; align-items:center; gap:2px; flex-shrink:0; border:1px solid var(--cream-400); border-radius:99px; padding:3px; background:var(--cream-100); }
+.stepper button{
+  width:28px; height:28px; border-radius:50%; border:none; cursor:pointer;
+  background:transparent; color:var(--navy); font-size:17px; line-height:1;
+  display:flex; align-items:center; justify-content:center;
+  transition:background .15s, color .15s;
+}
+.stepper button:hover:not(:disabled){ background:var(--ala); color:#fff; }
+.stepper button:disabled{ color:var(--stone-300); cursor:default; }
+.stepper .qtd{ min-width:24px; text-align:center; font-size:14.5px; font-weight:600; color:var(--stone-800); }
+
+/* opções em pílula (stories, direitos) */
+.calc-opcoes{ display:flex; flex-wrap:wrap; gap:8px; }
+.calc-opcoes .opcao{
+  flex:1; min-width:74px; cursor:pointer; text-align:center;
+  border:1px solid var(--cream-400); border-radius:var(--radius-sm);
+  background:var(--cream-50); padding:11px 10px;
+  transition:border-color .15s, background .15s;
+}
+.calc-opcoes.largas .opcao{ min-width:130px; text-align:left; }
+.calc-opcoes .opcao b{ display:block; font-size:14.5px; font-weight:600; color:var(--stone-700); }
+.calc-opcoes .opcao span{ display:block; margin-top:3px; font-size:11.5px; color:var(--stone-400); }
+.calc-opcoes .opcao:hover{ border-color:var(--stone-400); }
+.calc-opcoes .opcao.ativa{ border-color:var(--ala); background:var(--ala-wash); }
+.calc-opcoes .opcao.ativa b{ color:var(--ala-deep); }
+
+/* duração */
+.calc-duracao{ display:flex; align-items:center; gap:18px; }
+.calc-duracao input[type=range]{
+  flex:1; min-width:0; accent-color:var(--ala); height:4px; cursor:pointer;
+}
+.calc-duracao .valor{ display:flex; align-items:baseline; gap:6px; flex-shrink:0; }
+.calc-duracao .valor b{ font-family:'Playfair Display', Georgia, serif; font-size:28px; font-weight:600; color:var(--navy); line-height:1; }
+.calc-duracao .valor span{ font-size:12px; color:var(--stone-500); }
+.calc-duracao .valor em{
+  font-style:normal; font-size:11px; font-weight:600; color:var(--ala-deep);
+  background:var(--ala-wash); border-radius:99px; padding:3px 8px; margin-left:2px;
+}
+.calc-nota{ margin-top:12px; font-size:12.5px; color:var(--stone-400); line-height:1.6; }
+
+/* interruptores */
+.calc-toggle{
+  display:flex; align-items:flex-start; gap:12px; cursor:pointer;
+  padding:11px 0; border-top:1px solid var(--cream-200);
+}
+.calc-toggle:first-of-type{ border-top:none; padding-top:0; }
+.calc-toggle input{ position:absolute; opacity:0; width:0; height:0; }
+.calc-toggle .marca{
+  flex-shrink:0; width:19px; height:19px; margin-top:2px;
+  border:1.5px solid var(--stone-300); border-radius:6px; background:#fff;
+  transition:border-color .15s, background .15s;
+}
+.calc-toggle input:checked + .marca{
+  border-color:var(--ala); background:var(--ala);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 8.5l3.2 3.2L13 5'/%3E%3C/svg%3E");
+  background-size:13px; background-position:center; background-repeat:no-repeat;
+}
+.calc-toggle input:focus-visible + .marca{ outline:2px solid var(--navy-soft); outline-offset:2px; }
+.calc-toggle .info strong{ display:block; font-size:14.5px; font-weight:600; color:var(--stone-600); }
+.calc-toggle .info > span{ display:block; margin-top:2px; font-size:12.5px; color:var(--stone-400); }
+.calc-toggle.ativa .info strong{ color:var(--navy); }
+
+/* resumo */
+.calc-resumo{ position:sticky; top:82px; }
+@media (max-width:980px){ .calc-resumo{ position:static; } }
+.resumo-cartao{
+  background:#fff; border:2px solid var(--ala); border-radius:var(--radius);
+  padding:26px 24px; box-shadow:0 6px 22px rgba(239,108,31,0.14);
+}
+.resumo-titulo{
+  font-size:11px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--ala-deep); margin-bottom:16px;
+  display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+}
+.selo-recomendado{
+  background:var(--ala); color:#fff; border-radius:99px;
+  padding:4px 11px; font-size:9.5px; letter-spacing:0.1em; white-space:nowrap;
+}
+.resumo-vazio{ font-size:14px; color:var(--stone-500); }
+.resumo-linhas{ display:flex; flex-direction:column; gap:9px; padding-bottom:16px; border-bottom:1px solid var(--cream-300); }
+.resumo-linhas .rl{ display:flex; align-items:baseline; justify-content:space-between; gap:14px; font-size:13.5px; }
+.resumo-linhas .rl span{ color:var(--stone-500); min-width:0; }
+.resumo-linhas .rl b{ color:var(--stone-800); font-weight:600; white-space:nowrap; }
+.resumo-linhas .rl b.gratis{ color:var(--ala-deep); font-size:12px; text-transform:uppercase; letter-spacing:0.08em; }
+.resumo-total{ padding:18px 0 14px; border-bottom:1px solid var(--cream-300); }
+.resumo-total .rotulo{ font-size:11px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--stone-500); }
+.resumo-total .valor{ font-family:'Playfair Display', Georgia, serif; font-size:clamp(34px,4.4vw,44px); font-weight:600; color:var(--ala-deep); line-height:1.05; margin:6px 0 4px; }
+.resumo-total .por{ font-size:12.5px; color:var(--stone-500); }
+.resumo-peca{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding:14px 0; font-size:13px; }
+.resumo-peca span{ color:var(--stone-500); }
+.resumo-peca b{ color:var(--navy); font-weight:600; }
+.resumo-comparativo{
+  border:1px dashed var(--stone-300); border-radius:var(--radius-sm);
+  padding:14px 16px; background:var(--cream-100); margin-bottom:18px;
+}
+.resumo-comparativo .lbl{ font-size:10px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--ala-deep); margin-bottom:6px; }
+.resumo-comparativo p{ font-size:12.5px; color:var(--stone-600); line-height:1.6; }
+.resumo-cta{ width:100%; justify-content:center; }
+.resumo-restaurar{
+  display:block; width:100%; margin-top:12px; padding:9px;
+  background:none; border:none; cursor:pointer;
+  font-family:inherit; font-size:12px; color:var(--stone-500); text-align:center;
+}
+.resumo-restaurar:hover{ color:var(--ala-deep); text-decoration:underline; }
+
+/* ---------- 11 · contato ---------- */
 .closing{ text-align:center; }
 .closing .section-title{ margin:0 auto; }
 .closing .section-lead{ margin-left:auto; margin-right:auto; }
@@ -579,4 +715,146 @@ footer{
   html{ scroll-behavior:auto; }
   .reveal{ opacity:1; transform:none; transition:none; }
   .hero-route .live{ animation:none; stroke-dashoffset:0; }
+}
+
+/* ======================================================================
+   BOTÃO DE PDF
+   ====================================================================== */
+.btn-pdf{
+  padding:9px 15px; font-size:12.5px; gap:7px;
+  background:transparent; color:var(--navy); border-color:var(--stone-300);
+  box-shadow:none; cursor:pointer; font-family:inherit; flex-shrink:0;
+}
+.btn-pdf:hover{ background:var(--cream-200); border-color:var(--navy-soft); color:var(--navy); transform:none; box-shadow:none; }
+.btn-pdf svg{ flex-shrink:0; }
+@media (max-width:400px){ .btn-pdf span, .btn-pdf{ font-size:11.5px; padding:8px 11px; } }
+
+/* ======================================================================
+   IMPRESSÃO / PDF
+   ======================================================================
+   O PDF é a própria página impressa pelo navegador. As regras abaixo tiram o
+   que só faz sentido na tela (navegação fixa, animações, fundos coloridos que
+   gastam tinta) e cuidam das quebras de página, para nenhum cartão ser cortado
+   ao meio. */
+@media print{
+  @page{ margin:12mm 11mm; }
+
+  html{ overflow-x:visible; }
+  html, body{ background:#fff !important; color:#2b2b2b; font-size:9.5pt; line-height:1.45; }
+
+  /* Fora do papel: navegação, decoração e tudo que é clicável. */
+  nav, .hero-blobs, .hero-route, .hero-cta, .wm,
+  .calc-controles, .resumo-cta, .resumo-restaurar, .btn{ display:none !important; }
+
+  /* Sem animação de entrada: no papel não há rolagem que a dispare. */
+  .reveal{ opacity:1 !important; transform:none !important; }
+
+  /* Fundos chapados viram branco; a textura de papel some. */
+  .faixa-clara, .faixa-media, .tese, .investimento, .hero, footer{ background:#fff !important; }
+  .textura::before{ display:none !important; }
+
+  /* Compactação. Os espaçamentos da tela existem para dar respiro ao rolar;
+     no papel eles viram páginas a mais e nada além disso. */
+  section{ padding:10px 0 !important; overflow:visible !important; }
+  .hero{ min-height:0 !important; padding-top:0 !important; padding-bottom:8px !important; }
+  .wrap{ max-width:100% !important; padding:0 !important; }
+  .co-lockup{ padding:10px 14px !important; margin-bottom:12px !important; }
+  .co-lockup img.nne{ height:38px !important; }
+  .co-lockup img.ala{ height:20px !important; }
+  .eyebrow{ margin-bottom:6px !important; font-size:8pt !important; }
+  .bloco-rotulo{ margin:16px 0 7px !important; font-size:8pt !important; }
+  .bloco-lead{ margin:-2px 0 10px !important; font-size:8.5pt !important; }
+
+  h1.headline{ font-size:21pt !important; }
+  h1.headline .to{ font-size:0.38em !important; margin:4px 0 !important; }
+  h1.headline .brand-line{ font-size:0.48em !important; margin-top:4px !important; }
+  .hero-sub{ font-size:9.5pt !important; max-width:none !important; margin-top:10px !important; }
+  .section-title{ font-size:14pt !important; max-width:none !important; }
+  .section-lead{ font-size:9.5pt !important; max-width:none !important; margin-top:6px !important; }
+  h4{ font-size:10.5pt !important; margin:6px 0 4px !important; }
+
+  .why-grid, .people, .placement-grid, .gear-grid, .mensal-grid,
+  .planos, .familia-lista{ gap:8px !important; margin-top:12px !important; }
+  .calendario{ gap:6px !important; }
+  .why-card, .person, .placement, .gear-card, .mensal-card,
+  .plano, .inclui, .custo, .mes, .familia .corpo{ padding:11px 13px !important; }
+  .why-card p, .placement p, .gear-card p, .mensal-card .corpo p, .stop p,
+  .familia .corpo .bloco p, .mes p, .person p, .plano ul li,
+  .check-list li{ font-size:8.8pt !important; }
+  .check-list li{ margin-bottom:5px !important; }
+  .route-line-wrap{ margin-top:14px !important; }
+  .stop{ padding-bottom:11px !important; }
+  .exclusive-strip{ padding:12px 14px !important; margin-top:14px !important; gap:14px !important; }
+  .exclusive-strip .escudo{ height:26px !important; }
+  .exclusive-strip .txt p{ font-size:10pt !important; }
+  .quote{ padding:12px 14px !important; margin-top:14px !important; font-size:11pt !important; }
+  .nota{ padding:9px 11px !important; margin-top:12px !important; font-size:8pt !important; }
+  .odometer-strip, .stats-grid, .custo-grid, .contact-grid{ margin-top:12px !important; }
+  .odo, .stat, .contact-item{ padding:9px 11px !important; }
+  /* No papel o clamp com vw calcula em cima da largura da página e estoura:
+     "+25 milhões" quebrava em duas linhas enquanto os vizinhos ficavam numa. */
+  .odo .num, .stat .num{ font-size:14pt !important; }
+  .odo .label, .stat .label{ font-size:7.5pt !important; }
+  .audience-grid{ gap:14px !important; margin-top:14px !important; }
+  .composicao .linha{ padding:7px 13px !important; }
+  .composicao .desc span{ font-size:8pt !important; }
+  .plano ul{ margin-top:10px !important; gap:5px !important; }
+  .plano-total{ margin-top:10px !important; padding:8px 11px !important; }
+  .inclui{ margin-top:12px !important; }
+  .inclui-head{ margin-bottom:10px !important; }
+  footer{ padding:16px 0 !important; }
+  .legal{ font-size:7.5pt !important; }
+
+  /* Cartões e blocos não podem ser partidos entre duas páginas. */
+  .why-card, .person, .placement, .familia, .mensal-card, .mes, .gear-card,
+  .plano, .inclui, .custo, .stop, .exclusive-strip, .nota, .quote,
+  .composicao .linha, .odo, .stat, .contact-item{ break-inside:avoid; }
+  .section-title, .eyebrow, .bloco-rotulo{ break-after:avoid; }
+
+  /* Só o investimento começa em página nova — é a seção que a marca vai abrir
+     direto. Forçar quebra nas outras só criava folhas com pé em branco. */
+  #investimento{ break-before:page; }
+  footer{ break-before:avoid; }
+
+  /* O cabeçalho azul de cada frente do portfólio vira texto azul sobre branco:
+     cinco blocos chapados gastariam tinta sem acrescentar nada. */
+  .familia{ grid-template-columns:1fr !important; border:1px solid #ccc !important; }
+  .familia .cabeca{ background:#fff !important; padding:11px 13px 0 !important; gap:6px !important; }
+  .familia .cabeca .n, .familia .cabeca h4{ color:var(--navy) !important; }
+  .familia .cabeca .produtos span{ background:#f0f0f0 !important; color:#444 !important; }
+  .familia .corpo{ grid-template-columns:1fr 1fr !important; gap:14px !important; }
+
+  /* O que precisa manter cor impressa: o plano em destaque e as linhas de
+     total, que são o ponto do documento. */
+  .plano.destaque, .plano-selo, .composicao .linha.total,
+  .composicao .linha.bonus, .resumo-cartao{
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  .plano.destaque, .resumo-cartao{ box-shadow:none !important; }
+  /* Na tela o selo flutua sobre a borda do cartão; no papel, com o padding
+     menor, ele caía em cima do rótulo do plano. Passa a ocupar o próprio
+     espaço, acima do rótulo. */
+  .plano-selo{
+    position:static !important; display:inline-block; align-self:flex-start;
+    margin:0 0 7px !important; box-shadow:none !important;
+  }
+
+  /* A calculadora vira um resumo estático: os controles somem, mas o pacote
+     configurado entra no PDF. Se ninguém mexeu, é o plano recomendado. */
+  .calc{ grid-template-columns:1fr !important; margin-top:12px !important; }
+  .calc-resumo{ position:static !important; }
+  .resumo-cartao{ padding:13px 15px !important; }
+
+  .planos{ grid-template-columns:1fr 1fr !important; }
+  .calendario{ grid-template-columns:repeat(4,1fr) !important; }
+  .placement-grid{ grid-template-columns:repeat(3,1fr) !important; }
+  .mensal-grid{ grid-template-columns:repeat(3,1fr) !important; }
+  /* A largura de página é menor que o breakpoint de 1001px, então o cartão
+     voltava ao layout em linha e espremia o texto numa coluna estreita. */
+  .mensal-card{ flex-direction:column !important; gap:8px !important; }
+  .mensal-card .qtd{ width:auto !important; align-self:flex-start; padding:7px 12px !important; }
+  .mensal-card .qtd b{ font-size:19pt !important; }
+
+  /* Links não viram URL impressa: os contatos já aparecem escritos por extenso. */
+  a[href]::after{ content:none !important; }
 }

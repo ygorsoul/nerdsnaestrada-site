@@ -12,6 +12,7 @@ import AlaEntregaveis from './components/AlaEntregaveis'
 import AlaNumeros from './components/AlaNumeros'
 import AlaEquipamentos from './components/AlaEquipamentos'
 import AlaInvestimento from './components/AlaInvestimento'
+import AlaCalculadora from './components/AlaCalculadora'
 import AlaContato from './components/AlaContato'
 import AlaFooter from './components/AlaFooter'
 
@@ -35,6 +36,7 @@ export default function AlamoApp() {
       <AlaNumeros />
       <AlaEquipamentos />
       <AlaInvestimento />
+      <AlaCalculadora />
       <AlaContato />
       <AlaFooter />
     </>

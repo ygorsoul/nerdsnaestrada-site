@@ -3,36 +3,82 @@
 // o conteúdo mora num módulo simples em vez de um sistema de dicionários.
 // Trechos entre **asteriscos** viram <strong>/<b> na tela (ver Rich.jsx).
 
-// Valores do contrato em um lugar só: a seção de investimento e os textos que
-// citam preço leem daqui, então não há como um número desencontrar do outro.
+// Tabela de preços unitários, a mesma publicada em /midiakit. A calculadora e
+// a composição do investimento leem daqui, então não há como um número da tela
+// desencontrar do outro.
+export const precos = {
+  integracao: 1200,        // integração em vídeo (só YouTube)
+  integracaoRepost: 1500,  // integração + repost em IG/TikTok/FB
+  review: 2200,            // vídeo inteiro dedicado à marca
+  reelMulti: 1800,         // Reels dedicado multiplataforma
+  reelAdCode: 1300,        // Reel com IG ad code
+  brandDay: 2500,          // dia de gravação com deslocamento
+  stories: { 3: 350, 5: 550, 10: 1000 },
+}
+
+export const adicionais = {
+  exclusividade: 0.20,
+  direitos90: 0.30,
+  direitos12m: 0.50,
+  expressa: 0.30,
+}
+
+// Tarifa por duração: doze meses é a referência (×1,00) e contratos curtos
+// pagam prêmio. O custo de planejamento, alinhamento de roteiro e aprovação não
+// se dilui numa campanha pontual — e um contrato longo vale mais para nós do
+// que uma campanha avulsa, então o preço precisa dizer isso.
+export const tarifaDuracao = (meses) =>
+  meses >= 12 ? 1.00
+  : meses >= 6 ? 1.12
+  : meses >= 3 ? 1.22
+  : 1.35
+
+// Exclusividade de categoria entra sem custo a partir do contrato anual.
+export const exclusividadeInclusa = (meses) => meses >= 12
+
+// O pacote que a proposta oferece. É o estado inicial da calculadora e a base
+// dos valores exibidos na seção de investimento.
+export const pacoteProposto = {
+  meses: 12,
+  mensais: { integracaoRepost: 1, reelMulti: 1 },
+  storiesPack: 5,
+  brandDay: 3,
+  momentoAssinatura: 2,
+  exclusividade: true,
+  direitos: '12m',
+  expressa: false,
+}
+
 export const contrato = {
   meses: 12,
-  mensal: 4700,
-  aVista: 47000,
+  mensal: 6400,
+  aVista: 64000,
+  integracoesPorMes: 1,
   reelsPorMes: 1,
   gavetasPorMes: 5,
   // Valor de tabela do escopo, somando só linhas públicas da nossa tabela de
   // valores (ver /midiakit). O multiplicador interno de categoria de risco NÃO
   // entra aqui nem em nada que apareça na tela.
-  tabela: 58260,
+  tabela: 90660,
 }
 
-const totalMensal = contrato.mensal * contrato.meses          // 56.400
-const economia = totalMensal - contrato.aVista                // 9.400
-const reels = contrato.reelsPorMes * contrato.meses           // 12
-const gavetas = contrato.gavetasPorMes * contrato.meses       // 60
-const pecas = reels + gavetas                                 // 72
+const totalMensal = contrato.mensal * contrato.meses               // 76.800
+const economia = totalMensal - contrato.aVista                     // 12.800
+const integracoes = contrato.integracoesPorMes * contrato.meses    // 12
+const reels = contrato.reelsPorMes * contrato.meses                // 12
+const gavetas = contrato.gavetasPorMes * contrato.meses            // 60
+const pecas = integracoes + reels + gavetas                        // 84
 
 const real = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0 })
 const realCentavos = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 })
 
-export const numeros = { totalMensal, economia, reels, gavetas, pecas, real, realCentavos }
+export const numeros = { totalMensal, economia, integracoes, reels, gavetas, pecas, real, realCentavos }
 
 export default {
   nav: {
     parceiro: 'Álamo Benefícios',
     // Mesma ordem das âncoras declaradas em AlaNav.jsx
-    links: ['A tese', 'Quem somos', 'Portfólio', 'A marca', 'A rota', 'Entregáveis', 'Números', 'Investimento', 'Contato'],
+    links: ['A tese', 'Quem somos', 'Portfólio', 'A marca', 'A rota', 'Entregáveis', 'Números', 'Investimento', 'Calculadora', 'Contato'],
   },
 
   hero: {
@@ -47,14 +93,14 @@ export default {
       destino: 'Alasca',
       marca: 'com a Álamo junto.',
     },
-    sub: `Uma parceria de **12 meses** em que a Álamo sai das três unidades — Rio, São Paulo e Curitiba — e atravessa as Américas dentro do nosso conteúdo. São **${reels} Reels** e **${gavetas} gavetas de story** no ano, cobrindo o portfólio inteiro: **carro, casa, pet, saúde e bolso**.`,
+    sub: `Uma parceria de **12 meses** em que a Álamo sai das três unidades — Rio, São Paulo e Curitiba — e atravessa as Américas dentro do nosso conteúdo. São **${integracoes} integrações em vídeo**, **${reels} Reels** e **${gavetas} gavetas de story** no ano, cobrindo o portfólio inteiro: **carro, casa, pet, saúde e bolso**.`,
     ctaProposta: 'Ver o investimento',
     ctaContato: 'Falar com Ygor & Bea',
     odometro: [
-      { num: '12',       label: 'Meses de parceria'        },
-      { num: `${pecas}`, label: 'Peças de conteúdo no ano' },
-      { num: '5',        label: 'Frentes do portfólio'     },
-      { num: '+200K',    label: 'Pessoas acompanhando'     },
+      { num: '12',           label: 'Meses de parceria'        },
+      { num: `${pecas}`,     label: 'Peças de conteúdo no ano' },
+      { num: '+200 mil',     label: 'Pessoas acompanhando'     },
+      { num: '+25 milhões',  label: 'Visualizações até agora'  },
     ],
   },
 
@@ -92,7 +138,7 @@ export default {
         titulo: 'Um ano de presença, não um post',
         paragrafos: [
           'Campanha pontual some. Doze meses de presença contínua constroem associação de marca — e dão espaço pra apresentar um produto diferente por mês, sem cansar ninguém.',
-          'São **72 peças de conteúdo** distribuídas ao longo do ano, não um pico e o silêncio depois.',
+          `São **${pecas} peças de conteúdo** distribuídas ao longo do ano, não um pico e o silêncio depois.`,
         ],
       },
     ],
@@ -182,8 +228,8 @@ export default {
       },
       {
         tag: 'Na tela',
-        titulo: 'Menção falada e selo nos Reels',
-        texto: 'A Álamo é citada nominalmente nos Reels do contrato e a marca aparece em selo no vídeo, sem depender de o espectador ler a legenda.',
+        titulo: 'Menção falada e selo nas peças de vídeo',
+        texto: 'A Álamo é citada nominalmente na integração do YouTube e no Reel de cada mês, e a marca aparece em selo no vídeo — sem depender de o espectador ler a legenda.',
       },
       {
         tag: 'Nos stories',
@@ -282,6 +328,12 @@ export default {
     mensal: [
       {
         qtd: '1',
+        unidade: 'Integração',
+        titulo: 'Integração em vídeo no YouTube',
+        texto: 'Um bloco de 60 a 90 segundos sobre a Álamo dentro de um vlog orgânico do canal, com corte republicado em Reels, TikTok e Facebook. É o formato de maior confiança: a marca aparece no meio da viagem, não num anúncio à parte.',
+      },
+      {
+        qtd: '1',
         unidade: 'Reel',
         titulo: 'Reel mensal com a Álamo',
         texto: 'Um Reel por mês publicado no nosso perfil principal, com a Álamo citada e em selo. Distribuído também em TikTok e YouTube Shorts, sem custo adicional.',
@@ -293,8 +345,8 @@ export default {
         texto: 'Cinco sequências de story ao longo do mês, cada uma com link e marcação da Álamo — o formato que mais converte clique pra simulação.',
       },
     ],
-    calendarioRotulo: 'Calendário editorial dos 12 Reels',
-    calendarioLead: 'Uma frente do portfólio por mês, encaixada no ponto da rota onde ela faz sentido sozinha.',
+    calendarioRotulo: 'Calendário editorial dos 12 meses',
+    calendarioLead: 'Uma frente do portfólio por mês, encaixada no ponto da rota onde ela faz sentido sozinha. Cada tema abaixo rende as duas peças de vídeo do mês — a integração no YouTube e o Reel dedicado.',
     calendario: [
       { mes: '01', tema: 'Abertura da parceria',       frente: 'Todas',     texto: 'Quem é a Álamo, o que ela cobre e por que ela vai junto — gravado na unidade do Rio, na largada.' },
       { mes: '02', tema: 'O carro é a casa',           frente: 'O carro',   texto: 'Proteção veicular e assistência 24h, gravado na unidade de São Paulo durante a descida.' },
@@ -311,23 +363,24 @@ export default {
     ],
     anoRotulo: 'No total dos 12 meses',
     ano: [
-      { num: `${reels}`,   label: 'Reels publicados'       },
-      { num: `${gavetas}`, label: 'Gavetas de story'       },
-      { num: '3',          label: 'Unidades documentadas'  },
-      { num: '2',          label: 'Bandeiras nos extremos' },
+      { num: `${integracoes}`, label: 'Integrações em vídeo'  },
+      { num: `${reels}`,       label: 'Reels publicados'      },
+      { num: `${gavetas}`,     label: 'Gavetas de story'      },
+      { num: '3',              label: 'Unidades documentadas' },
+      { num: '2',              label: 'Bandeiras nos extremos'},
     ],
     extrasRotulo: 'Incluso no pacote, sem cobrança extra',
     extras: [
       'Direito de uso de todo o material bruto e editado nas campanhas próprias da Álamo durante a vigência e por 12 meses após o fim dela',
       'Redistribuição das peças nos canais da Álamo (perfil, site, anúncios) sem limite de veiculação',
       'Exclusividade de categoria: nenhuma outra associação de proteção ou clube de benefícios concorrente aparece no nosso conteúdo',
-      'Aprovação prévia de roteiro pela Álamo antes da publicação de cada Reel',
+      'Aprovação prévia de roteiro pela Álamo antes da publicação de cada peça de vídeo',
       'Relatório de desempenho a cada trimestre, com alcance, visualizações e engajamento de cada peça',
       'Destaque fixo no Instagram reunindo todo o conteúdo da parceria, mantido no perfil após o fim do contrato',
     ],
     nota: {
       rotulo: 'Sobre o calendário:',
-      texto: 'a contagem dos doze meses começa na data de assinatura, e o calendário acima é uma proposta — a ordem dos temas se ajusta ao ritmo real da rota e às campanhas de vocês. As gravações nas três unidades acontecem no trecho de descida e não substituem o Reel mensal.',
+      texto: 'a contagem dos doze meses começa na data de assinatura, e o calendário acima é uma proposta — a ordem dos temas se ajusta ao ritmo real da rota e às campanhas de vocês. As gravações nas três unidades acontecem no trecho de descida e não substituem as peças mensais.',
     },
   },
 
@@ -336,10 +389,10 @@ export default {
     titulo: 'Audiência real, engajada e no perfil de quem contrata proteção.',
     lead: 'Dados consolidados de Instagram, TikTok, Facebook e YouTube — a base que vai acompanhar a Álamo em cada fronteira cruzada.',
     stats: [
-      { num: '+25M',  label: 'Visualizações'     },
-      { num: '+500K', label: 'Curtidas'          },
-      { num: '+300K', label: 'Compartilhamentos' },
-      { num: '+100K', label: 'Salvos'            },
+      { num: '+25 milhões', label: 'Visualizações até agora' },
+      { num: '+500 mil',    label: 'Curtidas'                },
+      { num: '+300 mil',    label: 'Compartilhamentos'       },
+      { num: '+100 mil',    label: 'Salvos'                  },
     ],
     barras: [
       { label: 'Público feminino',         pct: 56 },
@@ -385,10 +438,15 @@ export default {
   investimento: {
     eyebrow: '09 · O investimento',
     titulo: 'Duas formas de fechar. O pacote é o mesmo nas duas.',
-    lead: `Parceria de doze meses, com volume de entrega fixo. O escopo abaixo soma ${real(contrato.tabela)} na nossa tabela de valores — a proposta sai por ${real(totalMensal)} e ainda inclui os dois momentos assinatura, que são item sob consulta.`,
+    lead: `O escopo abaixo soma ${real(contrato.tabela)} comprado peça a peça. Com contrato anual a exclusividade de categoria entra sem custo e a proposta sai por ${real(totalMensal)} — mais os dois momentos assinatura, que são item sob consulta e aqui vão inclusos.`,
     composicaoRotulo: 'Como esse valor se forma',
     composicaoLead: 'Todas as linhas abaixo saem da nossa tabela de valores. Nada aqui é preço montado só para esta proposta.',
     composicao: [
+      {
+        item: '12 integrações em vídeo',
+        detalhe: '12 × R$ 1.500 · YouTube + repost em IG Reels, TikTok e Facebook',
+        valor: 'R$ 18.000',
+      },
       {
         item: '12 Reels dedicados multiplataforma',
         detalhe: '12 × R$ 1.800 · cada um publicado em Instagram, TikTok, YouTube e Facebook',
@@ -402,12 +460,12 @@ export default {
       {
         item: 'Exclusividade de categoria',
         detalhe: '+20% sobre a produção · nenhum concorrente aparece no nosso conteúdo',
-        valor: '+ R$ 5.640',
+        valor: '+ R$ 9.240',
       },
       {
         item: 'Direitos de uso e impulsionamento — 12 meses',
         detalhe: '+50% · libera todo o material para a mídia paga da Álamo',
-        valor: '+ R$ 16.920',
+        valor: '+ R$ 27.720',
       },
       {
         item: '3 brand days nas unidades',
@@ -415,7 +473,13 @@ export default {
         valor: '+ R$ 7.500',
       },
     ],
-    composicaoTotal: { rotulo: 'Valor de tabela', valor: real(contrato.tabela) },
+    composicaoTotal: { rotulo: 'Valor de tabela · comprado peça a peça', valor: real(contrato.tabela) },
+    composicaoDesconto: {
+      rotulo: 'Contrato de 12 meses',
+      detalhe: 'A exclusividade de categoria deixa de ser adicional e entra inclusa. É o que separa uma campanha pontual de uma parceria de um ano.',
+      valor: `− ${real(contrato.tabela - totalMensal)}`,
+    },
+    composicaoFinal: { rotulo: 'Nesta proposta', valor: real(totalMensal) },
     composicaoBonus: {
       rotulo: 'Momento assinatura em Ushuaia e no Alasca',
       detalhe: 'Registro em marco geográfico com sessão de fotos e cessão de imagem. Na tabela é item sob consulta — nesta proposta entra sem cobrança adicional.',
@@ -454,7 +518,8 @@ export default {
     ],
     incluiRotulo: 'Os dois planos incluem',
     inclui: [
-      `${reels} Reels ao longo dos doze meses, cobrindo as cinco frentes do portfólio`,
+      `${integracoes} integrações em vídeo no YouTube, com repost em Reels, TikTok e Facebook`,
+      `${reels} Reels dedicados ao longo dos doze meses, cobrindo as cinco frentes do portfólio`,
       `${gavetas} gavetas de story ao longo dos doze meses`,
       'Conteúdo gravado nas unidades do Rio, de São Paulo e de Curitiba',
       'Bandeira da Álamo registrada em Ushuaia e no Alasca',
@@ -472,8 +537,77 @@ export default {
     },
   },
 
+  calculadora: {
+    eyebrow: '10 · Monte o seu pacote',
+    titulo: 'Mexa no pacote e veja o preço acompanhar.',
+    lead: 'A configuração abaixo já vem com o que a gente propôs. Tire, acrescente, encurte ou estenda o contrato — o valor recalcula na hora, pelos mesmos preços de tabela usados acima.',
+    mensaisRotulo: 'Peças por mês',
+    mensais: [
+      { chave: 'integracaoRepost', nome: 'Integração em vídeo no YouTube', detalhe: '60–90s dentro de um vlog orgânico + corte em Reels, TikTok e Facebook' },
+      { chave: 'reelMulti',        nome: 'Reels dedicado multiplataforma', detalhe: 'Peça curta exclusiva, publicada nas 4 plataformas' },
+      { chave: 'reelAdCode',       nome: 'Reel com IG ad code',           detalhe: 'Código de anúncio para a Álamo impulsionar' },
+      { chave: 'review',           nome: 'Review completo',               detalhe: 'Vídeo inteiro dedicado — título, thumb e roteiro' },
+    ],
+    storiesRotulo: 'Stories por mês',
+    storiesOpcoes: [0, 3, 5, 10],
+    storiesNenhum: 'Nenhum',
+    unicosRotulo: 'Produção especial · uma vez, não por mês',
+    unicos: [
+      { chave: 'brandDay',          nome: 'Brand day nas unidades',  detalhe: 'Dia de gravação com deslocamento: vídeo dedicado + stories no local', max: 6 },
+      { chave: 'momentoAssinatura', nome: 'Momento assinatura',      detalhe: 'Registro em marco geográfico com sessão de fotos e cessão de imagem', max: 2, sobConsulta: true },
+    ],
+    duracaoRotulo: 'Duração do contrato',
+    duracaoSufixo: 'meses',
+    duracaoNota: 'Doze meses é a nossa tarifa de referência. Contratos mais curtos custam mais por peça, porque planejamento, alinhamento de roteiro e aprovação não se diluem numa campanha pontual.',
+    adicionaisRotulo: 'Adicionais',
+    adicionaisItens: [
+      { chave: 'exclusividade', nome: 'Exclusividade de categoria', detalhe: '+20% · nenhum concorrente aparece no nosso conteúdo', inclusaNota: 'Inclusa no contrato de 12 meses' },
+      { chave: 'expressa',      nome: 'Entrega em menos de 7 dias',  detalhe: '+30% sobre o pacote' },
+    ],
+    direitosRotulo: 'Direitos de uso e impulsionamento',
+    direitosOpcoes: [
+      { valor: 'nenhum', nome: 'Sem mídia paga', detalhe: 'As peças ficam só nos nossos canais' },
+      { valor: '90',     nome: '90 dias',        detalhe: '+30%' },
+      { valor: '12m',    nome: '12 meses',       detalhe: '+50%' },
+    ],
+    resumoRotulo: 'O seu pacote',
+    linhas: {
+      producao: 'Produção',
+      duracao: 'Tarifa de contrato',
+      exclusividade: 'Exclusividade de categoria',
+      direitos: 'Direitos de uso',
+      expressa: 'Entrega expressa',
+      especial: 'Produção especial',
+      total: 'Total do contrato',
+      porMes: 'Por mês',
+      porPeca: 'Por peça de conteúdo',
+      pecas: 'peças no período',
+      inclusa: 'inclusa',
+      sobConsulta: 'sob consulta',
+    },
+    comparativo: {
+      rotulo: 'Se fosse campanha pontual',
+      texto: 'Esse mesmo pacote, contratado por um mês só, sairia {avulso} por mês — {pct} mais caro que no contrato de {meses}.',
+      rotuloAnual: 'O que muda com contrato anual',
+      textoAnual: 'Contratado por doze meses, esse mesmo pacote cai para {anual} por mês — {pct} menos do que na campanha pontual.',
+    },
+    recomendado: 'Plano recomendado',
+    alterado: 'Você mudou o pacote proposto.',
+    restaurar: 'Voltar ao pacote da proposta',
+    cta: 'Mandar esse pacote no WhatsApp',
+    ctaMensagem: 'Olá! Montamos um pacote na proposta do Nerds na Estrada e queremos conversar sobre ele.',
+    vazio: 'Escolha pelo menos uma peça para ver o valor.',
+  },
+
+  pdf: {
+    rotulo: 'Baixar em PDF',
+    // O navegador usa o <title> do documento como nome sugerido do arquivo, e
+    // o título real da página é longo demais para virar nome de arquivo.
+    arquivo: 'Proposta Alamo Beneficios - Nerds na Estrada',
+  },
+
   contato: {
-    eyebrow: '10 · Vamos conversar',
+    eyebrow: '11 · Vamos conversar',
     titulo: 'O carro já está pronto. Falta a Álamo entrar junto.',
     lead: 'A rota está desenhada, as três unidades estão no caminho e o calendário de conteúdo já existe. O próximo passo é uma conversa de trinta minutos com o time de vocês. Segue nosso contato direto — respondemos no mesmo dia.',
     // Chaves iguais às da lista de contatos em AlaContato.jsx

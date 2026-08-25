@@ -1,3 +1,4 @@
+import BotaoPdf from './BotaoPdf'
 import textos from '../textos'
 
 // Âncoras das seções, na mesma ordem dos rótulos de nav.links em textos.js.
@@ -5,7 +6,7 @@ import textos from '../textos'
 // itens a faixa não cabe em tela média sem virar rolagem horizontal.
 const ancoras = [
   '#tese', '#quem-somos', '#portfolio', '#a-marca', '#rota',
-  '#entregaveis', '#numeros', '#investimento', '#contato',
+  '#entregaveis', '#numeros', '#investimento', '#calculadora', '#contato',
 ]
 
 export default function AlaNav() {
@@ -29,6 +30,7 @@ export default function AlaNav() {
             <a key={href} href={href}>{textos.nav.links[i]}</a>
           ))}
         </div>
+        <BotaoPdf />
       </div>
     </nav>
   )
