@@ -3,9 +3,8 @@
 // o conteúdo mora num módulo simples em vez de um sistema de dicionários.
 // Trechos entre **asteriscos** viram <strong>/<b> na tela (ver Rich.jsx).
 
-// Tabela de preços unitários, a mesma publicada em /midiakit. A calculadora e
-// a composição do investimento leem daqui, então não há como um número da tela
-// desencontrar do outro.
+// Tabela de preços unitários. A calculadora e a composição do investimento
+// leem daqui, então não há como um número da tela desencontrar do outro.
 // Âncora real: reelMulti (1.100) + 5 gavetas (400) = R$ 1.500, que é o que a
 // gente cobra hoje por vídeo curto nas quatro plataformas com 5 fileiras de
 // story. Todo o resto foi escalado a partir desse número, e não de uma tabela
@@ -65,9 +64,8 @@ export const contrato = {
   adCodes: 8,
   reelsPorMes: 1,
   gavetasPorMes: 5,
-  // Valor de tabela do escopo, somando só linhas públicas da nossa tabela de
-  // valores (ver /midiakit). O multiplicador interno de categoria de risco NÃO
-  // entra aqui nem em nada que apareça na tela.
+  // Valor de tabela do escopo, comprado peça a peça. O multiplicador interno
+  // de categoria de risco NÃO entra aqui nem em nada que apareça na tela.
   tabela: 40800,
 }
 
