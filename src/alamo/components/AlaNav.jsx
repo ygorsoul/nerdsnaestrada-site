@@ -5,8 +5,8 @@ import textos from '../textos'
 // #equipamentos fica de fora do menu de propósito: a seção existe, mas com dez
 // itens a faixa não cabe em tela média sem virar rolagem horizontal.
 const ancoras = [
-  '#tese', '#quem-somos', '#portfolio', '#a-marca', '#rota',
-  '#entregaveis', '#numeros', '#investimento', '#calculadora', '#contato',
+  '#proposta', '#tese', '#quem-somos', '#portfolio',
+  '#rota', '#entregaveis', '#investimento', '#contato',
 ]
 
 export default function AlaNav() {

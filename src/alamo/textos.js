@@ -78,7 +78,7 @@ export default {
   nav: {
     parceiro: 'Álamo Benefícios',
     // Mesma ordem das âncoras declaradas em AlaNav.jsx
-    links: ['A tese', 'Quem somos', 'Portfólio', 'A marca', 'A rota', 'Entregáveis', 'Números', 'Investimento', 'Calculadora', 'Contato'],
+    links: ['A proposta', 'Por quê', 'Quem somos', 'Portfólio', 'A rota', 'O que recebe', 'Investimento', 'Contato'],
   },
 
   hero: {
@@ -104,42 +104,58 @@ export default {
     ],
   },
 
+  // A oferta inteira em uma tela, logo depois do hero. Quem só lê o topo já
+  // sai sabendo o que recebe e quanto custa; o detalhe fica mais abaixo.
+  proposta: {
+    eyebrow: 'A proposta',
+    titulo: 'O que a Álamo recebe, e quanto custa.',
+    lead: 'Está tudo aqui. O resto da página é o detalhe de cada linha, para quem quiser conferir.',
+    recebeRotulo: 'Durante 12 meses',
+    recebe: [
+      `${integracoes} integrações em vídeo no YouTube, com repost em Reels, TikTok e Facebook`,
+      `${reels} Reels dedicados, publicados nas quatro plataformas`,
+      `${gavetas} gavetas de story, com link e marcação da Álamo`,
+      'Conteúdo gravado nas unidades do Rio, de São Paulo e de Curitiba',
+      'Bandeira da Álamo fincada em Ushuaia e no Alasca',
+      'Exclusividade de categoria e direito de uso do material em mídia paga',
+    ],
+    precoRotulo: 'Investimento',
+    mensal: real(contrato.mensal),
+    mensalSufixo: '/mês',
+    mensalDetalhe: `${contrato.meses}× · total de ${real(totalMensal)} no ano`,
+    aVistaRotulo: 'Ou à vista',
+    aVista: real(contrato.aVista),
+    aVistaDetalhe: `${real(economia)} de economia — o equivalente a dois meses`,
+    pecas: `${pecas} peças de conteúdo no ano`,
+    tabela: `Valor de tabela: ${real(contrato.tabela)}`,
+    ctaDetalhe: 'Ver como esse valor se forma',
+    ctaContato: 'Falar com Ygor & Bea',
+  },
+
   tese: {
-    eyebrow: '01 · A tese',
+    eyebrow: '01 · Por que faz sentido',
     titulo: 'A Álamo não protege só o carro. E a gente não vai só dirigir.',
     lead: 'Por doze meses a estrada é a nossa vida inteira: o veículo, a casa que ficou pra trás, o gato que vai junto, a saúde longe de qualquer coisa conhecida e cada real do orçamento. É exatamente o mapa do portfólio de vocês — e é o que a gente vai viver na frente da câmera.',
-    cards: [
+    // Sem grade de cartões aqui de propósito: a seção anterior e a seguinte já
+    // são blocos, e três argumentos em texto corrido quebram o ritmo.
+    argumentos: [
       {
-        n: '01',
-        titulo: 'Cinco frentes, não um produto só',
-        paragrafos: [
-          'Proteção veicular é a porta de entrada, mas a Álamo também tem **assistência residencial, pet, telemedicina, saúde com desconto, clube de vantagens e combustível mais barato**.',
-          'Cada uma dessas frentes tem um momento real da viagem onde ela faz sentido sozinha. O conteúdo não precisa forçar nada.',
-        ],
+        numero: '5',
+        unidade: 'frentes',
+        titulo: 'Não é um produto só',
+        texto: 'Proteção veicular é a porta de entrada, mas a Álamo também cuida da casa, do pet, da saúde e do bolso. Cada uma dessas frentes tem um momento real da viagem onde ela aparece sozinha — o conteúdo não precisa forçar nada.',
       },
       {
-        n: '02',
+        numero: '+200 mil',
+        unidade: 'pessoas',
         titulo: 'O público é exatamente o seu',
-        paragrafos: [
-          'Quem nos acompanha é dono de carro, roda muito e planeja viagem de estrada. É a mesma pessoa que pesquisa proteção veicular porque **seguradora tradicional recusou o perfil ou cobrou caro demais**.',
-          'E é gente que quer viajar mais gastando menos — que é literalmente o que o Clube de Vantagens e o desconto no combustível entregam.',
-        ],
+        texto: 'Quem nos acompanha é dono de carro, roda muito e quer viajar gastando menos. É a mesma pessoa que procura proteção veicular porque seguradora tradicional recusou o perfil ou cobrou caro demais — e que o Clube de Vantagens resolve.',
       },
       {
-        n: '03',
-        titulo: 'Confiança não se compra em anúncio',
-        paragrafos: [
-          'Proteção é um produto de confiança — e confiança é a moeda de um criador que aparece todo dia mostrando a vida real, inclusive quando dá errado.',
-          'Quando a gente fala da Álamo, não é um banner. É **a recomendação de quem o público já escolheu ouvir**.',
-        ],
-      },
-      {
-        n: '04',
-        titulo: 'Um ano de presença, não um post',
-        paragrafos: [
-          'Campanha pontual some. Doze meses de presença contínua constroem associação de marca — e dão espaço pra apresentar um produto diferente por mês, sem cansar ninguém.',
-          `São **${pecas} peças de conteúdo** distribuídas ao longo do ano, não um pico e o silêncio depois.`,
-        ],
+        numero: '12',
+        unidade: 'meses',
+        titulo: 'Presença, não um post',
+        texto: `Campanha pontual some. Um ano de presença contínua constrói associação de marca e dá espaço para apresentar um produto diferente por mês, sem cansar ninguém. São ${pecas} peças distribuídas ao longo do ano.`,
       },
     ],
     faixa: {
@@ -148,6 +164,8 @@ export default {
     },
   },
 
+  // Bloco escuro de largura total: é a única quebra forte no creme da página
+  // e por isso concentra quem somos, alcance e equipamento num lugar só.
   quemSomos: {
     eyebrow: '02 · Quem somos',
     titulo: 'Um casal, um gato, uma estrada e uma câmera sempre ligada.',
@@ -166,6 +184,20 @@ export default {
     ],
     citacao: '"Viajar é desbloquear um novo mapa da vida, dentro de si mesmo. Você não precisa zerar o mundo, só precisa jogar sua melhor versão em cada fase."',
     autor: '— Ygor, no nosso livro',
+    alcanceRotulo: 'O alcance que a Álamo passa a ter',
+    alcance: [
+      { num: '+25 milhões', label: 'Visualizações até agora' },
+      { num: '+500 mil',    label: 'Curtidas'                },
+      { num: '+300 mil',    label: 'Compartilhamentos'       },
+      { num: '+100 mil',    label: 'Salvos'                  },
+    ],
+    perfil: [
+      { label: '25 a 34 anos',      pct: 47 },
+      { label: 'Público feminino',  pct: 56 },
+      { label: 'Em São Paulo',      pct: 54 },
+    ],
+    equipamentosRotulo: 'Tudo gravado com',
+    equipamentos: ['iPhone 17 Pro Max', 'DJI Osmo Pocket', 'Akaso 360', 'DJI Mini 3'],
   },
 
   portfolio: {
@@ -216,50 +248,10 @@ export default {
     },
   },
 
-  marca: {
-    eyebrow: '04 · Onde a marca aparece',
-    titulo: 'A Álamo não fica só na legenda.',
-    lead: 'Cada ponto abaixo é um lugar concreto onde a marca Álamo aparece durante os doze meses de parceria — na tela, no perfil, nas unidades e nos dois extremos do continente.',
-    pontos: [
-      {
-        tag: 'Na abertura',
-        titulo: 'Anúncio da parceria nos nossos canais',
-        texto: 'Post e sequência de story declarando a Álamo parceira oficial da expedição, publicados no início da vigência para todo o público de uma vez.',
-      },
-      {
-        tag: 'Na tela',
-        titulo: 'Menção falada e selo nas peças de vídeo',
-        texto: 'A Álamo é citada nominalmente na integração do YouTube e no Reel de cada mês, e a marca aparece em selo no vídeo — sem depender de o espectador ler a legenda.',
-      },
-      {
-        tag: 'Nos stories',
-        titulo: 'Link e marcação em cada gaveta',
-        texto: 'Cada gaveta de story leva o link da Álamo, com marcação do perfil de vocês — caminho direto do conteúdo pra simulação.',
-      },
-      {
-        tag: 'Na bio',
-        titulo: 'Link fixo e destaque permanente',
-        texto: 'Link da Álamo fixo na bio durante toda a vigência e um destaque no Instagram reunindo o conteúdo da parceria — que fica no perfil mesmo depois do contrato acabar.',
-      },
-      {
-        tag: 'Nas unidades',
-        titulo: 'Conteúdo gravado no Rio, em SP e em Curitiba',
-        texto: 'As três unidades entram na rota da descida e viram cenário: equipe, atendimento e bastidor da Álamo aparecendo em vídeo, com gente de verdade.',
-      },
-      {
-        tag: 'Nos extremos',
-        titulo: 'Bandeira da Álamo em Ushuaia e no Alasca',
-        texto: 'A bandeira da Álamo fincada nos dois pontos-marco da expedição, registrada em foto e vídeo — o conteúdo mais compartilhável do contrato inteiro.',
-      },
-    ],
-    faixa: {
-      rotulo: 'Exclusividade',
-      texto: 'Durante os doze meses, **nenhuma outra associação de proteção, seguradora ou clube de benefícios concorrente** aparece no nosso conteúdo. A categoria é da Álamo.',
-    },
-  },
+
 
   rota: {
-    eyebrow: '05 · A rota e as unidades',
+    eyebrow: '04 · A rota e as unidades',
     titulo: 'As três unidades já estão no caminho. Não é desvio, é roteiro.',
     lead: 'A expedição desce do Rio de Janeiro até Ushuaia e de lá sobe sem parar até o Alasca. Rio, São Paulo e Curitiba caem exatamente no trecho de descida — dá pra documentar as três unidades sem tirar um quilômetro do trajeto.',
     paradas: [
@@ -321,9 +313,9 @@ export default {
   },
 
   entregaveis: {
-    eyebrow: '06 · O que produzimos',
+    eyebrow: '05 · O que a Álamo recebe',
     titulo: 'Um pacote fixo, todo mês, durante doze meses.',
-    lead: 'Nada de "conforme a oportunidade". O contrato tem volume definido: a Álamo sabe exatamente o que recebe em cada mês da parceria.',
+    lead: 'Nada de "conforme a oportunidade". O contrato tem volume definido, e cada peça tem lugar marcado no calendário.',
     mensalRotulo: 'Todo mês',
     mensal: [
       {
@@ -345,8 +337,9 @@ export default {
         texto: 'Cinco sequências de story ao longo do mês, cada uma com link e marcação da Álamo — o formato que mais converte clique pra simulação.',
       },
     ],
-    calendarioRotulo: 'Calendário editorial dos 12 meses',
-    calendarioLead: 'Uma frente do portfólio por mês, encaixada no ponto da rota onde ela faz sentido sozinha. Cada tema abaixo rende as duas peças de vídeo do mês — a integração no YouTube e o Reel dedicado.',
+    calendarioRotulo: 'Calendário editorial',
+    calendarioColunas: ['Mês', 'Tema', 'Frente'],
+    calendarioLead: 'Uma frente do portfólio por mês, encaixada no ponto da rota onde ela faz sentido. Cada tema rende as duas peças de vídeo do mês.',
     calendario: [
       { mes: '01', tema: 'Abertura da parceria',       frente: 'Todas',     texto: 'Quem é a Álamo, o que ela cobre e por que ela vai junto — gravado na unidade do Rio, na largada.' },
       { mes: '02', tema: 'O carro é a casa',           frente: 'O carro',   texto: 'Proteção veicular e assistência 24h, gravado na unidade de São Paulo durante a descida.' },
@@ -361,14 +354,43 @@ export default {
       { mes: '11', tema: 'Mês livre da Álamo',         frente: 'A definir', texto: 'Reservado para a campanha ou o lançamento que vocês quiserem encaixar no período.' },
       { mes: '12', tema: 'Um ano de estrada',          frente: 'Todas',     texto: 'Fechamento: o balanço dos doze meses e de tudo que a Álamo cobriu no caminho.' },
     ],
-    anoRotulo: 'No total dos 12 meses',
-    ano: [
-      { num: `${integracoes}`, label: 'Integrações em vídeo'  },
-      { num: `${reels}`,       label: 'Reels publicados'      },
-      { num: `${gavetas}`,     label: 'Gavetas de story'      },
-      { num: '3',              label: 'Unidades documentadas' },
-      { num: '2',              label: 'Bandeiras nos extremos'},
+    ondeRotulo: 'Onde a marca aparece',
+    onde: [
+      {
+        tag: 'Na abertura',
+        titulo: 'Anúncio da parceria nos nossos canais',
+        texto: 'Post e sequência de story declarando a Álamo parceira oficial da expedição, publicados no início da vigência para todo o público de uma vez.',
+      },
+      {
+        tag: 'Na tela',
+        titulo: 'Menção falada e selo nas peças de vídeo',
+        texto: 'A Álamo é citada nominalmente na integração do YouTube e no Reel de cada mês, e a marca aparece em selo no vídeo — sem depender de o espectador ler a legenda.',
+      },
+      {
+        tag: 'Nos stories',
+        titulo: 'Link e marcação em cada gaveta',
+        texto: 'Cada gaveta de story leva o link da Álamo, com marcação do perfil de vocês — caminho direto do conteúdo pra simulação.',
+      },
+      {
+        tag: 'Na bio',
+        titulo: 'Link fixo e destaque permanente',
+        texto: 'Link da Álamo fixo na bio durante toda a vigência e um destaque no Instagram reunindo o conteúdo da parceria — que fica no perfil mesmo depois do contrato acabar.',
+      },
+      {
+        tag: 'Nas unidades',
+        titulo: 'Conteúdo gravado no Rio, em SP e em Curitiba',
+        texto: 'As três unidades entram na rota da descida e viram cenário: equipe, atendimento e bastidor da Álamo aparecendo em vídeo, com gente de verdade.',
+      },
+      {
+        tag: 'Nos extremos',
+        titulo: 'Bandeira da Álamo em Ushuaia e no Alasca',
+        texto: 'A bandeira da Álamo fincada nos dois pontos-marco da expedição, registrada em foto e vídeo — o conteúdo mais compartilhável do contrato inteiro.',
+      },
     ],
+    faixa: {
+      rotulo: 'Exclusividade',
+      texto: 'Durante os doze meses, **nenhuma outra associação de proteção, seguradora ou clube de benefícios concorrente** aparece no nosso conteúdo. A categoria é da Álamo.',
+    },
     extrasRotulo: 'Incluso no pacote, sem cobrança extra',
     extras: [
       'Direito de uso de todo o material bruto e editado nas campanhas próprias da Álamo durante a vigência e por 12 meses após o fim dela',
@@ -384,59 +406,10 @@ export default {
     },
   },
 
-  numeros: {
-    eyebrow: '07 · Números e público',
-    titulo: 'Audiência real, engajada e no perfil de quem contrata proteção.',
-    lead: 'Dados consolidados de Instagram, TikTok, Facebook e YouTube — a base que vai acompanhar a Álamo em cada fronteira cruzada.',
-    stats: [
-      { num: '+25 milhões', label: 'Visualizações até agora' },
-      { num: '+500 mil',    label: 'Curtidas'                },
-      { num: '+300 mil',    label: 'Compartilhamentos'       },
-      { num: '+100 mil',    label: 'Salvos'                  },
-    ],
-    barras: [
-      { label: 'Público feminino',         pct: 56 },
-      { label: 'Público masculino',        pct: 44 },
-      { label: '25 a 34 anos',             pct: 47 },
-      { label: 'Localizados em São Paulo', pct: 54 },
-    ],
-    tituloTags: 'O que esse público busca',
-    tags: [
-      'Viagem de carro', 'Carros', 'Vida na estrada', 'Aventura', 'Roteiros',
-      '4x4 / Overland', 'Vida nômade', 'Economia de viagem', 'Casal viajante', 'Pets na estrada',
-    ],
-  },
 
-  equipamentos: {
-    eyebrow: '08 · Equipamentos',
-    titulo: 'Conteúdo com padrão de marca, não de improviso.',
-    lead: 'O setup de captação garante que a marca Álamo apareça com qualidade profissional em qualquer terreno — do balcão da unidade ao gelo do Ártico.',
-    itens: [
-      {
-        eyebrow: 'Câmera principal',
-        nome: 'iPhone 17 Pro Max',
-        texto: 'Fotos e vídeos em alta definição, cores fiéis e estabilidade que elevam o padrão de qualquer conteúdo de marca.',
-      },
-      {
-        eyebrow: 'Estabilização',
-        nome: 'DJI Osmo Pocket',
-        texto: 'Vídeos suaves e profissionais mesmo em movimento — essencial para cenas dentro e ao redor do veículo em estrada.',
-      },
-      {
-        eyebrow: 'Câmera 360°',
-        nome: 'Akaso 360',
-        texto: 'Captura de todos os ângulos em um único take, ideal para mostrar cenário e ambiente em cada trecho.',
-      },
-      {
-        eyebrow: 'Registro aéreo',
-        nome: 'DJI Mini 3',
-        texto: 'Imagens aéreas cruzando cordilheira, deserto e estrada — os planos que mostram a escala real da expedição.',
-      },
-    ],
-  },
 
   investimento: {
-    eyebrow: '09 · O investimento',
+    eyebrow: '06 · O investimento',
     titulo: 'Duas formas de fechar. O pacote é o mesmo nas duas.',
     lead: `O escopo abaixo soma ${real(contrato.tabela)} comprado peça a peça. Com contrato anual a exclusividade de categoria entra sem custo e a proposta sai por ${real(totalMensal)} — mais os dois momentos assinatura, que são item sob consulta e aqui vão inclusos.`,
     composicaoRotulo: 'Como esse valor se forma',
@@ -538,7 +511,7 @@ export default {
   },
 
   calculadora: {
-    eyebrow: '10 · Monte o seu pacote',
+    eyebrow: '07 · Monte o seu pacote',
     titulo: 'Mexa no pacote e veja o preço acompanhar.',
     lead: 'A configuração abaixo já vem com o que a gente propôs. Tire, acrescente, encurte ou estenda o contrato — o valor recalcula na hora, pelos mesmos preços de tabela usados acima.',
     mensaisRotulo: 'Peças por mês',
@@ -607,7 +580,7 @@ export default {
   },
 
   contato: {
-    eyebrow: '11 · Vamos conversar',
+    eyebrow: '08 · Vamos conversar',
     titulo: 'O carro já está pronto. Falta a Álamo entrar junto.',
     lead: 'A rota está desenhada, as três unidades estão no caminho e o calendário de conteúdo já existe. O próximo passo é uma conversa de trinta minutos com o time de vocês. Segue nosso contato direto — respondemos no mesmo dia.',
     // Chaves iguais às da lista de contatos em AlaContato.jsx

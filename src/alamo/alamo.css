@@ -223,58 +223,99 @@ h1.headline .brand-line{ color:var(--navy-soft); font-size:0.46em; display:block
   box-shadow:0 1px 2px rgba(51,44,32,0.04);
 }
 
-/* ---------- 01 · a tese ---------- */
-.why-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; margin-top:44px; }
-@media (max-width:860px){ .why-grid{ grid-template-columns:1fr; } }
-.why-card{
-  background:#fff; border:1px solid var(--cream-300); border-radius:var(--radius);
-  padding:30px 28px; box-shadow:0 1px 2px rgba(51,44,32,0.04);
+/* ---------- a oferta na segunda tela ---------- */
+.proposta-topo{ background:linear-gradient(180deg, var(--cream-200), var(--cream-50)); }
+.oferta{
+  display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:0;
+  margin-top:32px; border:1px solid var(--cream-400); border-radius:var(--radius);
+  overflow:hidden; background:#fff; box-shadow:0 4px 20px rgba(51,44,32,0.07);
 }
-.why-card .why-n{
-  display:flex; align-items:center; gap:9px;
+@media (max-width:880px){ .oferta{ grid-template-columns:1fr; } }
+.oferta .lbl{
   font-size:11px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase;
-  color:var(--ala);
+  color:var(--stone-500); margin-bottom:16px;
 }
-.why-card .why-n .escudo{ height:15px; }
-.why-card h4{ font-size:23px; margin:12px 0 12px; letter-spacing:-0.01em; }
-.why-card p{ font-size:14.5px; color:var(--stone-600); }
-.why-card p + p{ margin-top:11px; }
-.why-card strong{ color:var(--stone-800); font-weight:600; }
+.oferta-recebe{ padding:32px 34px; }
+.oferta-preco{
+  padding:32px 34px; background:var(--navy); color:#fff;
+  display:flex; flex-direction:column;
+}
+.oferta-preco .lbl{ color:rgba(255,255,255,0.55); }
+.oferta-preco .valor{ display:flex; align-items:baseline; gap:8px; }
+.oferta-preco .valor b{ font-family:'Playfair Display', Georgia, serif; font-size:clamp(38px,5vw,52px); font-weight:600; line-height:1; color:#fff; }
+.oferta-preco .valor span{ font-size:13px; color:rgba(255,255,255,0.7); }
+.oferta-preco .detalhe{ margin-top:6px; font-size:13px; color:rgba(255,255,255,0.62); }
+.avista{
+  margin-top:20px; padding:16px 18px; border-radius:var(--radius-sm);
+  background:rgba(239,108,31,0.20); border:1px solid rgba(255,255,255,0.14);
+}
+.avista-lbl{ font-size:10.5px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:#FFC79A; }
+.avista-valor{ font-family:'Playfair Display', Georgia, serif; font-size:28px; font-weight:600; color:#fff; line-height:1.15; margin:3px 0 2px; }
+.avista-detalhe{ font-size:12.5px; color:rgba(255,255,255,0.75); }
+.oferta-meta{ margin-top:18px; display:flex; flex-direction:column; gap:4px; font-size:12px; color:rgba(255,255,255,0.5); }
+.oferta-cta{ margin-top:auto; padding-top:22px; display:flex; flex-direction:column; gap:9px; }
+.oferta-cta .btn{ justify-content:center; }
+.oferta-cta .btn.ghost{ color:#fff; border-color:rgba(255,255,255,0.28); }
+.oferta-cta .btn.ghost:hover{ background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.5); }
 
-.exclusive-strip{
-  margin-top:44px; padding:28px 30px;
-  border:1px solid var(--ala-line); border-radius:var(--radius);
-  background:var(--ala-wash);
-  display:flex; gap:24px; align-items:center; flex-wrap:wrap;
+/* ---------- 01 · por que faz sentido ---------- */
+/* Linhas de texto com a cifra na margem, em vez de grade de cartões: é a
+   variação de ritmo entre a oferta (cartão) e o bloco escuro seguinte. */
+.argumentos{ margin-top:36px; }
+.argumento{
+  display:grid; grid-template-columns:180px minmax(0,1fr); gap:32px;
+  padding:26px 0; border-top:1px solid var(--cream-400);
 }
-.exclusive-strip .escudo{ height:46px; color:var(--ala); flex-shrink:0; }
-.exclusive-strip .txt{ flex:1; min-width:280px; }
-.exclusive-strip .txt .lbl{
-  font-size:10.5px; font-weight:600; letter-spacing:0.16em;
-  text-transform:uppercase; color:var(--ala-deep); margin-bottom:8px;
+.argumento:last-of-type{ border-bottom:1px solid var(--cream-400); }
+@media (max-width:760px){ .argumento{ grid-template-columns:1fr; gap:10px; padding:20px 0; } }
+.argumento .cifra b{
+  display:block; font-family:'Playfair Display', Georgia, serif;
+  font-size:clamp(34px,4.4vw,46px); font-weight:600; color:var(--ala-deep); line-height:1;
 }
-.exclusive-strip .txt p{ font-size:16px; color:var(--stone-700); line-height:1.6; }
-.exclusive-strip .txt p b{ color:var(--navy); font-weight:600; }
+.argumento .cifra span{
+  display:block; margin-top:4px; font-size:11px; font-weight:600;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--stone-500);
+}
+.argumento .corpo h4{ font-size:22px; margin-bottom:8px; letter-spacing:-0.01em; }
+.argumento .corpo p{ font-size:15px; color:var(--stone-600); max-width:620px; }
 
-/* ---------- 02 · quem somos ---------- */
-.people{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:44px; }
-@media (max-width:760px){ .people{ grid-template-columns:1fr; } }
-.person{
-  background:#fff; border:1px solid var(--cream-300); border-radius:var(--radius);
-  padding:30px 28px; box-shadow:0 1px 2px rgba(51,44,32,0.04);
-}
-.person .who{ font-family:'Playfair Display', Georgia, serif; font-size:27px; font-weight:600; color:var(--navy); margin-bottom:3px; }
-.person .role{ font-size:12px; font-weight:600; color:var(--ala); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:14px; }
-.person p{ color:var(--stone-600); font-size:14.5px; }
-.quote{
-  margin-top:40px; padding:32px 34px;
-  border-left:3px solid var(--ala); border-radius:0 var(--radius) var(--radius) 0;
-  background:#fff; border-top:1px solid var(--cream-300);
-  border-right:1px solid var(--cream-300); border-bottom:1px solid var(--cream-300);
+/* ---------- 02 · quem somos (bloco escuro) ---------- */
+/* Única quebra forte no creme da página. Concentra quem somos, alcance e
+   equipamento — três seções que antes eram separadas e pareciam iguais. */
+.escuro{ background:var(--navy); color:rgba(255,255,255,0.78); }
+.escuro h2, .escuro h4, .escuro .who{ color:#fff; }
+.escuro .eyebrow{ color:#FFB073; }
+.escuro .eyebrow::before{ background:#FFB073; }
+.escuro .section-lead{ color:rgba(255,255,255,0.68); }
+.escuro .bloco-rotulo{ color:rgba(255,255,255,0.5); }
+.escuro .bloco-rotulo::before{ background:rgba(255,255,255,0.3); }
+.escuro .people{ margin-top:36px; }
+.escuro .person{ background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.12); box-shadow:none; }
+.escuro .person .role{ color:#FFB073; }
+.escuro .person p{ color:rgba(255,255,255,0.68); }
+.citacao{
+  margin:36px 0 0; padding:0 0 0 22px; border-left:3px solid var(--ala);
   font-family:'Playfair Display', Georgia, serif; font-style:italic;
-  font-size:19px; color:var(--navy); line-height:1.55;
+  font-size:clamp(19px,2.4vw,26px); line-height:1.45; color:#fff;
 }
-.quote cite{ display:block; margin-top:12px; font-family:'Inter', sans-serif; font-style:normal; font-size:12px; color:var(--stone-500); text-transform:uppercase; letter-spacing:0.07em; }
+.citacao cite{
+  display:block; margin-top:12px; font-family:'Inter', sans-serif; font-style:normal;
+  font-size:12px; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.08em;
+}
+.alcance{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+@media (max-width:760px){ .alcance{ grid-template-columns:repeat(2,1fr); } }
+.alcance .num{ font-family:'Playfair Display', Georgia, serif; font-size:clamp(24px,3.4vw,32px); font-weight:600; color:#fff; line-height:1.1; }
+.alcance .label{ margin-top:4px; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:rgba(255,255,255,0.5); }
+.perfil{ display:flex; flex-wrap:wrap; gap:26px; margin-top:26px; }
+.perfil-item{ display:flex; align-items:baseline; gap:8px; }
+.perfil-item b{ font-family:'Playfair Display', Georgia, serif; font-size:20px; color:#FFB073; }
+.perfil-item span{ font-size:13px; color:rgba(255,255,255,0.6); }
+.gear-linha{
+  display:flex; flex-wrap:wrap; align-items:center; gap:10px;
+  margin-top:32px; padding-top:22px; border-top:1px solid rgba(255,255,255,0.12);
+}
+.gear-linha .lbl{ font-size:11px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.45); margin-right:4px; }
+.gear-linha .gear{ font-size:12.5px; padding:6px 12px; border-radius:99px; background:rgba(255,255,255,0.09); color:rgba(255,255,255,0.82); }
 
 /* ---------- 03 · portfólio na estrada ---------- */
 .familia-lista{ margin-top:44px; display:flex; flex-direction:column; gap:18px; }
@@ -306,21 +347,22 @@ h1.headline .brand-line{ color:var(--navy-soft); font-size:0.46em; display:block
 .familia .corpo .bloco p{ font-size:14.5px; color:var(--stone-600); }
 .familia .corpo .bloco.momento p{ color:var(--stone-800); font-weight:500; }
 
-/* ---------- 04 · onde a marca aparece ---------- */
-.placement-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:44px; }
-@media (max-width:960px){ .placement-grid{ grid-template-columns:repeat(2,1fr); } }
-@media (max-width:640px){ .placement-grid{ grid-template-columns:1fr; } }
-.placement{
-  background:#fff; border:1px solid var(--cream-300); border-radius:var(--radius);
-  padding:26px 24px; box-shadow:0 1px 2px rgba(51,44,32,0.04);
+/* ---------- onde a marca aparece (lista compacta) ---------- */
+/* Seis cartões viravam mais uma grade branca igual às outras. Como lista com
+   etiqueta na margem, o mesmo conteúdo cabe em um terço da altura. */
+.onde{ display:flex; flex-direction:column; }
+.onde li{
+  display:grid; grid-template-columns:126px minmax(0,1fr); gap:20px; align-items:baseline;
+  padding:13px 0; border-top:1px solid var(--cream-300);
 }
-.placement .p-tag{
-  display:inline-block; font-size:10.5px; font-weight:600; letter-spacing:0.12em;
-  text-transform:uppercase; color:var(--ala-deep);
-  background:var(--ala-wash); padding:5px 10px; border-radius:99px;
+.onde li:last-child{ border-bottom:1px solid var(--cream-300); }
+@media (max-width:640px){ .onde li{ grid-template-columns:1fr; gap:5px; } }
+.onde .tag{
+  font-size:10.5px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--ala-deep);
 }
-.placement h4{ font-size:21px; margin:12px 0 9px; letter-spacing:-0.01em; }
-.placement p{ font-size:14px; color:var(--stone-600); }
+.onde .txt{ font-size:14.5px; color:var(--stone-600); }
+.onde .txt strong{ color:var(--stone-800); font-weight:600; }
 
 /* ---------- 05 · a rota ---------- */
 .route-line-wrap{ position:relative; margin-top:52px; padding-left:34px; }
@@ -379,63 +421,34 @@ h1.headline .brand-line{ color:var(--navy-soft); font-size:0.46em; display:block
 .mensal-card .corpo h4{ font-size:21px; margin-bottom:7px; letter-spacing:-0.01em; }
 .mensal-card .corpo p{ font-size:14.5px; color:var(--stone-600); }
 
-/* calendário editorial dos 12 Reels */
-.calendario{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
-@media (max-width:940px){ .calendario{ grid-template-columns:repeat(2,1fr); } }
-@media (max-width:600px){ .calendario{ grid-template-columns:1fr; } }
-.mes{
-  background:#fff; border:1px solid var(--cream-300); border-radius:var(--radius-sm);
-  padding:18px 18px 20px; position:relative;
-}
-.mes .topo{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:9px; }
-.mes .num{
-  font-family:'Playfair Display', Georgia, serif; font-size:19px; font-weight:600;
-  color:var(--navy); line-height:1;
-}
-.mes .frente{
-  font-size:9.5px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase;
-  color:var(--navy); background:var(--navy-wash);
-  padding:4px 8px; border-radius:99px; white-space:nowrap;
-}
-.mes h5{ font-family:'Inter', sans-serif; font-size:14.5px; font-weight:600; color:var(--stone-800); margin-bottom:5px; }
-.mes p{ font-size:13px; color:var(--stone-500); line-height:1.6; }
-
-/* ---------- números ---------- */
-.stats-grid{
-  display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
-  background:var(--cream-300); border:1px solid var(--cream-300);
-  border-radius:var(--radius); overflow:hidden;
-}
-#numeros .stats-grid{ margin-top:44px; }
-.stats-grid.cinco{ grid-template-columns:repeat(5,1fr); }
-@media (max-width:1000px){ .stats-grid.cinco{ grid-template-columns:repeat(2,1fr); } }
-@media (max-width:860px){ .stats-grid{ grid-template-columns:repeat(2,1fr); } }
-.stat{ background:#fff; padding:28px 24px; }
-.stat .num{ font-family:'Playfair Display', Georgia, serif; font-size:clamp(24px,4.2vw,34px); font-weight:600; color:var(--ala-deep); line-height:1.1; }
-.stat .label{ margin-top:6px; font-size:11.5px; text-transform:uppercase; letter-spacing:0.08em; color:var(--stone-500); font-weight:500; }
-
-.audience-grid{ display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:52px; }
-@media (max-width:760px){ .audience-grid{ grid-template-columns:1fr; } }
-.bar-row{ margin-bottom:16px; }
-.bar-row .top{ display:flex; justify-content:space-between; font-size:12.5px; font-weight:500; color:var(--stone-600); margin-bottom:6px; }
-.bar-track{ height:9px; background:var(--cream-300); border-radius:99px; overflow:hidden; }
-.bar-fill{ height:100%; background:linear-gradient(90deg, var(--ala), var(--amber)); border-radius:99px; }
-.tag-cloud{ display:flex; flex-wrap:wrap; gap:7px; margin-top:12px; }
-.tag{
-  font-size:12px; font-weight:500; padding:7px 13px; border-radius:99px;
-  border:1px solid var(--cream-400); background:#fff; color:var(--stone-600);
-}
-
-/* ---------- equipamentos ---------- */
-.gear-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:44px; }
-@media (max-width:860px){ .gear-grid{ grid-template-columns:1fr; } }
-.gear-card{
+/* calendário como tabela: doze cartões viravam mais uma parede branca igual às
+   outras seções. Em linhas, o mesmo conteúdo ocupa um terço da altura. */
+.agenda{
   background:#fff; border:1px solid var(--cream-300); border-radius:var(--radius);
-  padding:26px 24px; box-shadow:0 1px 2px rgba(51,44,32,0.04);
+  overflow:hidden; box-shadow:0 1px 2px rgba(51,44,32,0.04);
 }
-.gear-card .g-eyebrow{ font-size:11px; font-weight:600; color:var(--ala); text-transform:uppercase; letter-spacing:0.1em; }
-.gear-card h4{ font-size:21px; margin:8px 0 9px; letter-spacing:-0.01em; }
-.gear-card p{ font-size:14px; color:var(--stone-600); }
+.agenda-cab, .agenda-linha{
+  display:grid; grid-template-columns:60px minmax(0,1fr) 110px; gap:18px; align-items:baseline;
+  padding:12px 22px;
+}
+.agenda-cab{
+  background:var(--cream-100); padding-top:10px; padding-bottom:10px;
+  font-size:10px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--stone-500);
+}
+.agenda-linha{ border-top:1px solid var(--cream-200); }
+.agenda-linha .mes{ font-family:'Playfair Display', Georgia, serif; font-size:19px; font-weight:600; color:var(--navy); }
+.agenda-linha .tema strong{ display:block; font-size:14.5px; font-weight:600; color:var(--stone-800); }
+.agenda-linha .tema span{ display:block; margin-top:2px; font-size:13px; color:var(--stone-500); }
+.agenda-linha .frente{
+  font-size:9.5px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--navy); background:var(--navy-wash); padding:4px 9px; border-radius:99px;
+  justify-self:start; white-space:nowrap;
+}
+@media (max-width:700px){
+  .agenda-cab{ display:none; }
+  .agenda-linha{ grid-template-columns:44px minmax(0,1fr); gap:12px; padding:12px 16px; }
+  .agenda-linha .frente{ grid-column:2; margin-top:5px; }
+}
 
 /* ---------- listas ---------- */
 .check-list li{ display:flex; gap:12px; align-items:flex-start; font-size:14.5px; color:var(--stone-600); margin-bottom:11px; }
@@ -750,7 +763,10 @@ footer{
   .reveal{ opacity:1 !important; transform:none !important; }
 
   /* Fundos chapados viram branco; a textura de papel some. */
-  .faixa-clara, .faixa-media, .tese, .investimento, .hero, footer{ background:#fff !important; }
+  .faixa-clara, .faixa-media, .proposta-topo, .investimento, .hero, footer{ background:#fff !important; }
+  /* O bloco escuro e o painel de preço mantêm o fundo: sem isso o texto branco
+     sairia em branco no papel. */
+  .escuro, .oferta-preco{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .textura::before{ display:none !important; }
 
   /* Compactação. Os espaçamentos da tela existem para dar respiro ao rolar;
@@ -773,14 +789,12 @@ footer{
   .section-lead{ font-size:9.5pt !important; max-width:none !important; margin-top:6px !important; }
   h4{ font-size:10.5pt !important; margin:6px 0 4px !important; }
 
-  .why-grid, .people, .placement-grid, .gear-grid, .mensal-grid,
-  .planos, .familia-lista{ gap:8px !important; margin-top:12px !important; }
-  .calendario{ gap:6px !important; }
-  .why-card, .person, .placement, .gear-card, .mensal-card,
-  .plano, .inclui, .custo, .mes, .familia .corpo{ padding:11px 13px !important; }
-  .why-card p, .placement p, .gear-card p, .mensal-card .corpo p, .stop p,
-  .familia .corpo .bloco p, .mes p, .person p, .plano ul li,
-  .check-list li{ font-size:8.8pt !important; }
+  .people, .mensal-grid, .planos, .familia-lista{ gap:8px !important; margin-top:12px !important; }
+  .person, .mensal-card, .plano, .inclui, .custo,
+  .oferta-recebe, .oferta-preco, .familia .corpo{ padding:11px 13px !important; }
+  .mensal-card .corpo p, .stop p, .familia .corpo .bloco p,
+  .agenda-linha .tema span, .onde .txt, .person p, .argumento .corpo p,
+  .plano ul li, .check-list li{ font-size:8.8pt !important; }
   .check-list li{ margin-bottom:5px !important; }
   .route-line-wrap{ margin-top:14px !important; }
   .stop{ padding-bottom:11px !important; }
@@ -790,12 +804,15 @@ footer{
   .quote{ padding:12px 14px !important; margin-top:14px !important; font-size:11pt !important; }
   .nota{ padding:9px 11px !important; margin-top:12px !important; font-size:8pt !important; }
   .odometer-strip, .stats-grid, .custo-grid, .contact-grid{ margin-top:12px !important; }
-  .odo, .stat, .contact-item{ padding:9px 11px !important; }
+  .odo, .contact-item{ padding:9px 11px !important; }
   /* No papel o clamp com vw calcula em cima da largura da página e estoura:
      "+25 milhões" quebrava em duas linhas enquanto os vizinhos ficavam numa. */
-  .odo .num, .stat .num{ font-size:14pt !important; }
-  .odo .label, .stat .label{ font-size:7.5pt !important; }
-  .audience-grid{ gap:14px !important; margin-top:14px !important; }
+  .odo .num, .alcance .num{ font-size:14pt !important; }
+  .odo .label, .alcance .label{ font-size:7.5pt !important; }
+  .alcance{ gap:12px !important; }
+  .agenda-linha, .agenda-cab{ padding:7px 14px !important; }
+  .onde li{ padding:8px 0 !important; }
+  .argumento{ padding:12px 0 !important; }
   .composicao .linha{ padding:7px 13px !important; }
   .composicao .desc span{ font-size:8pt !important; }
   .plano ul{ margin-top:10px !important; gap:5px !important; }
@@ -806,14 +823,14 @@ footer{
   .legal{ font-size:7.5pt !important; }
 
   /* Cartões e blocos não podem ser partidos entre duas páginas. */
-  .why-card, .person, .placement, .familia, .mensal-card, .mes, .gear-card,
-  .plano, .inclui, .custo, .stop, .exclusive-strip, .nota, .quote,
-  .composicao .linha, .odo, .stat, .contact-item{ break-inside:avoid; }
+  .person, .familia, .mensal-card, .plano, .inclui, .custo, .stop,
+  .exclusive-strip, .nota, .citacao, .argumento, .agenda-linha, .onde li,
+  .composicao .linha, .odo, .alcance .alc, .contact-item, .oferta{ break-inside:avoid; }
   .section-title, .eyebrow, .bloco-rotulo{ break-after:avoid; }
 
   /* Só o investimento começa em página nova — é a seção que a marca vai abrir
      direto. Forçar quebra nas outras só criava folhas com pé em branco. */
-  #investimento{ break-before:page; }
+  #entregaveis, #investimento{ break-before:page; }
   footer{ break-before:avoid; }
 
   /* O cabeçalho azul de cada frente do portfólio vira texto azul sobre branco:
@@ -846,8 +863,16 @@ footer{
   .resumo-cartao{ padding:13px 15px !important; }
 
   .planos{ grid-template-columns:1fr 1fr !important; }
-  .calendario{ grid-template-columns:repeat(4,1fr) !important; }
-  .placement-grid{ grid-template-columns:repeat(3,1fr) !important; }
+  /* A área imprimível de uma A4 com margem dá ~703px de viewport, abaixo dos
+     breakpoints de 760/880/1001px — sem forçar, todas as grades caem para o
+     layout mobile de uma coluna e o PDF fica com o dobro de páginas. */
+  .oferta{ grid-template-columns:1.25fr 1fr !important; }
+  .people{ grid-template-columns:1fr 1fr !important; }
+  .alcance{ grid-template-columns:repeat(4,1fr) !important; }
+  .argumento{ grid-template-columns:150px minmax(0,1fr) !important; gap:22px !important; }
+  .agenda-cab{ display:grid !important; }
+  .agenda-cab, .agenda-linha{ grid-template-columns:52px minmax(0,1fr) 100px !important; }
+  .onde li{ grid-template-columns:120px minmax(0,1fr) !important; }
   .mensal-grid{ grid-template-columns:repeat(3,1fr) !important; }
   /* A largura de página é menor que o breakpoint de 1001px, então o cartão
      voltava ao layout em linha e espremia o texto numa coluna estreita. */
