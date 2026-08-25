@@ -34,13 +34,12 @@ function estadoInicial() {
     momentoAssinatura: pacoteProposto.momentoAssinatura,
     exclusividade: pacoteProposto.exclusividade,
     direitos: pacoteProposto.direitos,
-    expressa: pacoteProposto.expressa,
   }
 }
 
 // A ordem de aplicação é a mesma da composição exibida na seção anterior:
-// produção → tarifa de duração → exclusividade → direitos → entrega expressa,
-// e só então a produção especial entra, porque brand day é por evento e não
+// produção → tarifa de duração → exclusividade → direitos, e só então a
+// produção especial entra, porque brand day é por evento e não
 // acompanha nenhum desses multiplicadores.
 function calcular(e) {
   const producaoMes =
@@ -65,9 +64,6 @@ function calcular(e) {
   const valDireitos = v * taxaDireitos
   v += valDireitos
 
-  const valExpressa = e.expressa ? v * adicionais.expressa : 0
-  v += valExpressa
-
   // Ad code e brand day entram depois dos multiplicadores: o ad code já é a
   // licença de mídia paga daquela peça, então somar os 50% de direitos por
   // cima seria cobrar a mesma coisa duas vezes.
@@ -78,7 +74,7 @@ function calcular(e) {
     producaoMes, pecasMes, pecas: pecasMes * e.meses + e.reelAdCode,
     base, tarifa, premioDuracao,
     valExclusividade, exclusividadeGratis,
-    valDireitos, valExpressa, especial,
+    valDireitos, especial,
     semEspecial: v, total,
     vazio: producaoMes === 0,
   }
@@ -108,9 +104,12 @@ export default function AlaCalculadora() {
   // denominador é o mesmo R$/mês que aparece no resumo. A versão anterior
   // dividia por um valor que não estava em lugar nenhum da tela (a produção sem
   // a produção especial), e por isso mostrava 62% onde o leitor calculava 46%.
-  const avulso = useMemo(() => calcular({ ...e, meses: 1, brandDay: 0 }), [e])
-  const anual = useMemo(() => calcular({ ...e, meses: 12, brandDay: 0 }), [e])
-  const porMesAtual = r.total / e.meses
+  // Compara só a parte recorrente do pacote. Ad code e brand day são contados
+  // no ano inteiro, não por mês: somá-los a um contrato de um mês fazia a
+  // conta acusar 207% de diferença, que é artefato e não argumento.
+  const avulso = useMemo(() => calcular({ ...e, meses: 1, brandDay: 0, reelAdCode: 0 }), [e])
+  const anual = useMemo(() => calcular({ ...e, meses: 12, brandDay: 0, reelAdCode: 0 }), [e])
+  const porMesAtual = (r.total - r.especial) / e.meses
   const porMesAnual = anual.total / 12
   const pctMaisCaro = porMesAtual > 0 ? Math.round((avulso.total / porMesAtual - 1) * 100) : 0
   const pctMenosAnual = avulso.total > 0 ? Math.round((1 - porMesAnual / avulso.total) * 100) : 0
@@ -127,7 +126,6 @@ export default function AlaCalculadora() {
     if (e.momentoAssinatura) linhas.push(`${e.momentoAssinatura}× momento assinatura (${t.linhas.sobConsulta})`)
     if (e.exclusividade) linhas.push('Exclusividade de categoria')
     if (e.direitos !== 'nenhum') linhas.push(`Direitos de uso: ${e.direitos === '90' ? '90 dias' : '12 meses'}`)
-    if (e.expressa) linhas.push('Entrega expressa')
     linhas.push('', `Total: ${moeda(r.total)} (${moeda(r.total / e.meses)}/mês)`)
     return encodeURIComponent(linhas.join('\n'))
   }
@@ -263,14 +261,16 @@ export default function AlaCalculadora() {
                     {r.valDireitos > 0 && (
                       <div className="rl"><span>{t.linhas.direitos}</span><b>{moeda(r.valDireitos)}</b></div>
                     )}
-                    {r.valExpressa > 0 && (
-                      <div className="rl"><span>{t.linhas.expressa}</span><b>{moeda(r.valExpressa)}</b></div>
-                    )}
                     {r.especial > 0 && (
                       <div className="rl"><span>{t.linhas.especial}</span><b>{moeda(r.especial)}</b></div>
                     )}
                     {e.momentoAssinatura > 0 && (
-                      <div className="rl"><span>{e.momentoAssinatura}× Momento assinatura</span><b className="gratis">{t.linhas.sobConsulta}</b></div>
+                      <div className="rl">
+                        <span>{e.momentoAssinatura}× Momento assinatura</span>
+                        <b className="gratis">
+                          {e.momentoAssinatura <= 2 ? t.linhas.inclusos : t.linhas.sobConsulta}
+                        </b>
+                      </div>
                     )}
                   </div>
 
@@ -286,6 +286,10 @@ export default function AlaCalculadora() {
                     <span>{t.linhas.porPeca}</span>
                     <b>{moeda(r.total / r.pecas)}</b>
                   </div>
+
+                  {e.momentoAssinatura > 0 && (
+                    <p className="resumo-assinatura">{t.notaAssinatura}</p>
+                  )}
 
                   <div className="resumo-comparativo">
                     {e.meses === 1 ? (

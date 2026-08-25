@@ -10,7 +10,6 @@ import AlaPortfolio from './components/AlaPortfolio'
 import AlaRota from './components/AlaRota'
 import AlaEntregaveis from './components/AlaEntregaveis'
 import AlaInvestimento from './components/AlaInvestimento'
-import AlaResultado from './components/AlaResultado'
 import AlaCalculadora from './components/AlaCalculadora'
 import AlaContato from './components/AlaContato'
 import AlaFooter from './components/AlaFooter'
@@ -19,10 +18,11 @@ import AlaFooter from './components/AlaFooter'
 // português. Página fechada — não é linkada em lugar nenhum do site e sai com
 // noindex/nofollow, então só chega aqui quem receber a URL /alamo.
 //
-// A ordem importa: a oferta inteira aparece na segunda tela (AlaProposta), e
-// tudo depois dela é detalhe para quem quiser conferir. E nenhuma seção
-// seguida repete o mesmo layout — foi o que fez a versão anterior parecer
-// longa e monótona.
+// A ordem importa. A oferta inteira aparece na segunda tela (AlaProposta) e a
+// calculadora vem logo em seguida: o impacto de "nossa, é caro" precisa ser
+// respondido na tela seguinte por "dá pra ajustar", senão a marca fecha a
+// página achando que não tem como caber. Tudo depois disso é detalhe para quem
+// quiser conferir, e nenhuma seção seguida repete o mesmo layout.
 export default function AlamoApp() {
   useReveal()
 
@@ -32,14 +32,13 @@ export default function AlamoApp() {
       <AlaNav />
       <AlaHero />
       <AlaProposta />
+      <AlaCalculadora />
       <AlaTese />
       <AlaQuemSomos />
       <AlaPortfolio />
       <AlaRota />
       <AlaEntregaveis />
       <AlaInvestimento />
-      <AlaResultado />
-      <AlaCalculadora />
       <AlaContato />
       <AlaFooter />
     </>
