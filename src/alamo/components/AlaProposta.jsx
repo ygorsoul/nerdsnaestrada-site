@@ -34,6 +34,11 @@ export default function AlaProposta() {
               <div className="avista-detalhe">{proposta.aVistaDetalhe}</div>
             </div>
 
+            <div className="oferta-curva">
+              <div className="lbl">{proposta.curva.rotulo}</div>
+              <p>{proposta.curva.texto}</p>
+            </div>
+
             <div className="oferta-meta">
               <span>{proposta.pecas}</span>
               <span>{proposta.tabela}</span>
@@ -44,6 +49,15 @@ export default function AlaProposta() {
               <a href="#contato" className="btn ghost">{proposta.ctaContato}</a>
             </div>
           </div>
+        </div>
+
+        {/* A porta de entrada fica aqui em cima, junto do preço: o primeiro
+            compromisso que a marca enxerga precisa ser o menor, não o de
+            cinquenta e sete mil. */}
+        <div className="oferta-entrada reveal">
+          <div className="lbl">{proposta.entrada.rotulo}</div>
+          <p>{proposta.entrada.texto}</p>
+          <a href="#investimento">Ver o piloto</a>
         </div>
       </div>
     </section>

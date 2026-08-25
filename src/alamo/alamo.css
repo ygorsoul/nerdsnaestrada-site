@@ -929,3 +929,21 @@ footer{
   margin:0 0 14px; padding:11px 13px; border-radius:var(--radius-sm);
   background:var(--ala-wash); font-size:12px; color:var(--ala-deep); line-height:1.55;
 }
+
+/* argumento de curva e porta de entrada, no painel da oferta */
+.oferta-curva{
+  margin-top:18px; padding:14px 16px; border-radius:var(--radius-sm);
+  background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.14);
+}
+.oferta-curva .lbl{ font-size:10px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:#FFC79A; margin-bottom:6px; }
+.oferta-curva p{ font-size:13px; line-height:1.55; color:rgba(255,255,255,0.86); }
+.oferta-entrada{
+  margin-top:18px; padding:20px 24px;
+  border:1px dashed var(--navy-soft); border-radius:var(--radius);
+  background:rgba(255,255,255,0.6);
+  display:flex; flex-wrap:wrap; align-items:baseline; gap:8px 18px;
+}
+.oferta-entrada .lbl{ font-size:11px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--navy); }
+.oferta-entrada p{ flex:1; min-width:260px; font-size:14.5px; color:var(--stone-600); }
+.oferta-entrada a{ font-size:13.5px; font-weight:600; color:var(--ala-deep); white-space:nowrap; }
+.nota.fora b{ color:var(--ala-deep); }

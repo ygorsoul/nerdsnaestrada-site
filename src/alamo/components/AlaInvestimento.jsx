@@ -72,6 +72,10 @@ export default function AlaInvestimento() {
           </ul>
         </div>
 
+        <div className="nota fora reveal">
+          <b>{investimento.fora.rotulo}</b> {investimento.fora.texto}
+        </div>
+
         <div className="bloco-rotulo">{investimento.pilotoRotulo}</div>
         <div className="piloto reveal">
           <div className="piloto-cabeca">

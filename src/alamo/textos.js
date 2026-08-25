@@ -50,13 +50,13 @@ export const pacoteProposto = {
   brandDay: 3,
   momentoAssinatura: 2,
   exclusividade: true,
-  direitos: '12m',
+  direitos: 'nenhum',
 }
 
 export const contrato = {
   meses: 12,
-  mensal: 5760,
-  aVista: 63000,
+  mensal: 4800,
+  aVista: 52000,
   integracoesPorMes: 1,
   adCodes: 9,
   reelsPorMes: 1,
@@ -64,7 +64,7 @@ export const contrato = {
   // Valor de tabela do escopo, somando só linhas públicas da nossa tabela de
   // valores (ver /midiakit). O multiplicador interno de categoria de risco NÃO
   // entra aqui nem em nada que apareça na tela.
-  tabela: 76800,
+  tabela: 65280,
 }
 
 const totalMensal = contrato.mensal * contrato.meses               // 76.800
@@ -124,7 +124,7 @@ export default {
       `${adCodes} Reels no Instagram que a Álamo pode transformar em anúncio, com a nossa cara em vez de cara de propaganda`,
       'Conteúdo gravado nas unidades do Rio, de São Paulo e de Curitiba',
       'Bandeira da Álamo fincada em Ushuaia e no Alasca',
-      'Exclusividade de categoria e direito de uso do material em mídia paga',
+      'Exclusividade de categoria: nenhum concorrente aparece no nosso conteúdo',
     ],
     precoRotulo: 'Investimento',
     mensal: real(contrato.mensal),
@@ -137,6 +137,17 @@ export default {
     tabela: `Valor de tabela: ${real(contrato.tabela)}`,
     ctaDetalhe: 'Ver como esse valor se forma',
     ctaContato: 'Falar com Ygor & Bea',
+    // O argumento que sustenta o preço não é o alcance de hoje — é a curva. Sem
+    // esta linha a marca compara CPM com o Gerenciador de Anúncios e a gente
+    // perde a conversa antes de começar.
+    curva: {
+      rotulo: 'Por que fechar agora',
+      texto: 'Nos últimos 28 dias o alcance subiu 738% e entraram 9,9 mil seguidores. A Álamo não está comprando a audiência de hoje por este valor — está travando o preço de hoje para a audiência do mês oito, quando a viagem estiver no meio da Cordilheira.',
+    },
+    entrada: {
+      rotulo: 'Prefere começar menor?',
+      texto: `Piloto de 3 meses por ${real(16500)}, com os três brand days nas unidades. Se virar contrato anual em até 30 dias, o valor é abatido integralmente.`,
+    },
   },
 
   tese: {
@@ -455,11 +466,6 @@ export default {
         valor: '+ R$ 7.680',
       },
       {
-        item: 'Direitos de uso e impulsionamento — 12 meses',
-        detalhe: '+30% sobre a produção · libera todo o material para a mídia paga da Álamo',
-        valor: '+ R$ 11.520',
-      },
-      {
         item: '9 Reels que a Álamo pode virar anúncio',
         detalhe: '9 × R$ 1.300 · publicados no Instagram com código de anúncio — vocês impulsionam a partir do nosso perfil',
         valor: '+ R$ 11.700',
@@ -517,24 +523,28 @@ export default {
     inclui: [
       `${integracoes} inclusões em vídeo no YouTube, com repost em Reels, TikTok e Facebook`,
       `${reels} Reels dedicados ao longo dos doze meses, cobrindo as cinco frentes do portfólio`,
-      `${adCodes} desses Reels saem com código de anúncio, para a Álamo impulsionar como mídia paga`,
+      `${adCodes} desses Reels saem com código de anúncio, liberados para a Álamo impulsionar`,
       `${gavetas} gavetas de story ao longo dos doze meses`,
       'Conteúdo gravado nas unidades do Rio, de São Paulo e de Curitiba',
       'Bandeira da Álamo registrada em Ushuaia e no Alasca',
       'Link fixo na bio e destaque permanente no Instagram',
-      'Exclusividade de categoria e direito de uso do material',
+      'Exclusividade de categoria durante os doze meses',
     ],
     pilotoRotulo: 'Se doze meses for um salto grande demais',
     piloto: {
       titulo: 'Piloto de 3 meses',
-      valor: real(19500),
-      detalhe: `3× de ${real(6500)} — mais caro por mês, porque contrato curto não dilui planejamento`,
+      valor: real(16500),
+      detalhe: `3× de ${real(5500)} — mais caro por mês, porque contrato curto não dilui planejamento`,
       linhas: [
         '1 inclusão em vídeo, 1 Reel e 5 gavetas de story por mês',
         'Os três brand days concentrados no piloto: Rio, São Paulo e Curitiba, que é justamente o trecho de descida',
         'Exclusividade de categoria durante os três meses',
       ],
-      conversao: 'Se virar contrato anual em até 30 dias do fim do piloto, os R$ 19.500 são abatidos integralmente do valor do ano.',
+      conversao: 'Se virar contrato anual em até 30 dias do fim do piloto, os R$ 16.500 são abatidos integralmente do valor do ano.',
+    },
+    fora: {
+      rotulo: 'O que não está incluso, de propósito',
+      texto: 'Os direitos de impulsionamento do material completo ficaram fora do pacote base — é o que permitiu chegar neste valor sem cortar nenhuma peça. Os 9 Reels com código de anúncio já entram liberados para a Álamo impulsionar. Se vocês quiserem liberar todo o resto do material para mídia paga, é um adicional de 30% que dá para simular na calculadora acima.',
     },
     custoRotulo: 'Custo por peça de conteúdo',
     custo: [
