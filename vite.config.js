@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 
 // Páginas com HTML próprio (além da home). Cada uma vira uma entrada do build
 // e uma pasta com index.html estático.
-const paginas = ['cupons', 'mitsubishi']
+const paginas = ['cupons', 'mitsubishi', 'alamo', 'midiakit']
 
 // Sem isto, /cupons (sem barra) cai no fallback de SPA e o Vite entrega o
 // index.html da raiz — com o <title> e as meta tags da home. Este middleware
