@@ -72,6 +72,21 @@ export default function AlaInvestimento() {
           </ul>
         </div>
 
+        <div className="bloco-rotulo">{investimento.pilotoRotulo}</div>
+        <div className="piloto reveal">
+          <div className="piloto-cabeca">
+            <h4>{investimento.piloto.titulo}</h4>
+            <div className="piloto-valor">{investimento.piloto.valor}</div>
+            <div className="piloto-detalhe">{investimento.piloto.detalhe}</div>
+          </div>
+          <div className="piloto-corpo">
+            <ul className="check-list">
+              {investimento.piloto.linhas.map((l, i) => <li key={i}>{l}</li>)}
+            </ul>
+            <p className="piloto-conversao">{investimento.piloto.conversao}</p>
+          </div>
+        </div>
+
         <div className="bloco-rotulo">{investimento.custoRotulo}</div>
         <div className="custo-grid reveal">
           {investimento.custo.map((c, i) => (

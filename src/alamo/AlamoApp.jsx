@@ -10,6 +10,7 @@ import AlaPortfolio from './components/AlaPortfolio'
 import AlaRota from './components/AlaRota'
 import AlaEntregaveis from './components/AlaEntregaveis'
 import AlaInvestimento from './components/AlaInvestimento'
+import AlaResultado from './components/AlaResultado'
 import AlaCalculadora from './components/AlaCalculadora'
 import AlaContato from './components/AlaContato'
 import AlaFooter from './components/AlaFooter'
@@ -37,6 +38,7 @@ export default function AlamoApp() {
       <AlaRota />
       <AlaEntregaveis />
       <AlaInvestimento />
+      <AlaResultado />
       <AlaCalculadora />
       <AlaContato />
       <AlaFooter />

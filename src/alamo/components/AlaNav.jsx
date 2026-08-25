@@ -6,7 +6,7 @@ import textos from '../textos'
 // itens a faixa não cabe em tela média sem virar rolagem horizontal.
 const ancoras = [
   '#proposta', '#tese', '#quem-somos', '#portfolio',
-  '#rota', '#entregaveis', '#investimento', '#contato',
+  '#rota', '#entregaveis', '#investimento', '#resultado', '#contato',
 ]
 
 export default function AlaNav() {

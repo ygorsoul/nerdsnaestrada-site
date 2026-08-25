@@ -41,11 +41,20 @@ export default function AlaQuemSomos() {
         <div className="perfil reveal">
           {quemSomos.perfil.map((b, i) => (
             <div className="perfil-item" key={i}>
-              <b>{b.pct}%</b>
+              <b>{b.pct}</b>
               <span>{b.label}</span>
             </div>
           ))}
         </div>
+
+        {/* A praça nº 1 é o Rio, sede da Álamo. Vale uma linha própria: é o
+            argumento de venda mais forte que os dados de audiência dão. */}
+        <div className="praca reveal">
+          <div className="lbl">{quemSomos.praca.rotulo}</div>
+          <p>{quemSomos.praca.texto}</p>
+        </div>
+
+        <p className="fonte reveal">{quemSomos.fonte}</p>
 
         <div className="gear-linha reveal">
           <span className="lbl">{quemSomos.equipamentosRotulo}</span>

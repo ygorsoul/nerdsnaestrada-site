@@ -310,6 +310,14 @@ h1.headline .brand-line{ color:var(--navy-soft); font-size:0.46em; display:block
 .perfil-item{ display:flex; align-items:baseline; gap:8px; }
 .perfil-item b{ font-family:'Playfair Display', Georgia, serif; font-size:20px; color:#FFB073; }
 .perfil-item span{ font-size:13px; color:rgba(255,255,255,0.6); }
+.praca{
+  margin-top:28px; padding:18px 22px; border-radius:var(--radius-sm);
+  background:rgba(239,108,31,0.16); border:1px solid rgba(255,255,255,0.14);
+}
+.praca .lbl{ font-size:10.5px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:#FFC79A; margin-bottom:6px; }
+.praca p{ font-size:15px; color:#fff; }
+.fonte{ margin-top:16px; font-size:12px; color:rgba(255,255,255,0.42); }
+
 .gear-linha{
   display:flex; flex-wrap:wrap; align-items:center; gap:10px;
   margin-top:32px; padding-top:22px; border-top:1px solid rgba(255,255,255,0.12);
@@ -883,3 +891,37 @@ footer{
   /* Links não viram URL impressa: os contatos já aparecem escritos por extenso. */
   a[href]::after{ content:none !important; }
 }
+
+/* ---------- piloto de 3 meses ---------- */
+/* Porta de entrada: sem ela o único caminho oferecido é um salto de doze meses
+   e setenta e seis mil reais para quem nunca trabalhou com a gente. */
+.piloto{
+  display:grid; grid-template-columns:260px minmax(0,1fr); gap:0;
+  background:#fff; border:1px dashed var(--navy-soft); border-radius:var(--radius);
+  overflow:hidden;
+}
+@media (max-width:760px){ .piloto{ grid-template-columns:1fr; } }
+.piloto-cabeca{ background:var(--navy-wash); padding:24px 26px; }
+.piloto-cabeca h4{ font-size:21px; margin-bottom:8px; }
+.piloto-valor{ font-family:'Playfair Display', Georgia, serif; font-size:34px; font-weight:600; color:var(--navy); line-height:1.05; }
+.piloto-detalhe{ margin-top:5px; font-size:12.5px; color:var(--stone-500); }
+.piloto-corpo{ padding:24px 26px; }
+.piloto-conversao{
+  margin-top:16px; padding-top:14px; border-top:1px solid var(--cream-300);
+  font-size:14px; color:var(--navy); font-weight:500;
+}
+
+/* ---------- 07 · como a gente mede ---------- */
+.medicao{ margin-top:36px; }
+.medicao-item{
+  display:grid; grid-template-columns:64px minmax(0,1fr); gap:20px;
+  padding:22px 0; border-top:1px solid var(--cream-400);
+}
+.medicao-item:last-child{ border-bottom:1px solid var(--cream-400); }
+@media (max-width:640px){ .medicao-item{ grid-template-columns:1fr; gap:8px; padding:18px 0; } }
+.medicao-item .n{
+  font-family:'Playfair Display', Georgia, serif; font-size:26px;
+  font-weight:600; color:var(--ala-deep); line-height:1;
+}
+.medicao-item h4{ font-size:20px; margin-bottom:6px; }
+.medicao-item p{ font-size:14.5px; color:var(--stone-600); max-width:620px; }

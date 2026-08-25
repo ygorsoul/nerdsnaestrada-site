@@ -29,6 +29,7 @@ function estadoInicial() {
     meses: pacoteProposto.meses,
     mensais,
     storiesPack: pacoteProposto.storiesPack,
+    reelAdCode: pacoteProposto.reelAdCode,
     brandDay: pacoteProposto.brandDay,
     momentoAssinatura: pacoteProposto.momentoAssinatura,
     exclusividade: pacoteProposto.exclusividade,
@@ -67,11 +68,14 @@ function calcular(e) {
   const valExpressa = e.expressa ? v * adicionais.expressa : 0
   v += valExpressa
 
-  const especial = e.brandDay * precos.brandDay
+  // Ad code e brand day entram depois dos multiplicadores: o ad code já é a
+  // licença de mídia paga daquela peça, então somar os 50% de direitos por
+  // cima seria cobrar a mesma coisa duas vezes.
+  const especial = e.brandDay * precos.brandDay + e.reelAdCode * precos.reelAdCode
   const total = v + especial
 
   return {
-    producaoMes, pecasMes, pecas: pecasMes * e.meses,
+    producaoMes, pecasMes, pecas: pecasMes * e.meses + e.reelAdCode,
     base, tarifa, premioDuracao,
     valExclusividade, exclusividadeGratis,
     valDireitos, valExpressa, especial,
@@ -100,13 +104,14 @@ export default function AlaCalculadora() {
   const inicial = useMemo(() => estadoInicial(), [])
   const alterado = JSON.stringify(e) !== JSON.stringify(inicial)
 
-  // O comparativo sempre confronta a mesma configuração em duas durações. A
-  // produção especial fica de fora: brand day é por evento e não muda de preço
-  // com o tamanho do contrato, então incluí-la diluiria a diferença.
+  // O comparativo confronta a mesma configuração em duas durações, e o
+  // denominador é o mesmo R$/mês que aparece no resumo. A versão anterior
+  // dividia por um valor que não estava em lugar nenhum da tela (a produção sem
+  // a produção especial), e por isso mostrava 62% onde o leitor calculava 46%.
   const avulso = useMemo(() => calcular({ ...e, meses: 1, brandDay: 0 }), [e])
   const anual = useMemo(() => calcular({ ...e, meses: 12, brandDay: 0 }), [e])
-  const porMesAtual = r.semEspecial / e.meses
-  const porMesAnual = anual.semEspecial / 12
+  const porMesAtual = r.total / e.meses
+  const porMesAnual = anual.total / 12
   const pctMaisCaro = porMesAtual > 0 ? Math.round((avulso.total / porMesAtual - 1) * 100) : 0
   const pctMenosAnual = avulso.total > 0 ? Math.round((1 - porMesAnual / avulso.total) * 100) : 0
   const plural = (n) => `${n} ${n === 1 ? 'mês' : 'meses'}`
