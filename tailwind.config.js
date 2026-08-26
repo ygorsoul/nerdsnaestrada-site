@@ -3,6 +3,7 @@ export default {
   content: [
     "./index.html",
     "./cupons/index.html",
+    "./calculadora/index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {

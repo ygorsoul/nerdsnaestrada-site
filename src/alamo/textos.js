@@ -3,40 +3,10 @@
 // o conteúdo mora num módulo simples em vez de um sistema de dicionários.
 // Trechos entre **asteriscos** viram <strong>/<b> na tela (ver Rich.jsx).
 
-// Tabela de preços unitários. A calculadora e a composição do investimento
-// leem daqui, então não há como um número da tela desencontrar do outro.
-// Âncora real: reelMulti (1.100) + 5 gavetas (400) = R$ 1.500, que é o que a
-// gente cobra hoje por vídeo curto nas quatro plataformas com 5 fileiras de
-// story. Todo o resto foi escalado a partir desse número, e não de uma tabela
-// de referência de mercado.
-export const precos = {
-  integracao: 700,         // inclusão em vídeo (só YouTube)
-  integracaoRepost: 500,   // inclusão no YouTube + corte em IG/TikTok/FB
-  review: 1350,            // vídeo inteiro dedicado à marca
-  reelMulti: 1100,         // Reel nas 4 plataformas
-  reelAdCode: 750,         // Reel no Instagram com código de anúncio
-  brandDay: 2000,          // dia de produção dedicado na unidade
-  stories: { 3: 250, 5: 400, 10: 750 },
-}
-
-export const adicionais = {
-  exclusividade: 0.20,
-  direitos90: 0.18,
-  direitos12m: 0.30,
-}
-
-// Tarifa por duração: doze meses é a referência (×1,00) e contratos curtos
-// pagam prêmio. O custo de planejamento, alinhamento de roteiro e aprovação não
-// se dilui numa campanha pontual — e um contrato longo vale mais para nós do
-// que uma campanha avulsa, então o preço precisa dizer isso.
-export const tarifaDuracao = (meses) =>
-  meses >= 12 ? 1.00
-  : meses >= 6 ? 1.06
-  : meses >= 3 ? 1.12
-  : 1.20
-
-// Exclusividade de categoria entra sem custo a partir do contrato anual.
-export const exclusividadeInclusa = (meses) => meses >= 12
+// A tabela de preços mora em src/precos.js e é reexportada aqui para não
+// quebrar quem já importava de '../textos'. Fonte única entre esta proposta e a
+// calculadora aberta em /calculadora.
+export { precos, adicionais, tarifaDuracao, exclusividadeInclusa } from '../precos'
 
 // O pacote que a proposta oferece. É o estado inicial da calculadora e a base
 // dos valores exibidos na seção de investimento.
@@ -58,19 +28,19 @@ export const pacoteProposto = {
 
 export const contrato = {
   meses: 12,
-  mensal: 3000,
-  aVista: 32000,
+  mensal: 4000,
+  aVista: 36000,
   integracoesPorMes: 1,
   adCodes: 8,
   reelsPorMes: 1,
   gavetasPorMes: 5,
   // Valor de tabela do escopo, comprado peça a peça. O multiplicador interno
   // de categoria de risco NÃO entra aqui nem em nada que apareça na tela.
-  tabela: 40800,
+  tabela: 48000,
 }
 
-const totalMensal = contrato.mensal * contrato.meses               // 76.800
-const economia = totalMensal - contrato.aVista                     // 12.800
+const totalMensal = contrato.mensal * contrato.meses               // 48.000
+const economia = totalMensal - contrato.aVista                     // 12.000
 const integracoes = contrato.integracoesPorMes * contrato.meses    // 12
 const reels = contrato.reelsPorMes * contrato.meses                // 12
 const gavetas = contrato.gavetasPorMes * contrato.meses            // 60
@@ -124,8 +94,6 @@ export default {
       `${reels} Reels nossos, publicados nas quatro plataformas — Instagram, TikTok, YouTube e Facebook`,
       `${gavetas} gavetas de story, com link e marcação da Álamo`,
       `${adCodes} Reels no Instagram que a Álamo pode transformar em anúncio, com a nossa cara em vez de cara de propaganda`,
-      'Conteúdo gravado nas unidades do Rio, de São Paulo e de Curitiba',
-      'Bandeira da Álamo fincada em Ushuaia e no Alasca',
       'Exclusividade de categoria: nenhum concorrente aparece no nosso conteúdo',
     ],
     precoRotulo: 'Investimento',
@@ -134,7 +102,7 @@ export default {
     mensalDetalhe: `${contrato.meses}× · total de ${real(totalMensal)} no ano`,
     aVistaRotulo: 'Ou à vista',
     aVista: real(contrato.aVista),
-    aVistaDetalhe: `${real(economia)} de economia — mais de um mês de contrato`,
+    aVistaDetalhe: `${real(economia)} de economia — três meses de contrato`,
     pecas: `${pecas} peças no ano — ${integracoes + reels} de vídeo e ${gavetas} gavetas de story`,
     tabela: `Valor de tabela: ${real(contrato.tabela)}`,
     ctaDetalhe: 'Ver como esse valor se forma',
@@ -443,94 +411,40 @@ export default {
   investimento: {
     eyebrow: '06 · O investimento',
     titulo: 'Duas formas de fechar. O pacote é o mesmo nas duas.',
-    lead: `O escopo abaixo soma ${real(contrato.tabela)} comprado peça a peça. Com contrato anual a exclusividade de categoria entra sem custo e a proposta sai por ${real(totalMensal)} — mais os dois momentos assinatura, que são item sob consulta e aqui vão inclusos.`,
-    composicaoRotulo: 'Como esse valor se forma',
-    composicaoLead: 'Todas as linhas abaixo saem da nossa tabela de valores. Nada aqui é preço montado só para esta proposta.',
-    composicao: [
-      {
-        item: '12 inclusões em vídeo no YouTube',
-        detalhe: '12 × R$ 500 · bloco de 60 a 90s dentro de um vlog, com corte em Reels, TikTok e Facebook',
-        valor: 'R$ 6.000',
-      },
-      {
-        item: '12 Reels dedicados multiplataforma',
-        detalhe: '12 × R$ 1.100 · cada um publicado em Instagram, TikTok, YouTube e Facebook',
-        valor: 'R$ 13.200',
-      },
-      {
-        item: '60 gavetas de story',
-        detalhe: '12 meses × 5 gavetas · R$ 400 por mês',
-        valor: 'R$ 4.800',
-      },
-      {
-        item: 'Exclusividade de categoria',
-        detalhe: '+20% sobre a produção · nenhum concorrente aparece no nosso conteúdo',
-        valor: '+ R$ 4.800',
-      },
-      {
-        item: '8 Reels que a Álamo pode virar anúncio',
-        detalhe: '8 × R$ 750 · publicados no Instagram com código de anúncio — vocês impulsionam a partir do nosso perfil',
-        valor: '+ R$ 6.000',
-      },
-      {
-        item: '3 brand days nas unidades',
-        detalhe: 'Rio de Janeiro, São Paulo e Curitiba · R$ 2.000 cada, por dia de produção dedicado',
-        valor: '+ R$ 6.000',
-      },
-    ],
-    composicaoTotal: { rotulo: 'Valor de tabela · comprado peça a peça', valor: real(contrato.tabela) },
-    composicaoDesconto: {
-      rotulo: 'Contrato de 12 meses',
-      detalhe: 'A exclusividade de categoria deixa de ser adicional de 20% e entra inclusa. É exatamente essa linha que sai da conta.',
-      valor: `− ${real(contrato.tabela - totalMensal)}`,
-    },
-    composicaoFinal: { rotulo: 'Nesta proposta', valor: real(totalMensal) },
-    composicaoBonus: {
-      rotulo: 'Momento assinatura em Ushuaia e no Alasca',
-      detalhe: 'Registro em marco geográfico com sessão de fotos e cessão de imagem. Na tabela é item sob consulta — nesta proposta entra sem cobrança adicional.',
-      valor: 'Incluso',
-    },
+    lead: `O valor do pacote para tudo isso é de ${real(contrato.tabela)}, mas estamos oferecendo uma condição especial para fecharmos essa parceria.`,
     planos: [
       {
-        id: 'mensal',
-        rotulo: 'Plano mensal',
-        valor: real(contrato.mensal),
-        periodo: '/mês',
-        detalhe: `${contrato.meses}× de ${real(contrato.mensal)}`,
-        total: `Total no ano: ${real(totalMensal)}`,
-        linhas: [
-          'Pagamento diluído em doze parcelas iguais',
-          'Primeira parcela na assinatura, demais no mesmo dia dos meses seguintes',
-          'Mesmo volume de entrega do plano à vista',
-        ],
-        destaque: false,
-      },
-      {
         id: 'avista',
-        rotulo: 'Plano à vista',
+        rotulo: 'À vista',
         valor: real(contrato.aVista),
         periodo: 'pagamento único',
-        detalhe: `em vez de ${real(totalMensal)}`,
-        total: `Economia de ${real(economia)}`,
-        selo: `${real(economia)} de desconto`,
+        detalhe: `em vez de ${real(contrato.tabela)}`,
+        total: `${real(economia)} de desconto`,
+        selo: 'Condição especial',
         linhas: [
           'Pagamento único na assinatura do contrato',
-          `${real(economia)} a menos que o plano mensal — mais de um mês de contrato`,
-          'Mesmo volume de entrega do plano mensal',
+          'Mesmo pacote do plano parcelado',
         ],
         destaque: true,
       },
+      {
+        id: 'parcelado',
+        rotulo: 'Ou parcelado',
+        valor: `${contrato.meses}× de ${real(contrato.mensal)}`,
+        detalhe: 'Doze parcelas iguais, uma por mês',
+        linhas: [
+          'Primeira parcela na assinatura, demais no mesmo dia dos meses seguintes',
+          'Mesmo pacote do plano à vista',
+        ],
+        destaque: false,
+      },
     ],
-    incluiRotulo: 'Os dois planos incluem',
+    incluiRotulo: 'Que inclui',
     inclui: [
-      `${integracoes} inclusões em vídeo no YouTube, com repost em Reels, TikTok e Facebook`,
-      `${reels} Reels dedicados ao longo dos doze meses, cobrindo as cinco frentes do portfólio`,
-      `${adCodes} desses Reels saem com código de anúncio, liberados para a Álamo impulsionar`,
-      `${gavetas} gavetas de story ao longo dos doze meses`,
-      'Conteúdo gravado nas unidades do Rio, de São Paulo e de Curitiba',
-      'Bandeira da Álamo registrada em Ushuaia e no Alasca',
-      'Link fixo na bio e destaque permanente no Instagram',
-      'Exclusividade de categoria durante os doze meses',
+      '1 Reel por mês durante 12 meses, publicado no Instagram, Facebook, TikTok e YouTube Shorts',
+      '10 Stories no Instagram por mês, mantendo a marca presente ao longo da jornada',
+      '1 vídeo dedicado no YouTube, apresentando a parceria e a experiência com a marca',
+      '1 vídeo no YouTube com inserção da Álamo dentro da nossa rotina, de forma natural e contextualizada',
     ],
     pilotoRotulo: 'Se doze meses for um salto grande demais',
     piloto: {
@@ -546,13 +460,8 @@ export default {
     },
     fora: {
       rotulo: 'O que não está incluso, de propósito',
-      texto: 'Os direitos de impulsionamento do material completo ficaram fora do pacote base — é o que permitiu chegar neste valor sem cortar nenhuma peça. Os 9 Reels com código de anúncio já entram liberados para a Álamo impulsionar. Se vocês quiserem liberar todo o resto do material para mídia paga, é um adicional de 30% que dá para simular na calculadora acima.',
+      texto: 'Os direitos de impulsionamento do material completo ficaram fora do pacote base — é o que permitiu chegar neste valor sem cortar nenhuma peça. Se vocês quiserem liberar o material para mídia paga, é um adicional de 30% que dá para simular na calculadora acima.',
     },
-    custoRotulo: 'Custo por peça de conteúdo',
-    custo: [
-      { plano: 'No plano mensal',  valor: realCentavos(totalMensal / pecas),    nota: `${real(totalMensal)} ÷ ${pecas} peças`    },
-      { plano: 'No plano à vista', valor: realCentavos(contrato.aVista / pecas), nota: `${real(contrato.aVista)} ÷ ${pecas} peças` },
-    ],
     nota: {
       rotulo: 'Vigência:',
       texto: 'doze meses a contar da data de assinatura do contrato, na forma de pagamento do plano escolhido acima. Roteiro aprovado pela Álamo em até duas rodadas de revisão; rodadas adicionais são orçadas à parte. Valores não incluem produção de material publicitário fora do escopo descrito acima e são válidos por 60 dias.',
