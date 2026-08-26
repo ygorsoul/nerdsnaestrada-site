@@ -1,0 +1,42 @@
+{
+  "provider": "kokoro",
+  "speed": 1,
+  "lines": [
+    {
+      "id": "01",
+      "text": "A proposta que a Álamo recebeu tem um número: trinta e seis mil reais. Só que ele não é uma sentença. É um ponto de partida."
+    },
+    {
+      "id": "02",
+      "text": "Logo abaixo da oferta tem uma calculadora. Cada linha da esquerda é um controle. O cartão da direita refaz a conta na hora, pelos mesmos valores de tabela."
+    },
+    {
+      "id": "03",
+      "text": "Comece pelas peças por mês. Se o Reel nas quatro plataformas não faz sentido agora, é só tirar. O total cai para vinte e dois mil e oitocentos, e o mês vira mil e novecentos reais."
+    },
+    {
+      "id": "04",
+      "text": "As gavetas de story vão por pacote: três, cinco ou dez por mês. Trocando cinco por três, o mês fica em mil setecentos e cinquenta."
+    },
+    {
+      "id": "05",
+      "text": "O slider da duração é o que mais mexe no preço. Em doze meses vale a tarifa de referência, e a exclusividade de categoria entra sem custo. Puxando para seis, aparece um prêmio de seis por cento, e a exclusividade passa a ser cobrada."
+    },
+    {
+      "id": "06",
+      "text": "Direitos de uso é o último ajuste. Liberar todo o material para mídia paga por doze meses acrescenta trinta por cento, e essa linha aparece separada no resumo."
+    },
+    {
+      "id": "07",
+      "text": "O cartão nunca esconde a conta: produção, tarifa de contrato, exclusividade, direitos, avulsos. Com o custo por peça, e a comparação com comprar avulso."
+    },
+    {
+      "id": "08",
+      "text": "Quando o pacote estiver do jeito de vocês, o botão abre o WhatsApp já com a configuração escrita. E se quiser voltar atrás, um clique devolve o pacote da proposta."
+    }
+  ],
+  "bgm": {
+    "mode": "none"
+  },
+  "voice": "pf_dora"
+}

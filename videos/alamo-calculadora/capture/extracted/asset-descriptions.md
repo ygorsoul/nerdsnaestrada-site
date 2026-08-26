@@ -1,0 +1,10 @@
+# Asset Descriptions
+
+⚠️  GEMINI_API_KEY not set — descriptions below are catalog-derived (alt text, headings, section context, filename) instead of Vision-generated. To get richer Vision descriptions on the next capture, set GEMINI_API_KEY (or GOOGLE_API_KEY) and re-run.
+
+The `logo-<hash>.svg` filename prefix is a structural hint (DOM said this SVG was inside a `<header>`, home-link `<a>`, or had an aria-label matching the page brand). To pick the actual brand logo without Vision, open the `logo-*` candidates in a previewer or rasterize them with `sharp` before referencing — composing a fake logo ships off-brand in the final video.
+
+- svgs/logo-ed876c28.svg — logo ed876c28
+- svgs/svg-519f34a9-2.svg — svg 519f34a9 2
+- svgs/svg-519f34a9-3.svg — svg 519f34a9 3
+- svgs/svg-519f34a9.svg — svg 519f34a9

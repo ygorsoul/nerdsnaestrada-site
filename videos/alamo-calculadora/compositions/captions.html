@@ -1,0 +1,219 @@
+<template id="captions-template" data-composition-id="captions" data-width="1920" data-height="1080">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+
+<style data-brand-tokens>
+      @font-face { font-family: 'Inter'; src: url('assets/fonts/inter-latin-ext.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: block; }
+      :root {
+      --bg-primary: #FAF8F3;
+      --bg-secondary: #F5F0E6;
+      --text-primary: #332C20;
+      --text-secondary: #6B5D4A;
+      --accent: #EF6C1F;
+      --line: #C8BFAE;
+      --white-overlay: rgba(255,255,255,0.3);
+      --cap-ink: #332C20;
+      --cap-canvas: #FAF8F3;
+      --cap-accent: #EF6C1F;
+      --cap-accent-2: #6B5D4A;
+      --font-display: "Playfair Display", system-ui, serif;
+      --font-body: "Inter", system-ui, sans-serif;
+      --cap-band-top: 900px;
+      --cap-band-height: 180px;
+      }
+    </style>
+
+<style>
+  #captions-root {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .caption-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    pointer-events: none;
+  }
+  /* the keep-out band, from captionBand(H) — frame content stays above it */
+  .caption-stage {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: var(--cap-band-top, 900px);
+    height: var(--cap-band-height, 180px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .caption-group {
+    /* every group is absolutely stacked over the SAME band — exactly one shown at a
+       time via opacity. Must be absolute: in-flow groups would lay out side-by-side. */
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+  }
+
+  /* THE stone card — single 1px taupe hairline border (cartesian's universal
+     structural device), SHARP corners, ZERO shadow, ZERO fill beyond the stone canvas */
+  .caption-pill {
+    max-width: 78%;
+    padding: 20px 44px 24px;
+    background: var(--cap-canvas, #ede8e0);
+    border: 1px solid var(--cap-accent-2, #b8b0a4);
+    border-radius: 0;
+  }
+  .caption-line {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.1em 0.34em;
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(40px, 4.4vw, 58px);
+    line-height: 1.16;
+    letter-spacing: -0.01em;
+  }
+
+  /* upcoming — faint ink, no mark */
+  .caption-word {
+    display: inline-block;
+    padding: 0 0.06em;
+    border-bottom: 1px solid transparent;
+    color: color-mix(in srgb, var(--cap-ink, #1a1a1a) 42%, var(--cap-canvas, #ede8e0));
+  }
+  /* current word — a QUIET marker: a faint warm-stone wash behind solid ink, plus a
+     1px taupe hairline underline (restraint, not a loud block; SHARP, NO shadow) */
+  .caption-word.is-active {
+    color: var(--cap-ink, #1a1a1a);
+    background: color-mix(in srgb, var(--cap-accent, #8a8178) 18%, var(--cap-canvas, #ede8e0));
+    border-bottom: 1px solid var(--cap-accent, #8a8178);
+  }
+  /* already spoken — solid ink, wash + underline cleared */
+  .caption-word.is-spoken {
+    color: var(--cap-ink, #1a1a1a);
+    background: transparent;
+    border-bottom: 1px solid transparent;
+  }
+
+  /* optional per-word accents (dormant until a word-classer tags them) */
+  /* brand / key term — Playfair Display italic, cartesian's only display inflection */
+  .caption-word.cap-brand {
+    font-style: italic;
+  }
+  /* numerals / data — the body sans voice, slightly recessed */
+  .caption-word.cap-num {
+    font-family: "Inter", ui-sans-serif, sans-serif;
+    color: color-mix(in srgb, var(--cap-ink, #1a1a1a) 72%, var(--cap-canvas, #ede8e0));
+  }
+  /* emphasis — a 1px taupe hairline underline (no second color; stone-and-ink only) */
+  .caption-word.cap-cta {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: var(--cap-accent, #8a8178);
+    text-underline-offset: 0.12em;
+  }
+
+  @media (max-aspect-ratio: 9/16) {
+    .caption-pill {
+      max-width: 92%;
+    }
+    .caption-line {
+      font-size: clamp(34px, 5.4vw, 48px);
+    }
+  }
+</style>
+
+<div
+  id="captions-root"
+  data-composition-id="captions"
+  data-timeline-locked
+  data-start="0"
+  data-duration="75.712"
+  data-fps="30"
+  data-width="1920"
+  data-height="1080"
+>
+  <div class="caption-layer" aria-hidden="true">
+    <div id="caption-stage" class="caption-stage"></div>
+  </div>
+</div>
+
+<script>
+  // captions.mjs injects the engine's scene-aware groups + real duration here.
+  var GROUPS = [{"id":"caption-group-0","frame":1,"start":0.03,"end":0.59,"text":"A proposta","words":[{"id":"caption-word-0-0","text":"A","start":0.03,"end":0.06},{"id":"caption-word-0-1","text":"proposta","start":0.06,"end":0.5}]},{"id":"caption-group-1","frame":1,"start":0.59,"end":0.84,"text":"que a","words":[{"id":"caption-word-1-0","text":"que","start":0.59,"end":0.78},{"id":"caption-word-1-1","text":"a","start":0.78,"end":0.84}]},{"id":"caption-group-2","frame":1,"start":0.84,"end":1.92,"text":"Alamo recebeu tem","words":[{"id":"caption-word-2-0","text":"Alamo","start":0.84,"end":1.17},{"id":"caption-word-2-1","text":"recebeu","start":1.17,"end":1.65},{"id":"caption-word-2-2","text":"tem","start":1.75,"end":1.92}]},{"id":"caption-group-3","frame":1,"start":1.92,"end":2.8,"text":"um número,","words":[{"id":"caption-word-3-0","text":"um","start":1.92,"end":2.08},{"id":"caption-word-3-1","text":"número,","start":2.08,"end":2.74}]},{"id":"caption-group-4","frame":1,"start":2.8,"end":4.12,"text":"36 mil reais,","words":[{"id":"caption-word-4-0","text":"36","start":2.8,"end":3.28},{"id":"caption-word-4-1","text":"mil","start":3.28,"end":3.54},{"id":"caption-word-4-2","text":"reais,","start":3.54,"end":4.09}]},{"id":"caption-group-5","frame":1,"start":4.12,"end":4.38,"text":"só que","words":[{"id":"caption-word-5-0","text":"só","start":4.12,"end":4.18},{"id":"caption-word-5-1","text":"que","start":4.18,"end":4.27}]},{"id":"caption-group-6","frame":1,"start":4.38,"end":4.62,"text":"ele não","words":[{"id":"caption-word-6-0","text":"ele","start":4.38,"end":4.46},{"id":"caption-word-6-1","text":"não","start":4.46,"end":4.62}]},{"id":"caption-group-7","frame":1,"start":4.62,"end":5.71,"text":"é uma sentença.","words":[{"id":"caption-word-7-0","text":"é","start":4.62,"end":4.7},{"id":"caption-word-7-1","text":"uma","start":4.7,"end":4.93},{"id":"caption-word-7-2","text":"sentença.","start":4.93,"end":5.59}]},{"id":"caption-group-8","frame":1,"start":5.85,"end":6.01,"text":"É um","words":[{"id":"caption-word-8-0","text":"É","start":5.85,"end":5.88},{"id":"caption-word-8-1","text":"um","start":5.88,"end":6.01}]},{"id":"caption-group-9","frame":1,"start":6.01,"end":7.123,"text":"ponto de partida.","words":[{"id":"caption-word-9-0","text":"ponto","start":6.01,"end":6.32},{"id":"caption-word-9-1","text":"de","start":6.41,"end":6.45},{"id":"caption-word-9-2","text":"partida.","start":6.55,"end":7.02}]},{"id":"caption-group-10","frame":2,"start":7.123,"end":7.833,"text":"Logo abaixo","words":[{"id":"caption-word-10-0","text":"Logo","start":7.123,"end":7.373},{"id":"caption-word-10-1","text":"abaixo","start":7.373,"end":7.783}]},{"id":"caption-group-11","frame":2,"start":7.833,"end":8.433,"text":"da oferta","words":[{"id":"caption-word-11-0","text":"da","start":7.833,"end":7.943},{"id":"caption-word-11-1","text":"oferta","start":8.053,"end":8.343}]},{"id":"caption-group-12","frame":2,"start":8.433,"end":9.883,"text":"tem uma calculadora.","words":[{"id":"caption-word-12-0","text":"tem","start":8.433,"end":8.603},{"id":"caption-word-12-1","text":"uma","start":8.603,"end":8.823},{"id":"caption-word-12-2","text":"calculadora.","start":8.823,"end":9.843}]},{"id":"caption-group-13","frame":2,"start":9.883,"end":10.413,"text":"Cada linha","words":[{"id":"caption-word-13-0","text":"Cada","start":9.883,"end":10.033},{"id":"caption-word-13-1","text":"linha","start":10.103,"end":10.413}]},{"id":"caption-group-14","frame":2,"start":10.413,"end":11.043,"text":"da esquerda","words":[{"id":"caption-word-14-0","text":"da","start":10.413,"end":10.513},{"id":"caption-word-14-1","text":"esquerda","start":10.533,"end":10.943}]},{"id":"caption-group-15","frame":2,"start":11.043,"end":11.213,"text":"é um","words":[{"id":"caption-word-15-0","text":"é","start":11.043,"end":11.093},{"id":"caption-word-15-1","text":"um","start":11.093,"end":11.213}]},{"id":"caption-group-16","frame":2,"start":11.213,"end":12.003,"text":"controle.","words":[{"id":"caption-word-16-0","text":"controle.","start":11.213,"end":11.953}]},{"id":"caption-group-17","frame":2,"start":12.003,"end":12.463,"text":"O cartão","words":[{"id":"caption-word-17-0","text":"O","start":12.003,"end":12.033},{"id":"caption-word-17-1","text":"cartão","start":12.033,"end":12.463}]},{"id":"caption-group-18","frame":2,"start":12.463,"end":13.163,"text":"da direita","words":[{"id":"caption-word-18-0","text":"da","start":12.463,"end":12.603},{"id":"caption-word-18-1","text":"direita","start":12.603,"end":13.063}]},{"id":"caption-group-19","frame":2,"start":13.163,"end":13.523,"text":"refaz a","words":[{"id":"caption-word-19-0","text":"refaz","start":13.163,"end":13.453},{"id":"caption-word-19-1","text":"a","start":13.453,"end":13.523}]},{"id":"caption-group-20","frame":2,"start":13.523,"end":14.023,"text":"conta na","words":[{"id":"caption-word-20-0","text":"conta","start":13.523,"end":13.783},{"id":"caption-word-20-1","text":"na","start":13.883,"end":14.023}]},{"id":"caption-group-21","frame":2,"start":14.023,"end":14.513,"text":"hora pelos","words":[{"id":"caption-word-21-0","text":"hora","start":14.023,"end":14.363},{"id":"caption-word-21-1","text":"pelos","start":14.363,"end":14.393}]},{"id":"caption-group-22","frame":2,"start":14.763,"end":15.383,"text":"mesmos valores","words":[{"id":"caption-word-22-0","text":"mesmos","start":14.763,"end":14.983},{"id":"caption-word-22-1","text":"valores","start":14.983,"end":15.383}]},{"id":"caption-group-23","frame":2,"start":15.383,"end":16.163,"text":"de tabela.","words":[{"id":"caption-word-23-0","text":"de","start":15.383,"end":15.473},{"id":"caption-word-23-1","text":"tabela.","start":15.563,"end":16.043}]},{"id":"caption-group-24","frame":3,"start":16.2,"end":17.27,"text":"Comece pelas peças","words":[{"id":"caption-word-24-0","text":"Comece","start":16.2,"end":16.49},{"id":"caption-word-24-1","text":"pelas","start":16.57,"end":16.92},{"id":"caption-word-24-2","text":"peças","start":16.92,"end":17.27}]},{"id":"caption-group-25","frame":3,"start":17.27,"end":18.01,"text":"por mês.","words":[{"id":"caption-word-25-0","text":"por","start":17.27,"end":17.48},{"id":"caption-word-25-1","text":"mês.","start":17.48,"end":17.95}]},{"id":"caption-group-26","frame":3,"start":18.01,"end":18.11,"text":"Se o","words":[{"id":"caption-word-26-0","text":"Se","start":18.01,"end":18.06},{"id":"caption-word-26-1","text":"o","start":18.06,"end":18.11}]},{"id":"caption-group-27","frame":3,"start":18.11,"end":18.49,"text":"Hill nas","words":[{"id":"caption-word-27-0","text":"Hill","start":18.11,"end":18.28},{"id":"caption-word-27-1","text":"nas","start":18.36,"end":18.49}]},{"id":"caption-group-28","frame":3,"start":18.49,"end":19.61,"text":"quatro plataformas não","words":[{"id":"caption-word-28-0","text":"quatro","start":18.49,"end":18.82},{"id":"caption-word-28-1","text":"plataformas","start":18.82,"end":19.45},{"id":"caption-word-28-2","text":"não","start":19.45,"end":19.49}]},{"id":"caption-group-29","frame":3,"start":19.8,"end":20.22,"text":"faz sentido","words":[{"id":"caption-word-29-0","text":"faz","start":19.8,"end":19.81},{"id":"caption-word-29-1","text":"sentido","start":19.82,"end":20.22}]},{"id":"caption-group-30","frame":3,"start":20.22,"end":20.66,"text":"agora,","words":[{"id":"caption-word-30-0","text":"agora,","start":20.22,"end":20.59}]},{"id":"caption-group-31","frame":3,"start":20.66,"end":21.79,"text":"é só tirar.","words":[{"id":"caption-word-31-0","text":"é","start":20.66,"end":20.73},{"id":"caption-word-31-1","text":"só","start":20.74,"end":20.86},{"id":"caption-word-31-2","text":"tirar.","start":20.97,"end":21.73}]},{"id":"caption-group-32","frame":3,"start":21.79,"end":22.19,"text":"O total","words":[{"id":"caption-word-32-0","text":"O","start":21.79,"end":21.8},{"id":"caption-word-32-1","text":"total","start":21.8,"end":22.19}]},{"id":"caption-group-33","frame":3,"start":22.19,"end":22.78,"text":"cai para","words":[{"id":"caption-word-33-0","text":"cai","start":22.19,"end":22.35},{"id":"caption-word-33-1","text":"para","start":22.44,"end":22.68}]},{"id":"caption-group-34","frame":3,"start":22.78,"end":24.44,"text":"R$ 22.800 e o","words":[{"id":"caption-word-34-0","text":"R$","start":22.78,"end":22.87},{"id":"caption-word-34-1","text":"22.800","start":22.87,"end":24.25},{"id":"caption-word-34-2","text":"e","start":24.31,"end":24.35},{"id":"caption-word-34-3","text":"o","start":24.35,"end":24.37}]},{"id":"caption-group-35","frame":3,"start":24.44,"end":24.95,"text":"mês vira","words":[{"id":"caption-word-35-0","text":"mês","start":24.44,"end":24.65},{"id":"caption-word-35-1","text":"vira","start":24.75,"end":24.95}]},{"id":"caption-group-36","frame":3,"start":24.95,"end":26.697,"text":"R$ 1.900.","words":[{"id":"caption-word-36-0","text":"R$","start":24.95,"end":25.09},{"id":"caption-word-36-1","text":"1.900.","start":25.09,"end":26.64}]},{"id":"caption-group-37","frame":4,"start":26.697,"end":27.247,"text":"As gavetas","words":[{"id":"caption-word-37-0","text":"As","start":26.697,"end":26.777},{"id":"caption-word-37-1","text":"gavetas","start":26.817,"end":27.247}]},{"id":"caption-group-38","frame":4,"start":27.247,"end":27.827,"text":"de estoure","words":[{"id":"caption-word-38-0","text":"de","start":27.247,"end":27.337},{"id":"caption-word-38-1","text":"estoure","start":27.427,"end":27.777}]},{"id":"caption-group-39","frame":4,"start":27.827,"end":28.827,"text":"vão por pacote,","words":[{"id":"caption-word-39-0","text":"vão","start":27.827,"end":28.037},{"id":"caption-word-39-1","text":"por","start":28.037,"end":28.237},{"id":"caption-word-39-2","text":"pacote,","start":28.237,"end":28.827}]},{"id":"caption-group-40","frame":4,"start":28.827,"end":29.237,"text":"3,","words":[{"id":"caption-word-40-0","text":"3,","start":28.827,"end":29.237}]},{"id":"caption-group-41","frame":4,"start":29.237,"end":29.647,"text":"5 ou","words":[{"id":"caption-word-41-0","text":"5","start":29.237,"end":29.487},{"id":"caption-word-41-1","text":"ou","start":29.487,"end":29.647}]},{"id":"caption-group-42","frame":4,"start":29.647,"end":30.697,"text":"10 por mês.","words":[{"id":"caption-word-42-0","text":"10","start":29.647,"end":30.137},{"id":"caption-word-42-1","text":"por","start":30.137,"end":30.297},{"id":"caption-word-42-2","text":"mês.","start":30.297,"end":30.697}]},{"id":"caption-group-43","frame":4,"start":30.697,"end":31.707,"text":"Trocando 5 por","words":[{"id":"caption-word-43-0","text":"Trocando","start":30.697,"end":31.267},{"id":"caption-word-43-1","text":"5","start":31.267,"end":31.487},{"id":"caption-word-43-2","text":"por","start":31.487,"end":31.707}]},{"id":"caption-group-44","frame":4,"start":31.707,"end":32.047,"text":"3,","words":[{"id":"caption-word-44-0","text":"3,","start":31.707,"end":32.047}]},{"id":"caption-group-45","frame":4,"start":32.047,"end":32.367,"text":"o mês","words":[{"id":"caption-word-45-0","text":"o","start":32.047,"end":32.147},{"id":"caption-word-45-1","text":"mês","start":32.147,"end":32.287}]},{"id":"caption-group-46","frame":4,"start":32.367,"end":32.667,"text":"fica","words":[{"id":"caption-word-46-0","text":"fica","start":32.367,"end":32.547}]},{"id":"caption-group-47","frame":4,"start":32.747,"end":34.195,"text":"em 1.750.","words":[{"id":"caption-word-47-0","text":"em","start":32.747,"end":32.817},{"id":"caption-word-47-1","text":"1.750.","start":32.817,"end":34.097}]},{"id":"caption-group-48","frame":5,"start":34.195,"end":34.845,"text":"Os líderes","words":[{"id":"caption-word-48-0","text":"Os","start":34.195,"end":34.305},{"id":"caption-word-48-1","text":"líderes","start":34.325,"end":34.845}]},{"id":"caption-group-49","frame":5,"start":34.845,"end":35.535,"text":"da duração","words":[{"id":"caption-word-49-0","text":"da","start":34.845,"end":34.955},{"id":"caption-word-49-1","text":"duração","start":35.085,"end":35.535}]},{"id":"caption-group-50","frame":5,"start":35.535,"end":35.675,"text":"é o","words":[{"id":"caption-word-50-0","text":"é","start":35.535,"end":35.605},{"id":"caption-word-50-1","text":"o","start":35.605,"end":35.675}]},{"id":"caption-group-51","frame":5,"start":35.675,"end":36.215,"text":"que mais","words":[{"id":"caption-word-51-0","text":"que","start":35.675,"end":35.905},{"id":"caption-word-51-1","text":"mais","start":35.905,"end":36.215}]},{"id":"caption-group-52","frame":5,"start":36.215,"end":36.665,"text":"mexe no","words":[{"id":"caption-word-52-0","text":"mexe","start":36.215,"end":36.495},{"id":"caption-word-52-1","text":"no","start":36.515,"end":36.635}]},{"id":"caption-group-53","frame":5,"start":36.665,"end":37.185,"text":"preço.","words":[{"id":"caption-word-53-0","text":"preço.","start":36.665,"end":37.155}]},{"id":"caption-group-54","frame":5,"start":37.185,"end":37.715,"text":"Em 12","words":[{"id":"caption-word-54-0","text":"Em","start":37.185,"end":37.295},{"id":"caption-word-54-1","text":"12","start":37.295,"end":37.715}]},{"id":"caption-group-55","frame":5,"start":37.715,"end":38.345,"text":"meses vale","words":[{"id":"caption-word-55-0","text":"meses","start":37.715,"end":37.945},{"id":"caption-word-55-1","text":"vale","start":38.085,"end":38.345}]},{"id":"caption-group-56","frame":5,"start":38.345,"end":38.855,"text":"a tarifa","words":[{"id":"caption-word-56-0","text":"a","start":38.345,"end":38.415},{"id":"caption-word-56-1","text":"tarifa","start":38.415,"end":38.785}]},{"id":"caption-group-57","frame":5,"start":38.855,"end":39.705,"text":"de referência","words":[{"id":"caption-word-57-0","text":"de","start":38.855,"end":38.975},{"id":"caption-word-57-1","text":"referência","start":38.975,"end":39.705}]},{"id":"caption-group-58","frame":5,"start":39.705,"end":40.165,"text":"e a","words":[{"id":"caption-word-58-0","text":"e","start":39.705,"end":39.745},{"id":"caption-word-58-1","text":"a","start":39.745,"end":40.165}]},{"id":"caption-group-59","frame":5,"start":40.165,"end":40.695,"text":"exclusividade de","words":[{"id":"caption-word-59-0","text":"exclusividade","start":40.165,"end":40.585},{"id":"caption-word-59-1","text":"de","start":40.595,"end":40.695}]},{"id":"caption-group-60","frame":5,"start":40.695,"end":41.425,"text":"categoria entra","words":[{"id":"caption-word-60-0","text":"categoria","start":40.695,"end":41.155},{"id":"caption-word-60-1","text":"entra","start":41.155,"end":41.425}]},{"id":"caption-group-61","frame":5,"start":41.425,"end":42.585,"text":"sem custo.","words":[{"id":"caption-word-61-0","text":"sem","start":41.425,"end":41.585},{"id":"caption-word-61-1","text":"custo.","start":41.665,"end":42.525}]},{"id":"caption-group-62","frame":5,"start":42.585,"end":43.905,"text":"Puxando para 6,","words":[{"id":"caption-word-62-0","text":"Puxando","start":42.585,"end":43.125},{"id":"caption-word-62-1","text":"para","start":43.125,"end":43.355},{"id":"caption-word-62-2","text":"6,","start":43.455,"end":43.815}]},{"id":"caption-group-63","frame":5,"start":43.905,"end":45.085,"text":"aparece um prêmio","words":[{"id":"caption-word-63-0","text":"aparece","start":43.905,"end":44.445},{"id":"caption-word-63-1","text":"um","start":44.445,"end":44.605},{"id":"caption-word-63-2","text":"prêmio","start":44.605,"end":45.085}]},{"id":"caption-group-64","frame":5,"start":45.085,"end":45.635,"text":"de 6%","words":[{"id":"caption-word-64-0","text":"de","start":45.085,"end":45.145},{"id":"caption-word-64-1","text":"6%","start":45.235,"end":45.635}]},{"id":"caption-group-65","frame":5,"start":45.635,"end":45.755,"text":"e a","words":[{"id":"caption-word-65-0","text":"e","start":45.635,"end":45.695},{"id":"caption-word-65-1","text":"a","start":45.695,"end":45.755}]},{"id":"caption-group-66","frame":5,"start":45.755,"end":47.065,"text":"exclusividade passa a ser","words":[{"id":"caption-word-66-0","text":"exclusividade","start":45.755,"end":46.515},{"id":"caption-word-66-1","text":"passa","start":46.515,"end":46.705},{"id":"caption-word-66-2","text":"a","start":46.795,"end":46.865},{"id":"caption-word-66-3","text":"ser","start":46.865,"end":46.985}]},{"id":"caption-group-67","frame":5,"start":47.065,"end":47.763,"text":"cobrada.","words":[{"id":"caption-word-67-0","text":"cobrada.","start":47.065,"end":47.675}]},{"id":"caption-group-68","frame":6,"start":47.763,"end":48.853,"text":"Direitos de uso","words":[{"id":"caption-word-68-0","text":"Direitos","start":47.763,"end":48.423},{"id":"caption-word-68-1","text":"de","start":48.423,"end":48.553},{"id":"caption-word-68-2","text":"uso","start":48.593,"end":48.853}]},{"id":"caption-group-69","frame":6,"start":48.853,"end":49.013,"text":"é o","words":[{"id":"caption-word-69-0","text":"é","start":48.853,"end":48.933},{"id":"caption-word-69-1","text":"o","start":48.933,"end":49.013}]},{"id":"caption-group-70","frame":6,"start":49.013,"end":50.423,"text":"último ajuste.","words":[{"id":"caption-word-70-0","text":"último","start":49.013,"end":49.513},{"id":"caption-word-70-1","text":"ajuste.","start":49.513,"end":50.383}]},{"id":"caption-group-71","frame":6,"start":50.423,"end":51.063,"text":"Liberar todo","words":[{"id":"caption-word-71-0","text":"Liberar","start":50.423,"end":50.813},{"id":"caption-word-71-1","text":"todo","start":50.813,"end":51.063}]},{"id":"caption-group-72","frame":6,"start":51.063,"end":51.623,"text":"o material","words":[{"id":"caption-word-72-0","text":"o","start":51.063,"end":51.123},{"id":"caption-word-72-1","text":"material","start":51.123,"end":51.623}]},{"id":"caption-group-73","frame":6,"start":51.623,"end":51.933,"text":"para a","words":[{"id":"caption-word-73-0","text":"para","start":51.623,"end":51.833},{"id":"caption-word-73-1","text":"a","start":51.893,"end":51.933}]},{"id":"caption-group-74","frame":6,"start":51.933,"end":52.523,"text":"mídia paga","words":[{"id":"caption-word-74-0","text":"mídia","start":51.933,"end":52.203},{"id":"caption-word-74-1","text":"paga","start":52.233,"end":52.523}]},{"id":"caption-group-75","frame":6,"start":52.523,"end":53.073,"text":"por 12","words":[{"id":"caption-word-75-0","text":"por","start":52.523,"end":52.653},{"id":"caption-word-75-1","text":"12","start":52.653,"end":53.073}]},{"id":"caption-group-76","frame":6,"start":53.073,"end":55.183,"text":"meses acrescenta 30%","words":[{"id":"caption-word-76-0","text":"meses","start":53.073,"end":53.343},{"id":"caption-word-76-1","text":"acrescenta","start":53.343,"end":53.983},{"id":"caption-word-76-2","text":"30%","start":53.983,"end":55.183}]},{"id":"caption-group-77","frame":6,"start":55.183,"end":55.603,"text":"e essa","words":[{"id":"caption-word-77-0","text":"e","start":55.183,"end":55.293},{"id":"caption-word-77-1","text":"essa","start":55.293,"end":55.603}]},{"id":"caption-group-78","frame":6,"start":55.603,"end":56.873,"text":"linha aparece separada","words":[{"id":"caption-word-78-0","text":"linha","start":55.603,"end":55.883},{"id":"caption-word-78-1","text":"aparece","start":55.883,"end":56.273},{"id":"caption-word-78-2","text":"separada","start":56.363,"end":56.873}]},{"id":"caption-group-79","frame":6,"start":56.873,"end":57.545,"text":"no resumo.","words":[{"id":"caption-word-79-0","text":"no","start":56.873,"end":57.013},{"id":"caption-word-79-1","text":"resumo.","start":57.013,"end":57.483}]},{"id":"caption-group-80","frame":7,"start":57.545,"end":58.005,"text":"O cartão","words":[{"id":"caption-word-80-0","text":"O","start":57.545,"end":57.575},{"id":"caption-word-80-1","text":"cartão","start":57.585,"end":58.005}]},{"id":"caption-group-81","frame":7,"start":58.005,"end":58.845,"text":"nunca esconde","words":[{"id":"caption-word-81-0","text":"nunca","start":58.005,"end":58.295},{"id":"caption-word-81-1","text":"esconde","start":58.385,"end":58.845}]},{"id":"caption-group-82","frame":7,"start":58.845,"end":59.415,"text":"à conta,","words":[{"id":"caption-word-82-0","text":"à","start":58.845,"end":58.905},{"id":"caption-word-82-1","text":"conta,","start":58.975,"end":59.415}]},{"id":"caption-group-83","frame":7,"start":59.415,"end":59.985,"text":"produção,","words":[{"id":"caption-word-83-0","text":"produção,","start":59.415,"end":59.885}]},{"id":"caption-group-84","frame":7,"start":59.985,"end":60.365,"text":"tarifa de","words":[{"id":"caption-word-84-0","text":"tarifa","start":59.985,"end":60.265},{"id":"caption-word-84-1","text":"de","start":60.265,"end":60.365}]},{"id":"caption-group-85","frame":7,"start":60.365,"end":60.955,"text":"contrato,","words":[{"id":"caption-word-85-0","text":"contrato,","start":60.365,"end":60.955}]},{"id":"caption-group-86","frame":7,"start":60.955,"end":62.405,"text":"exclusividade e direitos","words":[{"id":"caption-word-86-0","text":"exclusividade","start":60.955,"end":61.795},{"id":"caption-word-86-1","text":"e","start":61.795,"end":61.895},{"id":"caption-word-86-2","text":"direitos","start":61.935,"end":62.375}]},{"id":"caption-group-87","frame":7,"start":62.405,"end":63.585,"text":"avulsos,","words":[{"id":"caption-word-87-0","text":"avulsos,","start":62.405,"end":63.505}]},{"id":"caption-group-88","frame":7,"start":63.585,"end":63.765,"text":"com o","words":[{"id":"caption-word-88-0","text":"com","start":63.585,"end":63.705},{"id":"caption-word-88-1","text":"o","start":63.705,"end":63.765}]},{"id":"caption-group-89","frame":7,"start":63.765,"end":64.265,"text":"custo por","words":[{"id":"caption-word-89-0","text":"custo","start":63.765,"end":64.075},{"id":"caption-word-89-1","text":"por","start":64.205,"end":64.265}]},{"id":"caption-group-90","frame":7,"start":64.265,"end":64.565,"text":"peça e","words":[{"id":"caption-word-90-0","text":"peça","start":64.265,"end":64.505},{"id":"caption-word-90-1","text":"e","start":64.505,"end":64.565}]},{"id":"caption-group-91","frame":7,"start":64.565,"end":65.315,"text":"a comparação","words":[{"id":"caption-word-91-0","text":"a","start":64.565,"end":64.625},{"id":"caption-word-91-1","text":"comparação","start":64.625,"end":65.245}]},{"id":"caption-group-92","frame":7,"start":65.315,"end":66.465,"text":"com comprar avulso.","words":[{"id":"caption-word-92-0","text":"com","start":65.315,"end":65.435},{"id":"caption-word-92-1","text":"comprar","start":65.505,"end":65.885},{"id":"caption-word-92-2","text":"avulso.","start":65.885,"end":66.345}]},{"id":"caption-group-93","frame":8,"start":66.471,"end":66.901,"text":"Quando o","words":[{"id":"caption-word-93-0","text":"Quando","start":66.471,"end":66.791},{"id":"caption-word-93-1","text":"o","start":66.791,"end":66.901}]},{"id":"caption-group-94","frame":8,"start":66.901,"end":67.741,"text":"pacote estiver","words":[{"id":"caption-word-94-0","text":"pacote","start":66.901,"end":67.231},{"id":"caption-word-94-1","text":"estiver","start":67.271,"end":67.741}]},{"id":"caption-group-95","frame":8,"start":67.741,"end":68.201,"text":"do jeito","words":[{"id":"caption-word-95-0","text":"do","start":67.741,"end":67.861},{"id":"caption-word-95-1","text":"jeito","start":67.861,"end":68.201}]},{"id":"caption-group-96","frame":8,"start":68.201,"end":68.811,"text":"de vocês,","words":[{"id":"caption-word-96-0","text":"de","start":68.201,"end":68.331},{"id":"caption-word-96-1","text":"vocês,","start":68.331,"end":68.811}]},{"id":"caption-group-97","frame":8,"start":68.811,"end":69.151,"text":"o botão","words":[{"id":"caption-word-97-0","text":"o","start":68.811,"end":68.861},{"id":"caption-word-97-1","text":"botão","start":68.861,"end":69.151}]},{"id":"caption-group-98","frame":8,"start":69.151,"end":69.501,"text":"abre o","words":[{"id":"caption-word-98-0","text":"abre","start":69.151,"end":69.431},{"id":"caption-word-98-1","text":"o","start":69.431,"end":69.501}]},{"id":"caption-group-99","frame":8,"start":69.501,"end":70.251,"text":"WhatsApp já","words":[{"id":"caption-word-99-0","text":"WhatsApp","start":69.501,"end":70.001},{"id":"caption-word-99-1","text":"já","start":70.091,"end":70.251}]},{"id":"caption-group-100","frame":8,"start":70.251,"end":70.411,"text":"com a","words":[{"id":"caption-word-100-0","text":"com","start":70.251,"end":70.371},{"id":"caption-word-100-1","text":"a","start":70.371,"end":70.411}]},{"id":"caption-group-101","frame":8,"start":70.411,"end":72.111,"text":"configuração escrita.","words":[{"id":"caption-word-101-0","text":"configuração","start":70.411,"end":71.051},{"id":"caption-word-101-1","text":"escrita.","start":71.111,"end":72.041}]},{"id":"caption-group-102","frame":8,"start":72.111,"end":72.611,"text":"Ese quiser","words":[{"id":"caption-word-102-0","text":"Ese","start":72.111,"end":72.231},{"id":"caption-word-102-1","text":"quiser","start":72.231,"end":72.611}]},{"id":"caption-group-103","frame":8,"start":72.611,"end":73.421,"text":"voltar atrás,","words":[{"id":"caption-word-103-0","text":"voltar","start":72.611,"end":72.991},{"id":"caption-word-103-1","text":"atrás,","start":72.991,"end":73.421}]},{"id":"caption-group-104","frame":8,"start":73.421,"end":73.921,"text":"um clique","words":[{"id":"caption-word-104-0","text":"um","start":73.421,"end":73.511},{"id":"caption-word-104-1","text":"clique","start":73.591,"end":73.921}]},{"id":"caption-group-105","frame":8,"start":73.921,"end":74.431,"text":"devolve o","words":[{"id":"caption-word-105-0","text":"devolve","start":73.921,"end":74.261},{"id":"caption-word-105-1","text":"o","start":74.261,"end":74.431}]},{"id":"caption-group-106","frame":8,"start":74.431,"end":75.761,"text":"pacote da proposta.","words":[{"id":"caption-word-106-0","text":"pacote","start":74.431,"end":74.801},{"id":"caption-word-106-1","text":"da","start":74.801,"end":74.921},{"id":"caption-word-106-2","text":"proposta.","start":74.921,"end":75.641}]}];
+  var DURATION = 75.712;
+
+  (function () {
+    var stage = document.getElementById("caption-stage");
+
+    // build DOM: one .caption-group per group, .caption-word per word
+    GROUPS.forEach(function (group, g) {
+      var groupEl = document.createElement("div");
+      groupEl.className = "caption-group";
+      groupEl.id = "caption-group-" + g;
+      var pill = document.createElement("div");
+      pill.className = "caption-pill";
+      var line = document.createElement("div");
+      line.className = "caption-line";
+      (group.words || []).forEach(function (w, i) {
+        var span = document.createElement("span");
+        span.className = "caption-word";
+        span.id = "caption-word-" + g + "-" + i;
+        span.textContent = String(w.text);
+        line.appendChild(span);
+      });
+      pill.appendChild(line);
+      groupEl.appendChild(pill);
+      stage.appendChild(groupEl);
+    });
+
+    window.__timelines = window.__timelines || {};
+    var tl = gsap.timeline({ paused: true });
+
+    GROUPS.forEach(function (group, g) {
+      var groupEl = document.getElementById("caption-group-" + g);
+      var words = group.words || [];
+      var next = GROUPS[g + 1];
+      var isLast = g === GROUPS.length - 1;
+      var start = Math.max(0, Number(group.start));
+      var end = isLast ? DURATION : Math.min(Number(next.start), Number(group.end) + 0.3);
+      if (end <= start) end = start + 0.01;
+
+      // group on/off — exactly one group visible at a time
+      tl.set(groupEl, { opacity: 1 }, start);
+      tl.set(groupEl, { opacity: 0 }, end);
+
+      // 3-state karaoke via className SETS — seek-safe (gsap.set applies on the
+      // engine's frame-by-frame seek; .call callbacks would NOT fire).
+      words.forEach(function (w, i) {
+        var el = document.getElementById("caption-word-" + g + "-" + i);
+        var at = Math.max(start, Number(w.start));
+        tl.set(el, { className: "caption-word" }, start); // upcoming (also resets on reverse-seek)
+        tl.set(el, { className: "caption-word is-active" }, at); // current
+        tl.fromTo(el, { scale: 0.985 }, { scale: 1, duration: 0.2, ease: "power1.out" }, at);
+        if (i + 1 < words.length) {
+          var nextAt = Math.max(start, Number(words[i + 1].start));
+          tl.set(el, { className: "caption-word is-spoken" }, nextAt); // demote when next activates
+        }
+      });
+      if (words.length) {
+        var lastEl = document.getElementById("caption-word-" + g + "-" + (words.length - 1));
+        var lastSpoken = Math.min(end, Number(words[words.length - 1].end) + 0.1);
+        tl.set(lastEl, { className: "caption-word is-spoken" }, lastSpoken);
+      }
+    });
+
+    // full-span anchor so the sub-comp timeline spans the whole video
+    tl.to({}, { duration: DURATION }, 0);
+    window.__timelines["captions"] = tl;
+  })();
+</script>
+
+<style>
+  .caption-line { line-height: 1.1 !important; }
+</style>
+</template>

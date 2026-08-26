@@ -1,0 +1,206 @@
+<template>
+  <style>
+
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:block;
+  src:url('assets/fonts/inter-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:block;
+  src:url('assets/fonts/inter-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:600;font-display:block;
+  src:url('assets/fonts/playfair-600-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:600;font-display:block;
+  src:url('assets/fonts/playfair-600-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+
+#root{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;
+  font-family:'Inter',system-ui,sans-serif;color:#4d4030;}
+.clip{position:absolute;inset:0;}
+.ground{background:#faf8f3;}
+.ground-tex{position:absolute;inset:0;opacity:0.06;object-fit:cover;width:1920px;height:1080px;}
+
+.stage{position:absolute;left:0;top:0;width:1920px;height:1080px;}
+.col{position:absolute;left:150px;width:970px;}
+.grupo{background:#fff;border:1.5px solid #ede5d4;border-radius:24px;padding:33px 36px;}
+.grupo-titulo{font-size:17px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#6b5d4a;margin-bottom:21px;}
+.linha{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:16px 0;border-top:1.5px solid #f5f0e6;}
+.linha.primeira{border-top:none;padding-top:0;}
+.linha .info strong{display:block;font-size:22px;font-weight:600;color:#6b5d4a;}
+.linha .info span{display:block;margin-top:3px;font-size:19px;color:#6b5d4a;line-height:1.45;}
+.linha.ativa .info strong{color:#14477F;}
+
+.stepper{display:flex;align-items:center;gap:3px;flex-shrink:0;border:1.5px solid #e0d4bc;
+  border-radius:99px;padding:5px;background:#faf8f3;}
+.stepper .sb{width:42px;height:42px;border-radius:50%;background:transparent;color:#14477F;
+  font-size:26px;line-height:1;display:flex;align-items:center;justify-content:center;}
+.stepper .sb.off{color:#c8bfae;}
+.stepper .qtd{min-width:36px;text-align:center;font-size:22px;font-weight:600;color:#332c20;
+  font-variant-numeric:tabular-nums;}
+
+.opcoes{display:flex;gap:12px;}
+.opcao{flex:1;text-align:center;border:1.5px solid #e0d4bc;border-radius:18px;background:#fdfcf9;padding:17px 15px;}
+.opcao b{display:block;font-size:22px;font-weight:600;color:#4d4030;}
+.opcao span{display:block;margin-top:5px;font-size:17px;color:#6b5d4a;}
+.opcao.ativa{border-color:#EF6C1F;background:rgba(239,108,31,0.08);}
+.opcao.ativa b{color:#A8461A;}
+.opcoes.largas .opcao{text-align:left;padding:20px 22px;}
+
+.duracao{display:flex;align-items:center;gap:27px;}
+.trilho{position:relative;flex:1;height:6px;border-radius:3px;background:#e0d4bc;}
+.trilho .fill{position:absolute;left:0;top:0;height:6px;border-radius:3px;background:#EF6C1F;}
+.knob{position:absolute;top:-13px;width:32px;height:32px;border-radius:50%;background:#fff;
+  border:3px solid #EF6C1F;margin-left:-16px;}
+.dvalor{display:flex;align-items:baseline;gap:9px;flex-shrink:0;}
+.dvalor b{font-family:'Playfair Display',Georgia,serif;font-size:44px;font-weight:600;color:#14477F;line-height:1;
+  font-variant-numeric:tabular-nums;min-width:56px;text-align:right;display:inline-block;}
+.dvalor span{font-size:18px;color:#6b5d4a;}
+.dvalor em{font-style:normal;font-size:17px;font-weight:600;color:#A8461A;background:rgba(239,108,31,0.08);
+  border-radius:99px;padding:5px 12px;margin-left:3px;}
+.nota{margin-top:18px;font-size:19px;color:#6b5d4a;line-height:1.6;max-width:820px;}
+
+.card{position:absolute;left:1180px;width:560px;background:#fff;border:3px solid #EF6C1F;
+  border-radius:24px;padding:39px 36px;}
+.card-top{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:24px;}
+.card-eyebrow{font-size:17px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#A8461A;}
+.selo{background:#A8461A;color:#fff;border-radius:99px;padding:6px 16px;font-size:14px;letter-spacing:0.1em;font-weight:600;white-space:nowrap;}
+.rls{display:flex;flex-direction:column;gap:13px;padding-bottom:24px;border-bottom:1.5px solid #ede5d4;}
+.rl{display:flex;align-items:baseline;justify-content:space-between;gap:21px;font-size:21px;}
+.rl span{color:#6b5d4a;}
+.rl b{color:#332c20;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums;}
+.rl.oculta{opacity:0;}
+.rl b.gratis{color:#A8461A;font-size:18px;text-transform:uppercase;letter-spacing:0.08em;}
+.total{padding:27px 0 21px;border-bottom:1.5px solid #ede5d4;}
+.total .rot{font-size:17px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#6b5d4a;}
+.total .val{font-family:'Playfair Display',Georgia,serif;font-size:66px;font-weight:600;color:#A8461A;
+  line-height:1.05;margin:9px 0 6px;font-variant-numeric:tabular-nums;}
+.total .por{font-size:19px;color:#6b5d4a;}
+.peca{display:flex;align-items:baseline;justify-content:space-between;gap:18px;padding:21px 0;font-size:20px;}
+.peca span{color:#6b5d4a;}
+.peca b{color:#14477F;font-weight:600;font-variant-numeric:tabular-nums;}
+.comp{border:1.5px dashed #c8bfae;border-radius:18px;padding:21px 24px;background:#faf8f3;margin-bottom:27px;}
+.comp .lbl{font-size:16px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#A8461A;margin-bottom:9px;}
+.comp p{margin:0;font-size:20px;color:#6b5d4a;line-height:1.6;}
+.btn{display:flex;align-items:center;justify-content:center;background:#A8461A;color:#fff;
+  font-size:22px;font-weight:600;padding:23px 39px;border-radius:18px;border:1.5px solid #A8461A;}
+.restaurar{margin-top:18px;font-size:18px;color:#6b5d4a;text-align:center;}
+
+.cursor{position:absolute;left:0;top:0;width:52px;height:52px;z-index:60;pointer-events:none;}
+.ripple{position:absolute;width:120px;height:120px;border-radius:50%;border:3px solid #EF6C1F;
+  margin-left:-60px;margin-top:-60px;opacity:0;z-index:55;pointer-events:none;}
+
+.eyebrow{display:flex;align-items:center;gap:15px;font-size:18px;font-weight:600;
+  text-transform:uppercase;letter-spacing:0.16em;color:#A8461A;}
+.eyebrow .risco{width:36px;height:3px;background:#EF6C1F;border-radius:3px;}
+.lockup{display:flex;align-items:center;gap:22px;}
+.lockup img{height:54px;width:auto;}
+.lockup .x{font-size:24px;color:#b0a390;}
+</style>
+  <div id="root" data-composition-id="03-pecas-por-mes" data-width="1920" data-height="1080" data-duration="10.517">
+    <div class="clip ground" id="f03-pecas-por-mes-ground" data-start="0" data-duration="10.517" data-track-index="0">
+      <div class="stage">
+        <div class="col" id="f03-pecas-por-mes-col" style="top:230px">
+          <div class="grupo" id="f03-pecas-por-mes-g1">
+            <div class="grupo-titulo">Peças por mês</div>
+            <div class="linha primeira ativa">
+              <div class="info"><strong>Inclusão em vídeo no YouTube</strong><span>Bloco de 60 a 90s dentro de um vlog do canal · R$ 500</span></div>
+              <div class="stepper"><div class="sb">−</div><div class="qtd">1</div><div class="sb">+</div></div>
+            </div>
+            <div class="linha ativa" id="f03-pecas-por-mes-alvo">
+              <div class="info"><strong id="f03-pecas-por-mes-alvo-nome">Reel nas quatro plataformas</strong><span>Instagram, TikTok, YouTube e Facebook · R$ 1.100</span></div>
+              <div class="stepper"><div class="sb" id="f03-pecas-por-mes-menos">−</div><div class="qtd" id="f03-pecas-por-mes-qtd">1</div><div class="sb">+</div></div>
+            </div>
+            <div class="linha">
+              <div class="info"><strong>Review completo</strong><span>Vídeo inteiro dedicado — título, thumb e roteiro · R$ 1.350</span></div>
+              <div class="stepper"><div class="sb off">−</div><div class="qtd">0</div><div class="sb">+</div></div>
+            </div>
+          </div>
+        </div>
+  <div class="card" id="f03-pecas-por-mes-card" style="top:140px;left:1180px">
+    <div class="card-top">
+      <span class="card-eyebrow">O seu pacote</span>
+      <span class="selo" id="f03-pecas-por-mes-selo">Plano recomendado</span>
+    </div>
+    <div class="rls" id="f03-pecas-por-mes-rls">
+      <div class="rl" id="f03-pecas-por-mes-rl-prod"><span>Produção</span><b class="" id="f03-pecas-por-mes-v-prod">R$ 24.000</b></div>
+      <div class="rl" id="f03-pecas-por-mes-rl-excl"><span>Exclusividade de categoria</span><b class="gratis" id="f03-pecas-por-mes-v-excl">Inclusa</b></div>
+      <div class="rl" id="f03-pecas-por-mes-rl-avul"><span>Peças e produções avulsas</span><b class="" id="f03-pecas-por-mes-v-avul">R$ 12.000</b></div>
+      <div class="rl" id="f03-pecas-por-mes-rl-assi"><span>2× Momento assinatura</span><b class="gratis" id="f03-pecas-por-mes-v-assi">Inclusos</b></div>
+    </div>
+    <div id="f03-pecas-por-mes-tail">
+    <div class="total">
+      <div class="rot">Total do contrato</div>
+      <div class="val" id="f03-pecas-por-mes-total">R$ 36.000</div>
+      <div class="por" id="f03-pecas-por-mes-por">R$ 3.000 por mês · 92 peças no período</div>
+    </div>
+    <div class="peca"><span>Por peça de conteúdo</span><b id="f03-pecas-por-mes-peca">R$ 391,30</b></div>
+
+
+
+    </div>
+  </div>
+        <div class="ripple" id="f03-pecas-por-mes-rip" style="left:876px;top:396px"></div>
+        <svg class="cursor" id="f03-pecas-por-mes-cursor" viewBox="0 0 24 24" fill="none">
+  <path d="M5 2.5 L5 20 L9.6 15.6 L12.5 21.6 L15.7 20.1 L12.9 14.3 L19 14.1 Z"
+        fill="#332c20" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        <svg id="f03-pecas-por-mes-sub" width="420" height="6" viewBox="0 0 420 6" style="position:absolute;left:1216px;top:531px">
+          <path id="f03-pecas-por-mes-sub-p" d="M0 3 H420" stroke="#EF6C1F" stroke-width="4" fill="none"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const $ = (s) => document.querySelector(s);
+      const brl = (n) => {
+        const v = Math.round(n * 100) / 100;
+        return 'R$ ' + v.toLocaleString('pt-BR', {
+          minimumFractionDigits: Number.isInteger(v) ? 0 : 2, maximumFractionDigits: 2,
+        });
+      };
+      // Linha nova no resumo: ela já existe no DOM (invisível) e tudo que vem
+      // depois começa deslocado para cima pela altura dela, então revelar é
+      // devolver os de baixo para y=0 — sem tween de height, que não é seek-safe.
+      const abrir = (linhaSel, abaixoSels, at) => {
+        const alvo = $(linhaSel);
+        const H = alvo.offsetHeight + 13;
+        gsap.set(abaixoSels, { y: -H });
+        tl.to(abaixoSels, { y: 0, duration: 0.45, ease: 'power3.out' }, at);
+        tl.fromTo(linhaSel, { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' }, at);
+      };
+      const conta = (sel, de, para, at, dur) => {
+        const o = { v: de }, el = $(sel);
+        tl.to(o, { v: para, duration: dur, ease: 'power2.inOut',
+          onUpdate: () => { el.textContent = brl(o.v); } }, at);
+      };
+
+      gsap.set('#f03-pecas-por-mes-cursor', { x: 1156, y: 300 });
+      const subp = $('#f03-pecas-por-mes-sub-p'), SL = subp.getTotalLength();
+      gsap.set(subp, { strokeDasharray: SL, strokeDashoffset: SL });
+      // Scene 1 — o cursor vem do lugar em que o Frame 2 o deixou
+      tl.fromTo('#f03-pecas-por-mes-g1', { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.7, ease: 'power3.out' }, 0);
+      tl.to('#f03-pecas-por-mes-cursor', { x: 862, y: 382, duration: 1.5, ease: 'power2.inOut' }, 0.9);
+      // Scene 2 — o clique
+      tl.to('#f03-pecas-por-mes-cursor', { scale: 0.85, duration: 0.09, ease: 'power2.in', yoyo: true, repeat: 1 }, 2.7);
+      tl.to('#f03-pecas-por-mes-menos', { scale: 0.94, duration: 0.09, ease: 'power2.in', yoyo: true, repeat: 1 }, 2.7);
+      tl.set('#f03-pecas-por-mes-rip', { opacity: 1 }, 2.74);
+      tl.fromTo('#f03-pecas-por-mes-rip', { scale: 0, opacity: 0.9 },
+        { scale: 3.4, opacity: 0, duration: 0.75, ease: 'power2.out', immediateRender: false }, 2.74);
+      tl.set('#f03-pecas-por-mes-qtd', { textContent: '0' }, 2.9);
+      tl.set('#f03-pecas-por-mes-alvo-nome', { color: '#6b5d4a' }, 2.9);
+      tl.set('#f03-pecas-por-mes-menos', { attr: { class: 'sb off' } }, 2.9);
+      // Scene 3 — o par causal: o cartão responde no mesmo gesto
+      conta('#f03-pecas-por-mes-v-prod', 24000, 10800, 2.9, 1.2);
+      conta('#f03-pecas-por-mes-total', 36000, 22800, 2.9, 1.2);
+      tl.set('#f03-pecas-por-mes-por', { textContent: 'R$ 1.900 por mês · 80 peças no período' }, 4.1);
+      tl.fromTo('#f03-pecas-por-mes-por', { opacity: 0.25 }, { opacity: 1, duration: 0.4, ease: 'power2.out', immediateRender: false }, 4.1);
+      conta('#f03-pecas-por-mes-peca', 391.3, 285, 4.3, 0.8);
+      // Scene 4 — o fio laranja sob o total e o quadro para
+      tl.to(subp, { strokeDashoffset: 0, duration: 0.8, ease: 'power2.out' }, 8.0);
+
+      window.__timelines["03-pecas-por-mes"] = tl;
+    })();
+  </script>
+</template>
