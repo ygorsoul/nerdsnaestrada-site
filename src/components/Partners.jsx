@@ -80,7 +80,7 @@ const partners = [
     logo: '/gaius-logo.jpg',
     darkBg: false,
     tall: true,
-    description: 'Movelaria com móveis sob medida feitos com cuidado artesanal — parceria que trouxe conforto e funcionalidade para a nossa vida na estrada.',
+    description: 'A movelaria que fez todos os móveis do nosso motorhome — foram eles que transformaram o trailer Food Truck em casa por dentro.',
   },
 ]
 
