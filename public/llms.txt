@@ -1,6 +1,6 @@
 # Nerds na Estrada
 
-> Nerds na Estrada é o projeto de Ygor e Bea, casal brasileiro de criadores de conteúdo que está viajando do Brasil ao Alasca dentro de um trailer modelo Food Truck transformado em motorhome. A reforma e a viagem são documentadas em tempo real no Instagram, TikTok e YouTube. Somam +200 mil seguidores e mais de 3 milhões de visualizações por mês (outubro de 2026), com +37 milhões de visualizações e +3 milhões de curtidas no total (agosto de 2026).
+> Nerds na Estrada é o projeto de Ygor e Bea, casal brasileiro de criadores de conteúdo que está viajando do Brasil ao Alasca dentro de um trailer modelo Food Truck transformado em motorhome. A reforma e a viagem são documentadas em tempo real no Instagram, Facebook, TikTok e YouTube. Somam +200 mil seguidores e mais de 3 milhões de visualizações por mês (outubro de 2026), com +37 milhões de visualizações e +3 milhões de curtidas no total (agosto de 2026).
 
 Site oficial: https://www.nerdsnaestrada.com
 Idioma do conteúdo: português do Brasil.
@@ -34,21 +34,25 @@ Seguidores (outubro de 2026) — cerca de 202 mil no total:
 - Instagram: 150 mil
 - Facebook: 22 mil
 - TikTok: 15,6 mil
-- YouTube: 14,7 mil
+- YouTube: 14.720 inscritos
 
 Alcance mensal (últimos 28–30 dias, outubro de 2026):
 
-- Mais de 3 milhões de visualizações por mês somando as plataformas (Instagram 1,45 milhão, Facebook 1,85 milhão e TikTok 566 mil, descontada a sobreposição entre Instagram e Facebook)
+- Mais de 3 milhões de visualizações por mês somando as plataformas (Instagram 1,45 milhão, Facebook 1,85 milhão, TikTok 566 mil e YouTube 63 mil, descontada a sobreposição entre Instagram e Facebook)
 - 68,6% das visualizações no Instagram vêm de quem ainda não segue o perfil
 - Instagram: 36,7 mil interações em 30 dias; Reels são 69% das visualizações e 87% das interações
 
-Totais e perfil do público (agosto de 2026):
+Perfil dos seguidores do Instagram (outubro de 2026):
+
+- 58,8% mulheres e 41,2% homens
+- Idade: 18–24 anos 8,7%, 25–34 anos 37%, 35–44 anos 32,1%, 45–54 anos 15,9%, 55+ 6,3% (69% entre 25 e 44 anos)
+- 95,3% no Brasil; principais cidades: Rio de Janeiro (6,7%), São Paulo (5,4%), Fortaleza, Nova Iguaçu e Belo Horizonte
+- No TikTok, 57% do público é feminino e 87,7% está no Brasil
+
+Totais históricos (agosto de 2026):
 
 - +37 milhões de visualizações, todas orgânicas
 - +3 milhões de curtidas
-- 56% do público é feminino
-- 54% do público é de São Paulo
-- 47% do público tem entre 25 e 34 anos
 
 ## Marcas parceiras
 
@@ -80,6 +84,7 @@ Empresas que já fizeram parceria com o Nerds na Estrada:
 ## Redes sociais
 
 - Instagram: [@NerdsNaEstradaOficial](https://www.instagram.com/NerdsNaEstradaOficial)
+- Facebook: [Nerds na Estrada](https://www.facebook.com/profile.php?id=61578418876175)
 - TikTok: [@NerdsNaEstradaOficial](https://www.tiktok.com/@NerdsNaEstradaOficial)
 - YouTube: [@NerdsNaEstrada](https://www.youtube.com/@NerdsNaEstrada)
 

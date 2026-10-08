@@ -5,9 +5,9 @@ const stats = [
   { value: '+3 mi',     label: 'de views por mês',   sub: 'somando as plataformas'     },
   { value: '+37 mi',    label: 'de views totais',    sub: 'conteúdo orgânico'          },
   { value: '+3 mi',  label: 'likes',              sub: 'engajamento real'           },
-  { value: '56%',       label: 'público feminino',   sub: 'perfil de consumo ativo'    },
-  { value: '54%',       label: 'de SP',              sub: 'maior hub de consumo BR'    },
-  { value: '47%',       label: 'entre 25–34 anos',   sub: 'poder de compra elevado'    },
+  { value: '59%',       label: 'público feminino',   sub: 'perfil de consumo ativo'    },
+  { value: '95%',       label: 'do público no Brasil', sub: 'Rio e SP no topo das cidades' },
+  { value: '69%',       label: 'entre 25–44 anos',   sub: 'poder de compra elevado'    },
   { value: '68,6%',     label: 'das views no Instagram', sub: 'vêm de quem ainda não segue' },
 ]
 
@@ -64,7 +64,7 @@ export default function NumbersStats() {
 
         {/* Nota */}
         <p className="mt-6 text-stone-400 text-xs italic">
-          * Dados consolidados de Instagram, Facebook, TikTok e YouTube. Seguidores e views mensais (últimos 30 dias) atualizados em outubro de 2026; demais números, em agosto de 2026.
+          * Dados consolidados de Instagram, Facebook, TikTok e YouTube. Seguidores, views mensais (últimos 30 dias) e perfil do público (seguidores do Instagram) atualizados em outubro de 2026; views totais e likes, em agosto de 2026.
         </p>
       </div>
     </section>
