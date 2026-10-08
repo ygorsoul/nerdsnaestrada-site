@@ -2,11 +2,13 @@ import { useEffect, useRef, useState } from 'react'
 
 const stats = [
   { value: '+200 mil',   label: 'seguidores',        sub: 'somados nas plataformas'    },
+  { value: '+3 mi',     label: 'de views por mês',   sub: 'somando as plataformas'     },
   { value: '+37 mi',    label: 'de views totais',    sub: 'conteúdo orgânico'          },
   { value: '+3 mi',  label: 'likes',              sub: 'engajamento real'           },
   { value: '56%',       label: 'público feminino',   sub: 'perfil de consumo ativo'    },
   { value: '54%',       label: 'de SP',              sub: 'maior hub de consumo BR'    },
   { value: '47%',       label: 'entre 25–34 anos',   sub: 'poder de compra elevado'    },
+  { value: '68,6%',     label: 'das views no Instagram', sub: 'vêm de quem ainda não segue' },
 ]
 
 function StatCard({ stat, delay }) {
@@ -54,7 +56,7 @@ export default function NumbersStats() {
         </div>
 
         {/* Grade de stats estilo editorial */}
-        <div className="border-t border-l border-cream-300 grid grid-cols-2 sm:grid-cols-3">
+        <div className="border-t border-l border-cream-300 grid grid-cols-2 sm:grid-cols-4">
           {stats.map((s, i) => (
             <StatCard key={s.label} stat={s} delay={i * 80} />
           ))}
@@ -62,7 +64,7 @@ export default function NumbersStats() {
 
         {/* Nota */}
         <p className="mt-6 text-stone-400 text-xs italic">
-          * Dados consolidados de Instagram, Facebook, TikTok e YouTube. Seguidores atualizados em outubro de 2026; demais números, em agosto de 2026.
+          * Dados consolidados de Instagram, Facebook, TikTok e YouTube. Seguidores e views mensais (últimos 30 dias) atualizados em outubro de 2026; demais números, em agosto de 2026.
         </p>
       </div>
     </section>
