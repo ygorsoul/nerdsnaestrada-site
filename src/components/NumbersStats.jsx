@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 const stats = [
-  { value: '+160 mil',   label: 'seguidores',        sub: 'somados nas plataformas'    },
+  { value: '+200 mil',   label: 'seguidores',        sub: 'somados nas plataformas'    },
   { value: '+37 mi',    label: 'de views totais',    sub: 'conteúdo orgânico'          },
   { value: '+3 mi',  label: 'likes',              sub: 'engajamento real'           },
   { value: '56%',       label: 'público feminino',   sub: 'perfil de consumo ativo'    },
@@ -62,7 +62,7 @@ export default function NumbersStats() {
 
         {/* Nota */}
         <p className="mt-6 text-stone-400 text-xs italic">
-          * Dados consolidados das plataformas Instagram, TikTok e YouTube — atualizados em agosto de 2026.
+          * Dados consolidados de Instagram, Facebook, TikTok e YouTube. Seguidores atualizados em outubro de 2026; demais números, em agosto de 2026.
         </p>
       </div>
     </section>
