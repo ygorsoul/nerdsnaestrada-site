@@ -1,10 +1,18 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import './index.css'
 import CuponsApp from './CuponsApp.jsx'
 
-createRoot(document.getElementById('root')).render(
+const container = document.getElementById('root')
+const app = (
   <StrictMode>
     <CuponsApp />
-  </StrictMode>,
+  </StrictMode>
 )
+
+// No build, a página vem pré-renderizada (vite-prerender.js): hidrata em vez de recriar.
+if (container.hasChildNodes()) {
+  hydrateRoot(container, app)
+} else {
+  createRoot(container).render(app)
+}

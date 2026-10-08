@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { fileURLToPath } from 'node:url'
+import prerender from './vite-prerender.js'
 
 // Páginas com HTML próprio (além da home). Cada uma vira uma entrada do build
 // e uma pasta com index.html estático.
@@ -29,7 +30,7 @@ function rotasEstaticas() {
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), rotasEstaticas()],
+  plugins: [react(), rotasEstaticas(), prerender()],
   build: {
     rollupOptions: {
       // Multi-page: cada entrada vira um HTML estático próprio, então /cupons

@@ -1,4 +1,23 @@
+# Nerds na Estrada — www.nerdsnaestrada.com
+# Crawlers de busca e de IA são bem-vindos. Resumo do site para modelos de IA: /llms.txt
+
 User-agent: *
+Allow: /
+
+# Assistentes e buscadores de IA (liberados explicitamente)
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: anthropic-ai
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: meta-externalagent
+User-agent: CCBot
 Allow: /
 
 Sitemap: https://www.nerdsnaestrada.com/sitemap.xml
