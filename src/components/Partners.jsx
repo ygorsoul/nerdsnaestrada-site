@@ -74,6 +74,14 @@ const partners = [
     darkBg: false,
     description: 'Uma marca que entende a essência do nomadismo — e que apoia quem escolheu o movimento como modo de vida.',
   },
+  {
+    name: 'Gaius',
+    category: 'Movelaria',
+    logo: '/gaius-logo.jpg',
+    darkBg: false,
+    tall: true,
+    description: 'Movelaria com móveis sob medida feitos com cuidado artesanal — parceria que trouxe conforto e funcionalidade para a nossa vida na estrada.',
+  },
 ]
 
 function LogoCard({ partner, index }) {
